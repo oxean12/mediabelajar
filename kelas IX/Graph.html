@@ -1,0 +1,2779 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graph (Graf) - Informatika Kelas IX</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif
+}
+
+body{
+  background:#eef6fb;
+  color:#17324d
+}
+
+header{
+  background:linear-gradient(135deg,#0878c9,#07549b);
+  color:#fff;
+  padding:14px 24px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  box-shadow:0 3px 12px #0002
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-right:auto
+}
+
+.brand .ico{
+  font-size:38px
+}
+
+.brand h1{
+  font-size:22px
+}
+
+.brand p{
+  font-size:12px
+}
+
+nav{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap
+}
+
+nav button{
+  border:0;
+  background:transparent;
+  color:#fff;
+  padding:9px 12px;
+  border-radius:8px;
+  cursor:pointer
+}
+
+nav button:hover,
+nav button.active{
+  background:#ffffff2e
+}
+
+.score{
+  background:#fff;
+  color:#14517d;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:bold;
+  white-space:nowrap
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:235px 1fr;
+  min-height:calc(100vh - 75px)
+}
+
+aside{
+  background:#fff;
+  border-right:1px solid #dbe8f0;
+  padding:20px 14px
+}
+
+.side-title{
+  color:#0878c9;
+  font-weight:bold;
+  margin-bottom:12px
+}
+
+.side-item{
+  padding:11px;
+  border-radius:8px;
+  margin:4px 0;
+  cursor:pointer
+}
+
+.side-item:hover,
+.side-item.active{
+  background:#e1f1ff;
+  color:#0878c9;
+  font-weight:bold
+}
+
+main{
+  padding:24px;
+  max-width:1450px;
+  width:100%;
+  margin:auto
+}
+
+.page{
+  display:none
+}
+
+.page.active{
+  display:block
+}
+
+.card,
+.panel{
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 3px 15px #0000000d
+}
+
+.card h2,
+.panel h2{
+  color:#0878c9;
+  margin-bottom:12px
+}
+
+.card h3,
+.panel h3{
+  color:#16734d;
+  margin:16px 0 8px
+}
+
+.card p{
+  line-height:1.7
+}
+
+.hero{
+  background:linear-gradient(135deg,#dff3ff,#eefbef);
+  border:1px solid #c9e8f5
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:20px;
+  align-items:center
+}
+
+.graph-art{
+  font-size:105px;
+  text-align:center
+}
+
+.highlight{
+  background:#e7f7e9;
+  border-left:5px solid #35a765;
+  padding:14px;
+  border-radius:8px;
+  margin:14px 0
+}
+
+.apps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px
+}
+
+.app{
+  background:#f6fbff;
+  border:1px solid #d8e8f1;
+  padding:17px;
+  border-radius:12px;
+  text-align:center
+}
+
+.app b{
+  display:block;
+  margin:6px
+}
+
+.app .icon{
+  font-size:32px
+}
+
+table{
+  width:100%;
+  border-collapse:collapse
+}
+
+th,
+td{
+  border:1px solid #d5e2eb;
+  padding:10px;
+  text-align:left
+}
+
+th{
+  background:#e7f3ff;
+  color:#0878c9
+}
+
+.visual-grid{
+  display:grid;
+  grid-template-columns:210px 1fr 270px;
+  gap:15px
+}
+
+.value-buttons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px
+}
+
+.value-buttons button{
+  border:1px solid #b8dfbd;
+  background:#f1fff2;
+  padding:9px;
+  border-radius:7px;
+  cursor:pointer
+}
+
+.value-buttons button.selected{
+  background:#bceec2;
+  font-weight:bold
+}
+
+.controls{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:12px
+}
+
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-weight:bold
+}
+
+.blue{
+  background:#dceeff;
+  color:#0878c9
+}
+
+.green{
+  background:#dff5df;
+  color:#16803f
+}
+
+.orange{
+  background:#fff0d5;
+  color:#b86500
+}
+
+.red{
+  background:#ffe0e0;
+  color:#bd3030
+}
+
+.dark{
+  background:#16734d;
+  color:#fff
+}
+
+.purple{
+  background:#eee3ff;
+  color:#6c35a8
+}
+
+.graph-area{
+  min-height:520px;
+  border:2px dashed #cfe1ee;
+  border-radius:15px;
+  overflow:auto;
+  background:linear-gradient(#fbfeff,#f4faff);
+  padding:15px
+}
+
+.graph{
+  position:relative;
+  width:900px;
+  height:480px;
+  margin:auto
+}
+
+.graph-lines{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+  overflow:visible
+}
+
+.edge{
+  stroke:#526878;
+  stroke-width:4;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke
+}
+
+.edge.selected{
+  stroke:#1687df;
+  stroke-width:5
+}
+
+/* ============================= */
+/* VERTEX */
+/* ============================= */
+
+.node{
+  position:absolute;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:18px;
+  cursor:grab;
+  transform:translate(-50%,-50%);
+  border:3px solid #1687df;
+  background:#d9efff;
+  z-index:3;
+  transition:box-shadow .15s, transform .15s;
+  user-select:none;
+  touch-action:none;
+}
+
+.node:hover{
+  transform:translate(-50%,-50%) scale(1.1);
+}
+
+.node:active{
+  cursor:grabbing;
+}
+
+.node.dragging{
+  cursor:grabbing;
+  transform:translate(-50%,-50%) scale(1.08);
+  box-shadow:0 8px 20px #0003;
+}
+
+.node.selected{
+  box-shadow:0 0 0 5px #1687df33
+}
+
+.info{
+  line-height:1.9
+}
+
+.info span{
+  font-weight:bold;
+  color:#16803f
+}
+
+.muted{
+  color:#6f7f8a;
+  font-size:13px
+}
+
+.quiz-q{
+  background:#f8fcff;
+  border:1px solid #dbeaf2;
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:14px
+}
+
+.option{
+  display:block;
+  padding:10px;
+  margin:7px 0;
+  background:#fff;
+  border:1px solid #d8e5ed;
+  border-radius:8px;
+  cursor:pointer
+}
+
+.option:hover{
+  background:#eaf5ff
+}
+
+.result{
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+  display:none
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#e7f3ff;
+  color:#0878c9;
+  font-size:12px;
+  font-weight:bold;
+  margin:3px
+}
+
+.progress{
+  height:12px;
+  background:#e1e9ef;
+  border-radius:20px;
+  overflow:hidden;
+  margin:10px 0
+}
+
+.progress>div{
+  height:100%;
+  width:0;
+  background:#35a765;
+  transition:.4s
+}
+
+.form-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap
+}
+
+.form-row input{
+  padding:10px;
+  border:1px solid #cbdce6;
+  border-radius:8px;
+  width:100px
+}
+
+#toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#17324d;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:10px;
+  opacity:0;
+  transform:translateY(15px);
+  transition:.25s;
+  z-index:50
+}
+
+#toast.show{
+  opacity:1;
+  transform:none
+}
+
+footer{
+  text-align:center;
+  background:#07549b;
+  color:#fff;
+  padding:16px;
+  margin-top:25px
+}
+
+@media(max-width:1050px){
+  .layout{
+    grid-template-columns:1fr
+  }
+
+  aside{
+    display:none
+  }
+
+  .visual-grid{
+    grid-template-columns:1fr
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr
+  }
+
+  .apps{
+    grid-template-columns:1fr 1fr
+  }
+
+  header{
+    flex-wrap:wrap
+  }
+
+  .brand{
+    margin-right:0
+  }
+
+  nav{
+    order:3;
+    width:100%;
+    overflow:auto;
+    flex-wrap:nowrap
+  }
+}
+
+@media(max-width:600px){
+  main{
+    padding:12px
+  }
+
+  .apps{
+    grid-template-columns:1fr
+  }
+
+  .score{
+    font-size:12px
+  }
+
+  .graph{
+    margin-left:0
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="brand">
+    <div class="ico">🔵</div>
+
+    <div>
+      <h1>GRAPH (GRAF)</h1>
+      <p>Informatika Kelas IX SMP</p>
+    </div>
+  </div>
+
+  <nav>
+    <button class="active" onclick="showPage('home',this)">
+      🏠 Beranda
+    </button>
+
+    <button onclick="showPage('materi',this)">
+      📖 Materi
+    </button>
+
+    <button onclick="showPage('visual',this)">
+      🔵 Visualisasi
+    </button>
+
+    <button onclick="showPage('latihan',this)">
+      ✏️ Latihan
+    </button>
+
+    <button onclick="showPage('kuis',this)">
+      🏆 Kuis
+    </button>
+
+    <button onclick="showPage('tentang',this)">
+      ℹ️ Tentang
+    </button>
+  </nav>
+
+  <div class="score">
+    ⭐ Skor:
+    <span id="score">0</span>
+  </div>
+
+</header>
+
+<div class="layout">
+
+<aside>
+
+  <div class="side-title">
+    📚 MATERI
+  </div>
+
+  <div class="side-item active"
+       onclick="showPage('materi')">
+    Pengertian Graph
+  </div>
+
+  <div class="side-item"
+       onclick="showPage('materi')">
+    Vertex & Edge
+  </div>
+
+  <div class="side-item"
+       onclick="showPage('materi')">
+    Jenis Graph
+  </div>
+
+  <div class="side-item"
+       onclick="showPage('materi')">
+    Derajat Vertex
+  </div>
+
+  <div class="side-item"
+       onclick="showPage('visual')">
+    🔵 Visualisasi
+  </div>
+
+  <div class="side-item"
+       onclick="showPage('latihan')">
+    ✏️ Latihan
+  </div>
+
+  <div class="side-item"
+       onclick="showPage('kuis')">
+    🏆 Kuis
+  </div>
+
+</aside>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+  <div class="card hero">
+
+    <div class="hero-grid">
+
+      <div>
+
+        <span class="badge">
+          INFORMATIKA KELAS IX
+        </span>
+
+        <h2 style="font-size:30px;margin-top:8px">
+          Belajar Graph Jadi Menyenangkan! 🔵
+        </h2>
+
+        <p>
+          Pelajari struktur data Graph melalui materi,
+          visualisasi interaktif, latihan, dan kuis.
+        </p>
+
+        <div style="margin-top:15px">
+
+          <button class="btn dark"
+                  onclick="showPage('visual')">
+            🚀 Mulai Visualisasi
+          </button>
+
+          <button class="btn blue"
+                  onclick="showPage('materi')">
+            📖 Pelajari Materi
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="graph-art">
+        🔵—🔵
+        <br>
+        ╲　╱
+        <br>
+        　🔵
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>🎯 Tujuan Pembelajaran</h2>
+
+    <ul style="line-height:2;margin-left:24px">
+
+      <li>
+        Menjelaskan pengertian dan fungsi Graph.
+      </li>
+
+      <li>
+        Membedakan Vertex dan Edge.
+      </li>
+
+      <li>
+        Mengenali Graph berarah dan tidak berarah.
+      </li>
+
+      <li>
+        Menentukan derajat sebuah Vertex.
+      </li>
+
+      <li>
+        Membuat dan membaca visualisasi Graph sederhana.
+      </li>
+
+      <li>
+        Mengenali penerapan Graph dalam kehidupan sehari-hari.
+      </li>
+
+    </ul>
+
+  </div>
+
+  <div class="card">
+
+    <h2>🌎 Penerapan Graph</h2>
+
+    <div class="apps">
+
+      <div class="app">
+        <div class="icon">🗺️</div>
+        <b>Peta & Rute</b>
+        <small>
+          Kota sebagai Vertex dan jalan sebagai Edge.
+        </small>
+      </div>
+
+      <div class="app">
+        <div class="icon">👥</div>
+        <b>Media Sosial</b>
+        <small>
+          Pengguna dan hubungan pertemanan.
+        </small>
+      </div>
+
+      <div class="app">
+        <div class="icon">🌐</div>
+        <b>Internet</b>
+        <small>
+          Komputer dan koneksi jaringan.
+        </small>
+      </div>
+
+      <div class="app">
+        <div class="icon">✈️</div>
+        <b>Penerbangan</b>
+        <small>
+          Bandara dan rute penerbangan.
+        </small>
+      </div>
+
+      <div class="app">
+        <div class="icon">🚦</div>
+        <b>Transportasi</b>
+        <small>
+          Persimpangan dan jalan.
+        </small>
+      </div>
+
+      <div class="app">
+        <div class="icon">🎮</div>
+        <b>Game</b>
+        <small>
+          Hubungan lokasi dan jalur permainan.
+        </small>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MATERI -->
+
+<section id="materi" class="page">
+
+  <div class="card">
+
+    <h2>📖 1. Pengertian Graph</h2>
+
+    <p>
+      Graph atau graf adalah struktur data yang digunakan
+      untuk menggambarkan hubungan antara objek.
+      Objek disebut <b>Vertex (simpul)</b>, sedangkan
+      hubungan antarobjek disebut <b>Edge (sisi)</b>.
+    </p>
+
+    <div class="highlight">
+      <b>Contoh:</b>
+      <br>
+      A dan B adalah Vertex.
+      Garis yang menghubungkan A dan B adalah Edge.
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>🔵 2. Vertex dan Edge</h2>
+
+    <table>
+
+      <tr>
+        <th>Istilah</th>
+        <th>Pengertian</th>
+        <th>Contoh</th>
+      </tr>
+
+      <tr>
+        <td>Vertex</td>
+        <td>
+          Titik atau objek dalam Graph.
+        </td>
+        <td>Kota A</td>
+      </tr>
+
+      <tr>
+        <td>Edge</td>
+        <td>
+          Hubungan yang menghubungkan dua Vertex.
+        </td>
+        <td>Jalan A-B</td>
+      </tr>
+
+      <tr>
+        <td>Degree</td>
+        <td>
+          Jumlah Edge yang terhubung pada sebuah Vertex.
+        </td>
+        <td>Degree A = 3</td>
+      </tr>
+
+      <tr>
+        <td>Path</td>
+        <td>
+          Jalur yang melewati beberapa Vertex.
+        </td>
+        <td>A → B → C</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+  <div class="card">
+
+    <h2>↔️ 3. Jenis Graph</h2>
+
+    <h3>Graph Tidak Berarah</h3>
+
+    <p>
+      Hubungan dapat dilalui dua arah.
+      Contoh: hubungan pertemanan atau jalan dua arah.
+    </p>
+
+    <pre style="font-size:18px;margin:12px">A ─── B
+ \     /
+  \   /
+    C</pre>
+
+    <h3>Graph Berarah</h3>
+
+    <p>
+      Edge memiliki arah tertentu.
+      Contoh: hubungan mengikuti akun atau jalan satu arah.
+    </p>
+
+    <pre style="font-size:18px;margin:12px">A ──→ B ──→ C</pre>
+
+  </div>
+
+  <div class="card">
+
+    <h2>📊 4. Derajat Vertex</h2>
+
+    <p>
+      Derajat atau <b>degree</b> adalah banyaknya Edge
+      yang terhubung dengan sebuah Vertex pada Graph
+      tidak berarah.
+    </p>
+
+    <div class="highlight">
+      <b>Contoh:</b>
+      Jika Vertex A terhubung dengan B, C, dan D,
+      maka Degree(A) = 3.
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>🛣️ 5. Path atau Jalur</h2>
+
+    <p>
+      Path adalah urutan Vertex yang dilalui dari satu
+      Vertex menuju Vertex lainnya melalui Edge.
+    </p>
+
+    <div class="highlight">
+      <b>Contoh:</b>
+      A → B → D → E merupakan salah satu jalur dari
+      A menuju E.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- VISUALISASI -->
+
+<section id="visual" class="page">
+
+  <div class="visual-grid">
+
+    <!-- PANEL KIRI -->
+
+    <div class="panel">
+
+      <h3>🔢 Pilih Vertex</h3>
+
+      <p class="muted">
+        Pilih huruf lalu tambahkan ke Graph.
+      </p>
+
+      <div
+        class="value-buttons"
+        id="valueButtons">
+      </div>
+
+      <div class="highlight"
+           style="margin-top:14px">
+
+        Dipilih:
+        <b id="selectedValue">-</b>
+
+      </div>
+
+      <p class="muted">
+        Klik dua Vertex secara bergantian
+        untuk membuat Edge.
+      </p>
+
+      <hr style="margin:15px 0">
+
+      <h3>➕ Tambah Vertex</h3>
+
+      <button
+        class="btn blue"
+        onclick="addVertex()">
+
+        Tambah Vertex
+
+      </button>
+
+    </div>
+
+
+    <!-- GRAPH -->
+
+    <div class="panel">
+
+      <h2>
+        🔵 Visualisasi Graph Interaktif
+      </h2>
+
+      <div class="controls">
+
+        <button
+          class="btn green"
+          onclick="startEdge()">
+
+          🔗 Hubungkan Vertex
+
+        </button>
+
+        <button
+          class="btn orange"
+          onclick="deleteSelected()">
+
+          🗑️ Hapus Vertex
+
+        </button>
+
+        <button
+          class="btn dark"
+          onclick="resetGraph()">
+
+          🔄 Reset
+
+        </button>
+
+        <button
+          class="btn purple"
+          onclick="randomGraph()">
+
+          🎲 Graph Acak
+
+        </button>
+
+      </div>
+
+      <div class="highlight">
+
+        Mode hubungan:
+        <b id="modeText">
+          Klik "Hubungkan Vertex",
+          lalu klik 2 Vertex.
+        </b>
+
+      </div>
+
+      <div class="graph-area">
+
+        <div
+          id="graph"
+          class="graph">
+
+          <svg
+            id="lines"
+            class="graph-lines"
+            viewBox="0 0 900 480"
+            preserveAspectRatio="none">
+          </svg>
+
+        </div>
+
+      </div>
+
+      <div class="highlight">
+        💡 <b>Tips:</b>
+        Klik dan tahan Vertex, lalu geser dengan
+        mouse untuk memindahkannya.
+      </div>
+
+    </div>
+
+
+    <!-- INFO -->
+
+    <div class="panel">
+
+      <h3>📌 Info Vertex</h3>
+
+      <div id="nodeInfo">
+
+        <p class="muted">
+          Klik Vertex untuk melihat informasi.
+        </p>
+
+      </div>
+
+      <hr style="margin:15px 0">
+
+      <h3>📊 Statistik</h3>
+
+      <div
+        id="stats"
+        class="info">
+      </div>
+
+      <hr style="margin:15px 0">
+
+      <h3>🔗 Edge</h3>
+
+      <div
+        id="edgeList"
+        class="muted">
+
+        Belum ada Edge.
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- LATIHAN -->
+
+<section id="latihan" class="page">
+
+  <div class="card">
+
+    <h2>✏️ Latihan Graph</h2>
+
+    <p>
+      Perhatikan Graph berikut:
+    </p>
+
+    <pre style="font-size:20px;margin:20px">      A ─── B
+      │   / │
+      │  /  │
+      C ─── D ─── E</pre>
+
+    <ol style="line-height:2.1;margin-left:25px">
+
+      <li>
+        Sebutkan semua Vertex.
+      </li>
+
+      <li>
+        Sebutkan semua Edge.
+      </li>
+
+      <li>
+        Berapa jumlah Vertex?
+      </li>
+
+      <li>
+        Berapa jumlah Edge?
+      </li>
+
+      <li>
+        Berapa Degree dari A?
+      </li>
+
+      <li>
+        Berapa Degree dari B?
+      </li>
+
+      <li>
+        Sebutkan salah satu Path dari A menuju E.
+      </li>
+
+    </ol>
+
+    <div class="highlight">
+      💡 Coba jawab tanpa melihat materi.
+      Setelah itu kerjakan Kuis.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- KUIS -->
+
+<section id="kuis" class="page">
+
+  <div class="card">
+
+    <h2>🏆 Kuis Graph</h2>
+
+    <p>
+      Jawab semua soal.
+      Nilai tertinggi akan tersimpan di browser.
+    </p>
+
+    <div class="progress">
+
+      <div id="quizProgress"></div>
+
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <button
+      class="btn dark"
+      onclick="checkQuiz()">
+
+      Cek Jawaban
+
+    </button>
+
+    <button
+      class="btn blue"
+      onclick="resetQuiz()">
+
+      Ulangi Kuis
+
+    </button>
+
+    <div
+      id="quizResult"
+      class="result">
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TENTANG -->
+
+<section id="tentang" class="page">
+
+  <div class="card">
+
+    <h2>ℹ️ Tentang Media Pembelajaran</h2>
+
+    <p>
+      Media ini dirancang sebagai bahan pembelajaran
+      interaktif materi Graph untuk peserta didik
+      Informatika kelas IX SMP.
+    </p>
+
+    <div class="highlight">
+
+      <b>Mode Guru:</b>
+      gunakan Visualisasi untuk mendemonstrasikan
+      Vertex, Edge, Degree, dan hubungan antar-Vertex
+      di depan kelas.
+
+    </div>
+
+    <p class="muted">
+      File berjalan secara lokal dan tidak membutuhkan database.
+    </p>
+
+  </div>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+© 2026 — Graph (Graf) | Informatika Kelas IX SMP
+</footer>
+
+<div id="toast"></div>
+
+
+<script>
+
+/* ================================================= */
+/* DATA GRAPH */
+/* ================================================= */
+
+/* SEKARANG A-Z */
+const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+let vertices=[];
+let edges=[];
+
+let selectedValue=null;
+let selectedVertex=null;
+
+let edgeMode=false;
+let edgeStart=null;
+
+/* DATA DRAG */
+let draggingVertex=null;
+let dragMoved=false;
+
+
+/* ================================================= */
+/* SCORE */
+/* ================================================= */
+
+let score=Number(
+  localStorage.getItem("graphScore") || 0
+);
+
+document.getElementById("score").textContent=score;
+
+
+/* ================================================= */
+/* NAVIGASI */
+/* ================================================= */
+
+function showPage(id,btn){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(x=>x.classList.remove("active"));
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+  document
+    .querySelectorAll("nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  if(btn){
+    btn.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* ================================================= */
+/* TOAST */
+/* ================================================= */
+
+function toast(msg){
+
+  const t=document.getElementById("toast");
+
+  t.textContent=msg;
+
+  t.classList.add("show");
+
+  setTimeout(()=>{
+    t.classList.remove("show");
+  },1800);
+}
+
+
+/* ================================================= */
+/* BUTTON A-Z */
+/* ================================================= */
+
+function initButtons(){
+
+  const box=
+    document.getElementById("valueButtons");
+
+  box.innerHTML="";
+
+  letters.forEach(v=>{
+
+    const b=
+      document.createElement("button");
+
+    b.textContent=v;
+
+    b.onclick=()=>{
+      selectValue(v);
+    };
+
+    b.id="val-"+v;
+
+    box.appendChild(b);
+
+  });
+}
+
+
+/* ================================================= */
+/* PILIH HURUF */
+/* ================================================= */
+
+function selectValue(v){
+
+  selectedValue=v;
+
+  document
+    .getElementById("selectedValue")
+    .textContent=v;
+
+  document
+    .querySelectorAll(".value-buttons button")
+    .forEach(b=>{
+      b.classList.remove("selected");
+    });
+
+  const btn=
+    document.getElementById("val-"+v);
+
+  if(btn){
+    btn.classList.add("selected");
+  }
+}
+
+
+/* ================================================= */
+/* TAMBAH VERTEX */
+/* ================================================= */
+
+function addVertex(){
+
+  if(!selectedValue){
+
+    toast(
+      "Pilih Vertex terlebih dahulu."
+    );
+
+    return;
+  }
+
+  if(
+    vertices.some(
+      v=>v.value===selectedValue
+    )
+  ){
+
+    toast(
+      "Vertex tersebut sudah ada."
+    );
+
+    return;
+  }
+
+
+  /*
+   * Posisi awal Vertex.
+   * Karena sekarang A-Z,
+   * kita buat posisi otomatis.
+   */
+
+  const positions=[
+
+    [10,10],
+    [30,10],
+    [50,10],
+    [70,10],
+    [90,10],
+
+    [10,30],
+    [30,30],
+    [50,30],
+    [70,30],
+    [90,30],
+
+    [10,50],
+    [30,50],
+    [50,50],
+    [70,50],
+    [90,50],
+
+    [10,70],
+    [30,70],
+    [50,70],
+    [70,70],
+    [90,70],
+
+    [10,90],
+    [30,90],
+    [50,90],
+    [70,90],
+    [90,90],
+
+    [50,50]
+  ];
+
+
+  const i=vertices.length;
+
+  let pos;
+
+  if(i<positions.length){
+
+    pos=positions[i];
+
+  }else{
+
+    pos=[
+      15+Math.random()*70,
+      15+Math.random()*70
+    ];
+
+  }
+
+
+  vertices.push({
+
+    id:
+      Date.now()+
+      Math.random(),
+
+    value:selectedValue,
+
+    x:pos[0],
+
+    y:pos[1]
+
+  });
+
+
+  selectedVertex=
+    vertices[vertices.length-1];
+
+  renderGraph();
+
+  toast(
+    "Vertex "+selectedValue+
+    " berhasil ditambahkan."
+  );
+}
+
+
+/* ================================================= */
+/* MODE EDGE */
+/* ================================================= */
+
+function startEdge(){
+
+  if(vertices.length<2){
+
+    toast(
+      "Tambahkan minimal 2 Vertex."
+    );
+
+    return;
+  }
+
+  edgeMode=!edgeMode;
+
+  edgeStart=null;
+
+  document
+    .getElementById("modeText")
+    .textContent=
+      edgeMode
+      ?
+      "Klik Vertex pertama lalu Vertex kedua."
+      :
+      "Klik 'Hubungkan Vertex' untuk membuat Edge.";
+
+  toast(
+    edgeMode
+    ?
+    "Mode hubungan aktif."
+    :
+    "Mode hubungan dimatikan."
+  );
+}
+
+
+/* ================================================= */
+/* KLIK VERTEX */
+/* ================================================= */
+
+function vertexClick(v){
+
+  /*
+   * Jika Vertex baru saja digeser,
+   * jangan dianggap sebagai klik.
+   */
+
+  if(dragMoved){
+
+    dragMoved=false;
+
+    return;
+  }
+
+
+  selectedVertex=v;
+
+
+  /*
+   * MODE NORMAL
+   */
+
+  if(!edgeMode){
+
+    showInfo(v);
+
+    renderGraph();
+
+    return;
+  }
+
+
+  /*
+   * VERTEX PERTAMA
+   */
+
+  if(!edgeStart){
+
+    edgeStart=v;
+
+    showInfo(v);
+
+    toast(
+      "Vertex pertama: "+v.value
+    );
+
+    renderGraph();
+
+    return;
+  }
+
+
+  /*
+   * TIDAK BOLEH KE DIRI SENDIRI
+   */
+
+  if(edgeStart.id===v.id){
+
+    toast(
+      "Tidak bisa menghubungkan Vertex dengan dirinya sendiri."
+    );
+
+    return;
+  }
+
+
+  /*
+   * CEK EDGE SUDAH ADA
+   */
+
+  const exists=edges.some(e=>
+
+    (e.a===edgeStart.id &&
+     e.b===v.id)
+
+    ||
+
+    (e.a===v.id &&
+     e.b===edgeStart.id)
+
+  );
+
+
+  if(exists){
+
+    toast(
+      "Edge tersebut sudah ada."
+    );
+
+    edgeStart=null;
+
+    return;
+  }
+
+
+  /*
+   * BUAT EDGE
+   */
+
+  edges.push({
+
+    a:edgeStart.id,
+
+    b:v.id
+
+  });
+
+
+  toast(
+    "Edge "+
+    edgeStart.value+
+    " — "+
+    v.value+
+    " berhasil dibuat."
+  );
+
+
+  edgeStart=null;
+
+  renderGraph();
+}
+
+
+/* ================================================= */
+/* DRAG VERTEX */
+/* ================================================= */
+
+function enableDrag(node,v){
+
+  let startX=0;
+  let startY=0;
+
+  let originalX=0;
+  let originalY=0;
+
+
+  function startDrag(e){
+
+    /*
+     * Saat mode Edge aktif,
+     * mouse digunakan untuk memilih Vertex.
+     */
+
+    if(edgeMode){
+      return;
+    }
+
+
+    draggingVertex=v;
+
+    dragMoved=false;
+
+
+    const point=
+      e.touches
+      ?
+      e.touches[0]
+      :
+      e;
+
+
+    startX=point.clientX;
+    startY=point.clientY;
+
+
+    originalX=v.x;
+    originalY=v.y;
+
+
+    node.classList.add("dragging");
+
+    document.body.style.userSelect="none";
+
+
+    document.addEventListener(
+      "mousemove",
+      dragMove
+    );
+
+    document.addEventListener(
+      "mouseup",
+      stopDrag
+    );
+
+
+    document.addEventListener(
+      "touchmove",
+      dragMove,
+      {passive:false}
+    );
+
+    document.addEventListener(
+      "touchend",
+      stopDrag
+    );
+
+
+    e.preventDefault();
+  }
+
+
+  function dragMove(e){
+
+    if(!draggingVertex){
+      return;
+    }
+
+
+    const point=
+      e.touches
+      ?
+      e.touches[0]
+      :
+      e;
+
+
+    const graph=
+      document.getElementById("graph");
+
+
+    const rect=
+      graph.getBoundingClientRect();
+
+
+    const dx=
+      point.clientX-startX;
+
+    const dy=
+      point.clientY-startY;
+
+
+    /*
+     * Pixel menjadi persen.
+     */
+
+    let newX=
+      originalX+
+      (dx/rect.width*100);
+
+    let newY=
+      originalY+
+      (dy/rect.height*100);
+
+
+    /*
+     * Batasi agar Vertex
+     * tidak keluar Graph.
+     */
+
+    newX=
+      Math.max(
+        4,
+        Math.min(96,newX)
+      );
+
+    newY=
+      Math.max(
+        7,
+        Math.min(93,newY)
+      );
+
+
+    /*
+     * Tentukan apakah benar-benar
+     * terjadi perpindahan.
+     */
+
+    if(
+      Math.abs(newX-originalX)>0.2 ||
+      Math.abs(newY-originalY)>0.2
+    ){
+
+      dragMoved=true;
+
+    }
+
+
+    /*
+     * Simpan posisi.
+     */
+
+    v.x=newX;
+    v.y=newY;
+
+
+    /*
+     * Render Graph.
+     * Edge otomatis mengikuti.
+     */
+
+    renderGraph();
+
+
+    /*
+     * Setelah render ulang,
+     * pasang kembali event drag.
+     */
+
+    const newNode=
+      [...document.querySelectorAll(".node")]
+      .find(
+        n=>n.textContent===v.value
+      );
+
+
+    if(newNode){
+
+      enableDrag(
+        newNode,
+        v
+      );
+
+    }
+
+
+    e.preventDefault();
+  }
+
+
+  function stopDrag(){
+
+    draggingVertex=null;
+
+    node.classList.remove(
+      "dragging"
+    );
+
+    document.body.style.userSelect="";
+
+
+    document.removeEventListener(
+      "mousemove",
+      dragMove
+    );
+
+    document.removeEventListener(
+      "mouseup",
+      stopDrag
+    );
+
+    document.removeEventListener(
+      "touchmove",
+      dragMove
+    );
+
+    document.removeEventListener(
+      "touchend",
+      stopDrag
+    );
+
+  }
+
+
+  node.addEventListener(
+    "mousedown",
+    startDrag
+  );
+
+
+  node.addEventListener(
+    "touchstart",
+    startDrag,
+    {passive:false}
+  );
+
+}
+
+
+/* ================================================= */
+/* HAPUS VERTEX */
+/* ================================================= */
+
+function deleteSelected(){
+
+  if(!selectedVertex){
+
+    toast(
+      "Pilih Vertex terlebih dahulu."
+    );
+
+    return;
+  }
+
+
+  const id=
+    selectedVertex.id;
+
+  const val=
+    selectedVertex.value;
+
+
+  vertices=
+    vertices.filter(
+      v=>v.id!==id
+    );
+
+
+  edges=
+    edges.filter(
+      e=>e.a!==id &&
+         e.b!==id
+    );
+
+
+  selectedVertex=null;
+
+  edgeStart=null;
+
+
+  renderGraph();
+
+
+  toast(
+    "Vertex "+val+
+    " dihapus."
+  );
+}
+
+
+/* ================================================= */
+/* RESET GRAPH */
+/* ================================================= */
+
+function resetGraph(){
+
+  vertices=[];
+  edges=[];
+
+  selectedVertex=null;
+  edgeStart=null;
+
+  edgeMode=false;
+
+
+  document
+    .getElementById("modeText")
+    .textContent=
+      "Klik 'Hubungkan Vertex', lalu klik 2 Vertex.";
+
+
+  renderGraph();
+
+
+  toast(
+    "Graph direset."
+  );
+}
+
+
+/* ================================================= */
+/* GRAPH ACAK */
+/* ================================================= */
+
+function randomGraph(){
+
+  vertices=[];
+  edges=[];
+
+  selectedVertex=null;
+  edgeStart=null;
+  edgeMode=false;
+
+
+  const jumlah=
+    Math.floor(
+      Math.random()*8
+    )+5;
+
+
+  const chosen=
+    [...letters]
+    .sort(
+      ()=>Math.random()-.5
+    )
+    .slice(0,jumlah);
+
+
+  chosen.forEach(
+    (value,i)=>{
+
+      const angle=
+        (Math.PI*2/jumlah)*i;
+
+      const radius=34;
+
+      const x=
+        50+
+        Math.cos(angle)*radius;
+
+      const y=
+        50+
+        Math.sin(angle)*radius;
+
+
+      vertices.push({
+
+        id:
+          Date.now()+
+          Math.random()+
+          i,
+
+        value:value,
+
+        x:x,
+
+        y:y
+
+      });
+
+    }
+  );
+
+
+  /*
+   * Pastikan semua Vertex
+   * memiliki minimal satu Edge.
+   */
+
+  for(
+    let i=1;
+    i<vertices.length;
+    i++
+  ){
+
+    const j=
+      Math.floor(
+        Math.random()*i
+      );
+
+
+    edges.push({
+
+      a:vertices[i].id,
+
+      b:vertices[j].id
+
+    });
+
+  }
+
+
+  /*
+   * Tambahkan beberapa Edge tambahan.
+   */
+
+  const extra=
+    Math.floor(
+      Math.random()*6
+    );
+
+
+  for(
+    let k=0;
+    k<extra;
+    k++
+  ){
+
+    const a=
+      vertices[
+        Math.floor(
+          Math.random()*
+          vertices.length
+        )
+      ];
+
+    const b=
+      vertices[
+        Math.floor(
+          Math.random()*
+          vertices.length
+        )
+      ];
+
+
+    if(
+      a &&
+      b &&
+      a.id!==b.id &&
+      !edges.some(
+        e=>
+          (e.a===a.id &&
+           e.b===b.id)
+          ||
+          (e.a===b.id &&
+           e.b===a.id)
+      )
+    ){
+
+      edges.push({
+
+        a:a.id,
+
+        b:b.id
+
+      });
+
+    }
+
+  }
+
+
+  selectedVertex=
+    vertices[0];
+
+
+  renderGraph();
+
+
+  toast(
+    "Graph acak berhasil dibuat."
+  );
+}
+
+
+/* ================================================= */
+/* DEGREE */
+/* ================================================= */
+
+function degree(v){
+
+  return edges.filter(
+    e=>
+      e.a===v.id ||
+      e.b===v.id
+  ).length;
+}
+
+
+/* ================================================= */
+/* RENDER GRAPH */
+/* ================================================= */
+
+function renderGraph(){
+
+  const graph=
+    document.getElementById("graph");
+
+
+  /*
+   * Hapus Node lama.
+   */
+
+  graph
+    .querySelectorAll(".node")
+    .forEach(
+      x=>x.remove()
+    );
+
+
+  /*
+   * SVG Edge.
+   */
+
+  const svg=
+    document.getElementById("lines");
+
+
+  svg.innerHTML="";
+
+
+  /*
+   * Buat semua Edge.
+   */
+
+  edges.forEach(e=>{
+
+    const a=
+      vertices.find(
+        v=>v.id===e.a
+      );
+
+    const b=
+      vertices.find(
+        v=>v.id===e.b
+      );
+
+
+    if(!a || !b){
+      return;
+    }
+
+
+    const line=
+      document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "line"
+      );
+
+
+    line.classList.add(
+      "edge"
+    );
+
+
+    /*
+     * Posisi mengikuti Vertex.
+     */
+
+    line.setAttribute(
+      "x1",
+      a.x/100*900
+    );
+
+    line.setAttribute(
+      "y1",
+      a.y/100*480
+    );
+
+    line.setAttribute(
+      "x2",
+      b.x/100*900
+    );
+
+    line.setAttribute(
+      "y2",
+      b.y/100*480
+    );
+
+
+    svg.appendChild(line);
+
+  });
+
+
+  /*
+   * Buat Vertex.
+   */
+
+  vertices.forEach(v=>{
+
+    const d=
+      document.createElement("div");
+
+
+    d.className=
+      "node"+
+      (
+        selectedVertex?.id===v.id
+        ?
+        " selected"
+        :
+        ""
+      );
+
+
+    d.textContent=v.value;
+
+
+    d.style.left=
+      v.x+"%";
+
+    d.style.top=
+      v.y+"%";
+
+
+    /*
+     * Klik Vertex.
+     */
+
+    d.onclick=()=>{
+      vertexClick(v);
+    };
+
+
+    /*
+     * Aktifkan drag.
+     */
+
+    enableDrag(
+      d,
+      v
+    );
+
+
+    graph.appendChild(d);
+
+  });
+
+
+  updateStats();
+
+
+  if(selectedVertex){
+
+    showInfo(
+      selectedVertex
+    );
+
+  }
+
+}
+
+
+/* ================================================= */
+/* INFO VERTEX */
+/* ================================================= */
+
+function showInfo(v){
+
+  const connected=
+    edges
+
+      .filter(
+        e=>
+          e.a===v.id ||
+          e.b===v.id
+      )
+
+      .map(e=>{
+
+        const other=
+          e.a===v.id
+          ?
+          vertices.find(
+            x=>x.id===e.b
+          )
+          :
+          vertices.find(
+            x=>x.id===e.a
+          );
+
+        return other?.value;
+
+      })
+
+      .filter(Boolean);
+
+
+  document
+    .getElementById("nodeInfo")
+    .innerHTML=
+
+      "<p>Vertex: <span>"+
+      v.value+
+      "</span></p>"+
+
+      "<p>Degree: <span>"+
+      degree(v)+
+      "</span></p>"+
+
+      "<p>Posisi: <span>"+
+      Math.round(v.x)+
+      "% , "+
+      Math.round(v.y)+
+      "%</span></p>"+
+
+      "<p>Terhubung dengan: <span>"+
+      (
+        connected.join(", ")
+        ||
+        "-"
+      )+
+      "</span></p>";
+}
+
+
+/* ================================================= */
+/* STATISTIK */
+/* ================================================= */
+
+function updateStats(){
+
+  document
+    .getElementById("stats")
+    .innerHTML=
+
+      "<p>Jumlah Vertex: <b>"+
+      vertices.length+
+      "</b></p>"+
+
+      "<p>Jumlah Edge: <b>"+
+      edges.length+
+      "</b></p>";
+
+
+  const list=
+    edges
+
+      .map(e=>{
+
+        const a=
+          vertices.find(
+            v=>v.id===e.a
+          );
+
+        const b=
+          vertices.find(
+            v=>v.id===e.b
+          );
+
+        return a&&b
+          ?
+          a.value+
+          " — "+
+          b.value
+          :
+          null;
+
+      })
+
+      .filter(Boolean);
+
+
+  document
+    .getElementById("edgeList")
+    .innerHTML=
+
+      list.length
+
+      ?
+
+      list
+        .map(
+          x=>
+            "<div>🔗 "+
+            x+
+            "</div>"
+        )
+        .join("")
+
+      :
+
+      "Belum ada Edge.";
+}
+
+
+/* ================================================= */
+/* KUIS */
+/* ================================================= */
+
+const quiz=[
+
+  {
+    q:"Objek atau titik dalam Graph disebut ...",
+    o:[
+      "Edge",
+      "Vertex",
+      "Path",
+      "Degree"
+    ],
+    a:1
+  },
+
+  {
+    q:"Garis yang menghubungkan dua Vertex disebut ...",
+    o:[
+      "Edge",
+      "Root",
+      "Leaf",
+      "Level"
+    ],
+    a:0
+  },
+
+  {
+    q:"Jumlah Edge yang terhubung pada sebuah Vertex disebut ...",
+    o:[
+      "Path",
+      "Degree",
+      "Node",
+      "Height"
+    ],
+    a:1
+  },
+
+  {
+    q:"Graph yang Edge-nya memiliki arah disebut ...",
+    o:[
+      "Graph berarah",
+      "Graph kosong",
+      "Tree",
+      "Array"
+    ],
+    a:0
+  },
+
+  {
+    q:"Contoh penerapan Graph adalah ...",
+    o:[
+      "Peta dan rute",
+      "Paragraf",
+      "Kertas",
+      "Keyboard"
+    ],
+    a:0
+  },
+
+  {
+    q:"A → B → C merupakan contoh ...",
+    o:[
+      "Degree",
+      "Vertex",
+      "Path",
+      "Edge saja"
+    ],
+    a:2
+  },
+
+  {
+    q:"Jika A terhubung dengan B, C, dan D, maka Degree(A) adalah ...",
+    o:[
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    a:2
+  },
+
+  {
+    q:"Dalam Graph, kota dapat direpresentasikan sebagai ...",
+    o:[
+      "Edge",
+      "Vertex",
+      "Degree",
+      "Path"
+    ],
+    a:1
+  }
+
+];
+
+
+/* ================================================= */
+/* LOAD KUIS */
+/* ================================================= */
+
+function loadQuiz(){
+
+  document
+    .getElementById("quizContainer")
+    .innerHTML=
+
+      quiz.map(
+        (q,i)=>
+
+          '<div class="quiz-q">'+
+
+          '<b>'+
+          (i+1)+
+          ". "+
+          q.q+
+          '</b>'+
+
+          q.o.map(
+            (x,j)=>
+
+              '<label class="option">'+
+
+              '<input type="radio" '+
+              'name="q'+i+'" '+
+              'value="'+j+'"> '+
+
+              x+
+
+              '</label>'
+
+          ).join("")+
+
+          '</div>'
+
+      ).join("");
+
+
+  document
+    .getElementById("quizProgress")
+    .style.width="0%";
+
+
+  document
+    .querySelectorAll(
+      "#quizContainer input"
+    )
+    .forEach(
+      x=>
+        x.addEventListener(
+          "change",
+          updateQuizProgress
+        )
+    );
+}
+
+
+/* ================================================= */
+/* PROGRESS KUIS */
+/* ================================================= */
+
+function updateQuizProgress(){
+
+  const answered=
+    new Set(
+
+      [
+        ...document
+          .querySelectorAll(
+            "#quizContainer input:checked"
+          )
+      ]
+
+      .map(
+        x=>x.name
+      )
+
+    ).size;
+
+
+  document
+    .getElementById(
+      "quizProgress"
+    )
+    .style.width=
+
+      (
+        answered/
+        quiz.length*
+        100
+      )+
+      "%";
+}
+
+
+/* ================================================= */
+/* CEK KUIS */
+/* ================================================= */
+
+function checkQuiz(){
+
+  let correct=0;
+
+
+  quiz.forEach(
+    (q,i)=>{
+
+      const a=
+        document.querySelector(
+          'input[name="q'+
+          i+
+          '"]:checked'
+        );
+
+
+      if(
+        a &&
+        +a.value===q.a
+      ){
+
+        correct++;
+
+      }
+
+    }
+  );
+
+
+  const nilai=
+    Math.round(
+      correct/
+      quiz.length*
+      100
+    );
+
+
+  score=
+    Math.max(
+      score,
+      nilai
+    );
+
+
+  localStorage.setItem(
+    "graphScore",
+    score
+  );
+
+
+  document
+    .getElementById("score")
+    .textContent=score;
+
+
+  const r=
+    document.getElementById(
+      "quizResult"
+    );
+
+
+  r.style.display="block";
+
+
+  r.style.background=
+    correct===quiz.length
+    ?
+    "#dcf8df"
+    :
+    "#fff3d9";
+
+
+  r.innerHTML=
+
+    (
+      correct===quiz.length
+      ?
+      "🎉 <b>Sempurna!</b>"
+      :
+      "👍 <b>Bagus!</b>"
+    )+
+
+    "<br>Benar: <b>"+
+    correct+
+    "/"+
+    quiz.length+
+    "</b>"+
+
+    "<br>Nilai: <b>"+
+    nilai+
+    "</b>"+
+
+    "<br><small>"+
+    "Skor tertinggi tersimpan di browser."+
+    "</small>";
+}
+
+
+/* ================================================= */
+/* RESET KUIS */
+/* ================================================= */
+
+function resetQuiz(){
+
+  loadQuiz();
+
+  document
+    .getElementById(
+      "quizResult"
+    )
+    .style.display="none";
+}
+
+
+/* ================================================= */
+/* START */
+/* ================================================= */
+
+initButtons();
+
+loadQuiz();
+
+renderGraph();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorium Informatika — Struktur Data & Gerbang Logika</title>
+<style>
+:root{--bg:#0b1020;--card:#121a2d;--ink:#edf3ff;--muted:#9aa9c5;--primary:#7c5cff;--line:#273550;--green:#34d399;--red:#fb7185;--shadow:0 16px 38px rgba(0,0,0,.22)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#172449 0,transparent 38%),var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.6}
+header{background:linear-gradient(125deg,#11172c,#34256e 58%,#075985);color:white;padding:42px 20px 34px;border-bottom:1px solid #3a4a71}
+.wrap{max-width:1150px;margin:auto;padding:0 18px}header h1{margin:0 0 8px;font-size:clamp(1.8rem,4vw,2.7rem)}header p{max-width:760px;margin:0;color:#e0eaff}
+nav{position:sticky;top:0;z-index:5;background:rgba(13,19,37,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px #0003}
+.navinner{max-width:1150px;margin:auto;padding:10px 18px;display:flex;gap:8px;flex-wrap:wrap}
+button,select,input{font:inherit}button{border:0;border-radius:10px;padding:10px 14px;cursor:pointer;background:var(--primary);color:white;font-weight:650;transition:transform .12s,opacity .12s}button:hover{transform:translateY(-1px)}button.secondary{background:#26344f;color:#e2eaff;border:1px solid #3b4e70}button.dark{background:#263449}button.danger{background:#fee2e2;color:#991b1b}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #67e8f9;outline-offset:2px}
+main{padding:24px 0 54px}.page{display:none}.page.active{display:block}.hero-card,.card{background:linear-gradient(145deg,rgba(20,29,50,.98),rgba(17,25,44,.98));border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px}
+.eyebrow{color:#a99bff;font-weight:800;text-transform:uppercase;letter-spacing:.09em;font-size:.76rem}.muted{color:var(--muted)}h2{margin:.25rem 0 .7rem;font-size:1.65rem}h3{margin:.2rem 0 .7rem}p{margin:.45rem 0 .85rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.pill{display:inline-block;padding:4px 9px;border-radius:999px;background:#29214d;color:#d9d3ff;font-size:.8rem;font-weight:700;border:1px solid #554b88}.step{padding:12px 14px;background:#0d1528;border:1px solid var(--line);border-radius:12px;margin:8px 0}.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:10px 0}.controls label{font-weight:650}.controls input,.controls select{border:1px solid #405174;background:#0b1428;color:var(--ink);border-radius:9px;padding:9px 10px;max-width:100%}
+.visual{min-height:190px;background:#0a1224;border:1px dashed #435477;border-radius:14px;padding:16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;overflow:auto}
+.stack{display:flex;flex-direction:column-reverse;gap:5px;min-width:140px;align-items:center}.stackitem{width:135px;padding:9px;text-align:center;background:#29214d;border:2px solid #8b7bff;color:#f4f1ff;border-radius:8px;font-weight:800;animation:pop .2s ease}.queue{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.arraycell{min-width:66px;padding:10px 8px;background:#202d49;border:1px solid #657aa5;border-radius:10px;text-align:center;color:#f0f5ff;cursor:pointer}.arraycell b{display:block;font-size:1.05rem}.arraycell small{color:#b5c5e6}.listnode{display:flex;align-items:center;gap:8px;background:#123b3b;border:1px solid #34d399;color:#e0fff5;border-radius:10px;padding:10px}.graphsvg{width:100%;max-width:480px}.hashbucket{width:100%;padding:10px 12px;border:1px solid #405174;background:#0d1528;border-radius:10px;margin:4px 0}.hashbucket strong{color:#b8aaff}.queueitem{min-width:65px;padding:13px 12px;background:#123b3b;border:2px solid #34d399;color:#e0fff5;border-radius:9px;text-align:center;font-weight:800;animation:pop .2s ease}.arrow{font-size:1.2rem;color:#64748b;font-weight:900}.tree{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;min-width:320px}.treelevel{display:flex;justify-content:center;gap:16px;width:100%;position:relative}.node{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#29214d;border:2px solid #8b7bff;color:#f4f1ff;font-weight:800;position:relative}.node.root{background:#503c14;border-color:#fbbf24;color:#fff7d6}.treebranch{color:#64748b;font-size:.82rem;text-align:center}
+@keyframes pop{from{transform:scale(.85);opacity:.35}to{transform:scale(1);opacity:1}}@keyframes flow{from{stroke-dashoffset:22}to{stroke-dashoffset:0}}@keyframes glow{0%,100%{filter:drop-shadow(0 0 2px #f59e0b)}50%{filter:drop-shadow(0 0 12px #fbbf24)}}
+.circuit{width:100%;max-width:740px;margin:auto;background:#0a1224;border:1px solid var(--line);border-radius:14px;padding:10px}.circuit svg{width:100%;height:auto;display:block;min-width:300px}.wire{fill:none;stroke:#94a3b8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.wire.on{stroke:#f59e0b;stroke-dasharray:9 5;animation:flow .5s linear infinite;filter:drop-shadow(0 0 3px #fbbf24)}.gatebody{fill:#27234b;stroke:#9b8cff;stroke-width:3}.gateletter{font-size:20px;font-weight:800;fill:#e9e5ff}.lamp{fill:#26344b;stroke:#8292ad;stroke-width:3}.lamp.on{fill:#fde047;stroke:#eab308;animation:glow 1s infinite}.switch{cursor:pointer}.switch rect{fill:#1e2a42;stroke:#7c8baa;stroke-width:2}.switch.on rect{fill:#124b3a;stroke:#34d399}.switch text{font-size:15px;font-weight:800;fill:#edf3ff}
+table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid var(--line);padding:9px;text-align:center}th{background:#222d48;color:#e8eeff}td:first-child,th:first-child{text-align:left}
+.quizq{border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}.feedback{font-weight:750;margin-top:8px}.good{color:#15803d}.bad{color:#b91c1c}footer{text-align:center;color:var(--muted);padding:24px;border-top:1px solid var(--line)}
+@media(max-width:760px){.grid,.grid3{grid-template-columns:1fr}.hero-card,.card{padding:17px}.navinner button{flex:1 1 140px}.circuit{overflow-x:auto}.circuit svg{min-width:540px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="eyebrow" style="color:#bae6fd">PORTAL PEMBELAJARAN INFORMATIKA SMP</div>
+  <h1>Laboratorium Virtual Informatika</h1>
+  <p>Eksplorasi cara data tersusun dan bagaimana rangkaian digital bekerja. Coba simulasi interaktif dengan visualisasi modern.</p>
+  <p style="margin-top:14px;font-weight:700">Disusun oleh: Nanda</p>
+</div></header>
+<nav><div class="navinner">
+  <button onclick="showPage('home')">Beranda</button>
+  <button class="secondary" onclick="showPage('struktur')">Struktur Data</button>
+  <button class="secondary" onclick="showPage('gerbang')">Gerbang Logika</button>
+</div></nav>
+<main class="wrap">
+<section id="home" class="page active">
+  <div class="hero-card">
+    <span class="pill">DIGITAL SYSTEMS · DATA STRUCTURES</span>
+    <h2>Selamat datang di laboratorium virtual!</h2>
+    <p>Jelajahi tujuh struktur data dan eksperimen gerbang logika. Ubah input, susun data, hubungkan simpul, dan amati bagaimana sistem merespons.</p>
+    <div class="grid3">
+      <div class="step"><h3>🧱 Struktur Data</h3><p>Pelajari stack, queue, dan tree melalui simulasi yang dapat diubah.</p><button onclick="showPage('struktur')">Mulai belajar</button></div>
+      <div class="step"><h3>💡 Gerbang Logika</h3><p>Ubah sakelar, hubungkan rangkaian, dan lihat lampu menyala atau mati.</p><button onclick="showPage('gerbang')">Buka laboratorium</button></div>
+    </div>
+  </div>
+  <div class="card"><h2>Tujuan pembelajaran</h2><ul>
+    <li>Menjelaskan fungsi struktur data dalam mengatur informasi.</li>
+    <li>Membedakan cara kerja stack (LIFO), queue (FIFO), dan tree.</li>
+    <li>Menjelaskan gerbang AND, OR, NOT, NAND, NOR, dan XOR.</li>
+    <li>Menghubungkan input, gerbang logika, kabel virtual, dan output lampu.</li>
+    <li>Membaca tabel kebenaran serta menjelaskan alasan output bernilai 0 atau 1.</li>
+  </ul></div>
+</section>
+<section id="struktur" class="page">
+  <div class="hero-card"><span class="eyebrow">MODUL 01 / DATA ARCHITECTURE</span><h2>Struktur Data</h2><p>Struktur data adalah cara menyimpan dan mengatur data agar mudah diakses, diubah, dan diproses. Jelajahi tujuh struktur data berikut melalui visualisasi sederhana.</p></div>
+  <div class="grid">
+    <div class="card">
+      <span class="pill">01 · Linear</span><h3>Array</h3>
+      <p>Array menyimpan beberapa data dalam satu kumpulan. Setiap elemen memiliki indeks; pada contoh ini indeks dimulai dari 0.</p>
+      <div class="controls"><label for="arrayInput">Nilai baru</label><input id="arrayInput" maxlength="10" value="40" placeholder="Nilai"><button onclick="arrayAdd()">Tambah elemen</button><button class="danger" onclick="arrayRemove()">Hapus terakhir</button><button class="secondary" onclick="resetArray()">Reset</button></div>
+      <div id="arrayVisual" class="visual"></div><div id="arrayExplain" class="step">Klik elemen untuk melihat indeks dan nilainya.</div>
+    </div>
+    <div class="card">
+      <span class="pill">02 · Linear berantai</span><h3>Linked List</h3>
+      <p>Linked list terdiri dari simpul (node). Setiap simpul menyimpan data dan tautan ke simpul berikutnya.</p>
+      <div class="controls"><label for="listInput">Nilai simpul</label><input id="listInput" maxlength="8" value="D" placeholder="Data"><button onclick="listAdd()">Tambah di akhir</button><button class="danger" onclick="listRemove()">Hapus awal</button><button class="secondary" onclick="resetList()">Reset</button></div>
+      <div id="listVisual" class="visual"></div><div id="listExplain" class="step">Panah menunjukkan tautan ke simpul berikutnya.</div>
+    </div>
+    <div class="card">
+      <span class="pill">03 · Hierarki</span><h3>Tree</h3>
+      <p>Tree menyusun data bertingkat. Simpul paling atas disebut root; simpul di bawahnya disebut anak (child).</p>
+      <div class="controls"><label for="treeInput">Nilai simpul</label><input id="treeInput" maxlength="2" value="G" placeholder="Nilai"><button onclick="addTreeNode()">Tambah simpul</button><button class="secondary" onclick="resetTree()">Reset</button></div>
+      <div id="treeVisual" class="visual"></div><div id="treeExplain" class="step">Contoh hubungan: A memiliki anak B dan C.</div>
+    </div>
+    <div class="card">
+      <span class="pill">04 · Jaringan</span><h3>Graph</h3>
+      <p>Graph berisi simpul (vertex) yang dihubungkan oleh sisi (edge). Graph dapat menggambarkan jalan, pertemanan, atau jaringan komputer.</p>
+      <div class="controls"><label for="graphFrom">Dari</label><select id="graphFrom"><option>A</option><option>B</option><option>C</option><option>D</option></select><label for="graphTo">Ke</label><select id="graphTo"><option>B</option><option>A</option><option>C</option><option>D</option></select><button onclick="graphAddEdge()">Hubungkan</button><button class="secondary" onclick="resetGraph()">Reset</button></div>
+      <div id="graphVisual" class="visual"></div><div id="graphExplain" class="step">Pilih dua simpul lalu tekan Hubungkan untuk menambah sisi.</div>
+    </div>
+    <div class="card">
+      <span class="pill">05 · FIFO</span><h3>Queue (Antrean)</h3>
+      <p>First In, First Out: data yang masuk pertama akan keluar pertama, seperti antrean di kantin.</p>
+      <div class="controls"><label for="queueInput">Data baru</label><input id="queueInput" maxlength="8" value="D" placeholder="Data"><button onclick="enqueue()">Enqueue</button><button class="danger" onclick="dequeue()">Dequeue</button><button class="secondary" onclick="resetQueue()">Reset</button></div>
+      <div id="queueVisual" class="visual"></div><div id="queueExplain" class="step">Data masuk dari belakang dan keluar dari depan.</div>
+    </div>
+    <div class="card">
+      <span class="pill">06 · LIFO</span><h3>Stack (Tumpukan)</h3>
+      <p>Last In, First Out: data terakhir masuk akan keluar pertama, seperti tumpukan piring.</p>
+      <div class="controls"><label for="stackInput">Data baru</label><input id="stackInput" maxlength="8" value="D" placeholder="Data"><button onclick="pushStack()">Push</button><button class="danger" onclick="popStack()">Pop</button><button class="secondary" onclick="resetStack()">Reset</button></div>
+      <div id="stackVisual" class="visual"></div><div id="stackExplain" class="step">Push menambah data, Pop mengambil data paling atas.</div>
+    </div>
+    <div class="card">
+      <span class="pill">07 · Pencarian cepat</span><h3>Hash Table</h3>
+      <p>Hash table menggunakan fungsi hash untuk menentukan lokasi penyimpanan pasangan kunci dan nilai. Demo ini memakai huruf pertama sebagai kelompok sederhana, bukan hash kriptografi.</p>
+      <div class="controls"><label for="hashKey">Kunci</label><input id="hashKey" maxlength="12" value="apel" placeholder="Contoh: apel"><label for="hashValue">Nilai</label><input id="hashValue" maxlength="18" value="buah" placeholder="Contoh: buah"><button onclick="hashPut()">Simpan</button><button class="secondary" onclick="hashFind()">Cari kunci</button><button class="danger" onclick="hashDelete()">Hapus</button><button class="secondary" onclick="resetHash()">Reset</button></div>
+      <div id="hashVisual" class="visual"></div><div id="hashExplain" class="step">Masukkan kunci dan nilai, lalu tekan Simpan.</div>
+    </div>
+    <div class="card">
+      <span class="pill">Ringkasan</span><h3>Kapan digunakan?</h3>
+      <table><thead><tr><th>Struktur</th><th>Gagasan utama</th><th>Contoh</th></tr></thead><tbody>
+        <tr><td>Array</td><td>Indeks</td><td>Daftar nilai</td></tr><tr><td>Linked list</td><td>Tautan antar-node</td><td>Daftar berantai</td></tr><tr><td>Tree</td><td>Hierarki</td><td>Folder</td></tr><tr><td>Graph</td><td>Jaringan hubungan</td><td>Peta jalan</td></tr><tr><td>Queue</td><td>FIFO</td><td>Antrean</td></tr><tr><td>Stack</td><td>LIFO</td><td>Tumpukan piring</td></tr><tr><td>Hash table</td><td>Kunci → nilai</td><td>Kamus data</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</section>
+<section id="gerbang" class="page">
+  <div class="hero-card"><span class="eyebrow">Bagian 2</span><h2>Gerbang Logika dan Rangkaian Lampu</h2><p>Gerbang logika memproses input digital 0 (OFF) dan 1 (ON). Hasilnya disebut output. Dalam simulasi ini, output 1 menyalakan LED, sedangkan output 0 mematikan LED.</p><p><b>Cara menggunakan:</b> pilih gerbang, nyalakan/matikan sakelar A dan B, lalu perhatikan kabel yang menyala dan lampu output. Untuk NOT, hanya input A yang digunakan.</p></div>
+  <div class="grid">
+    <div class="card">
+      <h3>Pengaturan rangkaian</h3>
+      <div class="controls"><label for="gateSelect">Pilih gerbang</label><select id="gateSelect" onchange="updateCircuit()">
+        <option value="AND">AND</option><option value="OR">OR</option><option value="NOT">NOT</option><option value="NAND">NAND</option><option value="NOR">NOR</option><option value="XOR">XOR</option>
+      </select></div>
+      <div class="controls"><button id="switchA" class="secondary" onclick="toggleInput('A')">Sakelar A: OFF (0)</button><button id="switchB" class="secondary" onclick="toggleInput('B')">Sakelar B: OFF (0)</button><button class="dark" onclick="resetCircuit()">Reset rangkaian</button></div>
+      <div class="step"><b>Input A:</b> <span id="inputAValue">0 (OFF)</span> &nbsp; <b>Input B:</b> <span id="inputBValue">0 (OFF)</span><br><b>Gerbang:</b> <span id="gateName">AND</span> &nbsp; <b>Output:</b> <span id="outputValue">0</span></div>
+      <div class="circuit">
+        <svg id="circuitSvg" viewBox="0 0 680 300" role="img" aria-label="Diagram rangkaian gerbang logika dengan sakelar, kabel, gerbang, dan lampu">
+          <path id="wireA" class="wire" d="M95 88 H240 V125 H300"/>
+          <path id="wireB" class="wire" d="M95 205 H240 V165 H300"/>
+          <path id="wireOut" class="wire" d="M390 145 H545"/>
+          <g id="svgSwitchA" class="switch"><rect x="18" y="65" width="78" height="46" rx="9"/><text id="svgAText" x="57" y="93" text-anchor="middle">A: 0</text></g>
+          <g id="svgSwitchB" class="switch"><rect x="18" y="182" width="78" height="46" rx="9"/><text id="svgBText" x="57" y="210" text-anchor="middle">B: 0</text></g>
+          <path id="gateShape" class="gatebody" d="M300 105 H340 Q390 105 390 145 Q390 185 340 185 H300 Z"/>
+          <text id="gateText" class="gateletter" x="340" y="152" text-anchor="middle">AND</text>
+          <circle id="lamp" class="lamp" cx="585" cy="145" r="29"/>
+          <path id="lampRay1" d="M585 101 v-12 M585 189 v12 M541 145 h-12 M629 145 h12 M554 114 l-9 -9 M616 176 l9 9 M616 114 l9 -9 M554 176 l-9 9" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+          <text id="lampText" x="585" y="205" text-anchor="middle" font-size="15" font-weight="800" fill="#475569">LED OFF</text>
+        </svg>
+      </div>
+      <div id="circuitExplain" class="step">A = 0 dan B = 0. Pada gerbang AND, kedua input harus bernilai 1 agar output menjadi 1.</div>
+    </div>
+    <div class="card">
+      <h3>Tabel kebenaran</h3>
+      <p class="muted">Tabel berubah otomatis sesuai gerbang yang dipilih.</p>
+      <div id="truthTable"></div>
+      <h3>Penjelasan sederhana</h3><div id="gateLesson" class="step"></div>
+    </div>
+  </div>
+  <div class="card"><h3>Bagaimana menghubungkan rangkaian?</h3><ol>
+    <li><b>Sumber input:</b> sakelar A dan B menghasilkan nilai 0 atau 1.</li>
+    <li><b>Kabel input:</b> membawa nilai sakelar menuju kaki input gerbang. Kabel kuning bergerak saat nilai pada jalur bernilai 1.</li>
+    <li><b>Gerbang logika:</b> memproses nilai input sesuai aturan AND, OR, NOT, NAND, NOR, atau XOR.</li>
+    <li><b>Kabel output:</b> membawa hasil gerbang ke lampu LED.</li>
+    <li><b>Lampu:</b> menyala kuning saat output 1 dan mati saat output 0.</li>
+  </ol><p><b>Catatan keselamatan:</b> ini simulasi komputer, bukan petunjuk merangkai listrik rumah. Jangan menghubungkan percobaan siswa langsung ke listrik PLN.</p></div>
+</section>
+</main>
+<footer>Laboratorium Virtual Informatika SMP · Disusun oleh Nanda</footer>
+<script>
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+let stackData=['Piring 1','Piring 2'],queueData=['Ani','Budi','Cici'];
+function renderStack(){let el=document.getElementById('stackVisual');el.innerHTML='';let s=document.createElement('div');s.className='stack';if(!stackData.length)s.textContent='Tumpukan kosong';stackData.forEach(v=>{let d=document.createElement('div');d.className='stackitem';d.textContent=v;s.appendChild(d)});el.appendChild(s);}
+function pushStack(){let v=document.getElementById('stackInput').value.trim();if(!v){document.getElementById('stackExplain').textContent='Masukkan data terlebih dahulu.';return}stackData.push(v);renderStack();document.getElementById('stackExplain').textContent='Push menambahkan “'+v+'” di puncak. Data ini akan menjadi yang pertama keluar (LIFO).';}
+function popStack(){if(!stackData.length){document.getElementById('stackExplain').textContent='Tumpukan kosong.';return}let v=stackData.pop();renderStack();document.getElementById('stackExplain').textContent='Pop mengambil “'+v+'” dari puncak. Data terakhir masuk keluar pertama (LIFO).';}
+function resetStack(){stackData=['Piring 1','Piring 2'];renderStack();document.getElementById('stackExplain').textContent='Tumpukan dikembalikan ke contoh awal.'}
+function renderQueue(){let el=document.getElementById('queueVisual');el.innerHTML='';if(!queueData.length){el.textContent='Antrean kosong';return}let label=document.createElement('span');label.className='muted';label.textContent='DEPAN →';el.appendChild(label);queueData.forEach(v=>{let d=document.createElement('div');d.className='queueitem';d.textContent=v;el.appendChild(d)});let end=document.createElement('span');end.className='muted';end.textContent='← BELAKANG';el.appendChild(end);}
+function enqueue(){let v=document.getElementById('queueInput').value.trim();if(!v){document.getElementById('queueExplain').textContent='Masukkan data terlebih dahulu.';return}queueData.push(v);renderQueue();document.getElementById('queueExplain').textContent='Enqueue menambahkan “'+v+'” di belakang. Data paling lama tetap dilayani lebih dahulu (FIFO).';}
+function dequeue(){if(!queueData.length){document.getElementById('queueExplain').textContent='Antrean kosong.';return}let v=queueData.shift();renderQueue();document.getElementById('queueExplain').textContent='Dequeue mengeluarkan “'+v+'” dari depan antrean. Ini sesuai aturan FIFO.';}
+function resetQueue(){queueData=['Ani','Budi','Cici'];renderQueue();document.getElementById('queueExplain').textContent='Antrean contoh: Ani, Budi, Cici.'}
+let arrayData=[12,25,31,48];
+function renderArray(){let el=document.getElementById('arrayVisual');el.innerHTML='';arrayData.forEach((v,i)=>{let d=document.createElement('button');d.className='arraycell';d.innerHTML='<small>Indeks '+i+'</small><b>'+escapeHtml(v)+'</b>';d.onclick=()=>document.getElementById('arrayExplain').textContent='Elemen pada indeks '+i+' berisi nilai '+v+'. Pada contoh ini indeks dimulai dari 0.';el.appendChild(d)});if(!arrayData.length)el.textContent='Array kosong';}
+function arrayAdd(){let input=document.getElementById('arrayInput'),v=input.value.trim();if(!v){document.getElementById('arrayExplain').textContent='Masukkan nilai terlebih dahulu.';return}if(arrayData.length>=12){document.getElementById('arrayExplain').textContent='Demo dibatasi sampai 12 elemen.';return}arrayData.push(v);renderArray();document.getElementById('arrayExplain').textContent='Nilai '+v+' ditambahkan pada indeks '+(arrayData.length-1)+'.';}
+function arrayRemove(){if(!arrayData.length){document.getElementById('arrayExplain').textContent='Array sudah kosong.';return}let v=arrayData.pop();renderArray();document.getElementById('arrayExplain').textContent='Elemen terakhir '+v+' dihapus. Panjang array sekarang '+arrayData.length+'.';}
+function resetArray(){arrayData=[12,25,31,48];renderArray();document.getElementById('arrayExplain').textContent='Array kembali ke nilai contoh.'}
+let listData=['A','B','C'];
+function renderList(){let el=document.getElementById('listVisual');el.innerHTML='';if(!listData.length){el.textContent='List kosong';return}listData.forEach((v,i)=>{let n=document.createElement('div');n.className='listnode';n.textContent=v;el.appendChild(n);if(i<listData.length-1){let ar=document.createElement('span');ar.className='arrow';ar.textContent='→';el.appendChild(ar)}});let end=document.createElement('span');end.className='arrow';end.textContent='→ NULL';el.appendChild(end);}
+function listAdd(){let v=document.getElementById('listInput').value.trim();if(!v){document.getElementById('listExplain').textContent='Masukkan data terlebih dahulu.';return}if(listData.length>=10){document.getElementById('listExplain').textContent='Demo dibatasi sampai 10 simpul.';return}listData.push(v);renderList();document.getElementById('listExplain').textContent='Simpul '+v+' ditautkan dari simpul terakhir. Linked list menggunakan tautan antar-simpul.';}
+function listRemove(){if(!listData.length){document.getElementById('listExplain').textContent='Linked list kosong.';return}let v=listData.shift();renderList();document.getElementById('listExplain').textContent='Simpul awal '+v+' dihapus. Simpul berikutnya kini menjadi awal list.';}
+function resetList(){listData=['A','B','C'];renderList();document.getElementById('listExplain').textContent='Linked list kembali ke A → B → C → NULL.'}
+let treeNodes=['A','B','C','D','E','F','G'];
+function renderTree(){let el=document.getElementById('treeVisual');el.innerHTML='';let t=document.createElement('div');t.className='tree';let levels=[treeNodes.slice(0,1),treeNodes.slice(1,3),treeNodes.slice(3,7)];levels.forEach((vals,i)=>{if(!vals.length)return;let row=document.createElement('div');row.className='treelevel';vals.forEach(v=>{let n=document.createElement('div');n.className='node'+(i===0?' root':'');n.textContent=v;row.appendChild(n)});t.appendChild(row)});let hint=document.createElement('div');hint.className='treebranch';hint.textContent='A → (B, C) · B → (D, E) · C → (F, G)';t.appendChild(hint);el.appendChild(t);}
+function addTreeNode(){let v=document.getElementById('treeInput').value.trim();if(!v){document.getElementById('treeExplain').textContent='Masukkan label simpul terlebih dahulu.';return}if(treeNodes.length>=15){document.getElementById('treeExplain').textContent='Demo dibatasi sampai 15 simpul.';return}treeNodes.push(v);renderTree();document.getElementById('treeExplain').textContent='Simpul '+v+' ditambahkan pada urutan berikutnya dalam visualisasi. Contoh ini menunjukkan tree bertingkat sederhana.';}
+function resetTree(){treeNodes=['A','B','C','D','E','F','G'];renderTree();document.getElementById('treeExplain').textContent='Tree kembali ke contoh awal.'}
+let graphEdges=[['A','B'],['A','C'],['B','D']];
+function renderGraph(){let el=document.getElementById('graphVisual');let pos={A:[70,70],B:[210,40],C:[210,120],D:[350,80]};let lines=graphEdges.map(e=>'<line x1="'+pos[e[0]][0]+'" y1="'+pos[e[0]][1]+'" x2="'+pos[e[1]][0]+'" y2="'+pos[e[1]][1]+'" stroke="#34d399" stroke-width="3"/>').join('');let nodes=Object.keys(pos).map(k=>'<circle cx="'+pos[k][0]+'" cy="'+pos[k][1]+'" r="22" fill="#29214d" stroke="#a99bff" stroke-width="3"/><text x="'+pos[k][0]+'" y="'+(pos[k][1]+5)+'" text-anchor="middle" fill="#f4f1ff" font-weight="800">'+k+'</text>').join('');el.innerHTML='<svg class="graphsvg" viewBox="0 0 420 165" role="img" aria-label="Graf dengan simpul A, B, C, D">'+lines+nodes+'</svg>';document.getElementById('graphExplain').textContent='Jumlah sisi: '+graphEdges.length+'. Sisi menghubungkan dua simpul.';}
+function graphAddEdge(){let a=document.getElementById('graphFrom').value,b=document.getElementById('graphTo').value;if(a===b){document.getElementById('graphExplain').textContent='Pilih dua simpul yang berbeda.';return}if(graphEdges.some(e=>(e[0]===a&&e[1]===b)||(e[0]===b&&e[1]===a))){document.getElementById('graphExplain').textContent='Sisi '+a+'—'+b+' sudah ada.';return}graphEdges.push([a,b]);renderGraph();document.getElementById('graphExplain').textContent='Sisi baru menghubungkan '+a+' dan '+b+'. Graph sekarang memiliki '+graphEdges.length+' sisi.';}
+function resetGraph(){graphEdges=[['A','B'],['A','C'],['B','D']];renderGraph();document.getElementById('graphExplain').textContent='Graph dikembalikan ke contoh awal.'}
+let hashData={};
+function hashIndex(key){return (key.trim().toLowerCase().charCodeAt(0)||0)%5}
+function renderHash(){let el=document.getElementById('hashVisual');el.innerHTML='';for(let i=0;i<5;i++){let bucket=document.createElement('div');bucket.className='hashbucket';let entries=Object.entries(hashData).filter(([k])=>hashIndex(k)===i);bucket.innerHTML='<strong>Bucket '+i+'</strong> · '+(entries.length?entries.map(([k,v])=>escapeHtml(k)+' → '+escapeHtml(v)).join(' | '):'kosong');el.appendChild(bucket)}}
+function hashPut(){let k=document.getElementById('hashKey').value.trim(),v=document.getElementById('hashValue').value.trim();if(!k||!v){document.getElementById('hashExplain').textContent='Isi kunci dan nilai terlebih dahulu.';return}let existed=Object.prototype.hasOwnProperty.call(hashData,k);hashData[k]=v;renderHash();document.getElementById('hashExplain').textContent=(existed?'Nilai untuk kunci ':'Kunci ')+k+' disimpan pada bucket '+hashIndex(k)+'. Fungsi hash sederhana pada demo ini memakai huruf pertama.';}
+function hashFind(){let k=document.getElementById('hashKey').value.trim();if(!k){document.getElementById('hashExplain').textContent='Masukkan kunci yang ingin dicari.';return}document.getElementById('hashExplain').textContent=Object.prototype.hasOwnProperty.call(hashData,k)?'Ditemukan: '+k+' → '+hashData[k]+' (bucket '+hashIndex(k)+').':'Kunci '+k+' tidak ditemukan pada hash table.';}
+function hashDelete(){let k=document.getElementById('hashKey').value.trim();if(Object.prototype.hasOwnProperty.call(hashData,k)){delete hashData[k];renderHash();document.getElementById('hashExplain').textContent='Kunci '+k+' dihapus dari hash table.'}else document.getElementById('hashExplain').textContent='Kunci tidak ditemukan.'}
+function resetHash(){hashData={apel:'buah',buku:'bacaan',ayam:'hewan'};renderHash();document.getElementById('hashExplain').textContent='Data contoh dikembalikan.'}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+let inputA=0,inputB=0;
+const truth={
+AND:{fn:(a,b)=>a&b,lesson:'AND menghasilkan 1 hanya jika semua input bernilai 1. Jika salah satu input 0, output 0.'},
+OR:{fn:(a,b)=>a|b,lesson:'OR menghasilkan 1 jika setidaknya satu input bernilai 1. Output 0 hanya saat semua input 0.'},
+NOT:{fn:(a,b)=>1-a,lesson:'NOT membalik nilai input A. Jika A = 0, output = 1. Jika A = 1, output = 0.'},
+NAND:{fn:(a,b)=>1-(a&b),lesson:'NAND adalah kebalikan AND. Output 0 hanya saat A dan B sama-sama 1; selain itu output 1.'},
+NOR:{fn:(a,b)=>1-(a|b),lesson:'NOR adalah kebalikan OR. Output 1 hanya saat semua input 0; jika ada input 1, output 0.'},
+XOR:{fn:(a,b)=>a!==b?1:0,lesson:'XOR menghasilkan 1 jika input A dan B berbeda. Jika keduanya sama, output 0.'}
+};
+function outputNow(){return truth[document.getElementById('gateSelect').value].fn(inputA,inputB)}
+function toggleInput(which){if(which==='A')inputA=1-inputA;else inputB=1-inputB;updateCircuit()}
+function resetCircuit(){inputA=0;inputB=0;document.getElementById('gateSelect').value='AND';updateCircuit()}
+function updateCircuit(){
+ let gate=document.getElementById('gateSelect').value,out=outputNow();
+ document.getElementById('inputAValue').textContent=inputA+' ('+(inputA?'ON':'OFF')+')';
+ document.getElementById('inputBValue').textContent=inputB+' ('+(inputB?'ON':'OFF')+')';
+ document.getElementById('gateName').textContent=gate;document.getElementById('outputValue').textContent=out;
+ document.getElementById('switchA').textContent='Sakelar A: '+(inputA?'ON (1)':'OFF (0)');
+ document.getElementById('switchB').textContent='Sakelar B: '+(inputB?'ON (1)':'OFF (0)');
+ document.getElementById('switchA').className=inputA?'':'secondary';document.getElementById('switchB').className=inputB?'':'secondary';
+ document.getElementById('svgAText').textContent='A: '+inputA;document.getElementById('svgBText').textContent='B: '+inputB;
+ document.getElementById('svgSwitchA').classList.toggle('on',!!inputA);document.getElementById('svgSwitchB').classList.toggle('on',!!inputB);
+ document.getElementById('wireA').classList.toggle('on',!!inputA);document.getElementById('wireB').classList.toggle('on',!!inputB);document.getElementById('wireOut').classList.toggle('on',!!out);
+ document.getElementById('lamp').classList.toggle('on',!!out);document.getElementById('lampText').textContent=out?'LED MENYALA':'LED MATI';document.getElementById('lampText').setAttribute('fill',out?'#b45309':'#475569');
+ document.getElementById('lampRay1').setAttribute('stroke',out?'#f59e0b':'#94a3b8');
+ document.getElementById('gateText').textContent=gate;
+ let shape=document.getElementById('gateShape');
+ const shapes={AND:'M300 105 H340 Q390 105 390 145 Q390 185 340 185 H300 Z',OR:'M300 105 Q330 145 300 185 Q350 185 390 145 Q350 105 300 105 Z',NOT:'M305 105 L375 145 L305 185 Z',NAND:'M300 105 H335 Q385 105 385 145 Q385 185 335 185 H300 Z',NOR:'M300 105 Q330 145 300 185 Q345 185 380 145 Q345 105 300 105 Z',XOR:'M310 105 Q340 145 310 185 Q355 185 390 145 Q355 105 310 105 Z'};
+ shape.setAttribute('d',shapes[gate]);document.getElementById('gateText').setAttribute('x',gate==='NOT'?333:345);
+ document.getElementById('wireB').style.opacity=gate==='NOT'?.25:1;document.getElementById('svgSwitchB').style.opacity=gate==='NOT'?.35:1;document.getElementById('switchB').disabled=gate==='NOT';
+ let desc=`A = ${inputA}, B = ${inputB}. Gerbang ${gate} menghasilkan output ${out}. `+(out?'Karena output 1, lampu menyala.':'Karena output 0, lampu mati.');
+ document.getElementById('circuitExplain').textContent=desc;
+ document.getElementById('gateLesson').textContent=truth[gate].lesson;
+ renderTruthTable(gate);
+}
+function renderTruthTable(gate){let rows=gate==='NOT'?[[0,'—'],[1,'—']]:[[0,0],[0,1],[1,0],[1,1]];let html='<table><thead><tr><th>Input A</th>'+(gate==='NOT'?'':'<th>Input B</th>')+'<th>Output</th></tr></thead><tbody>';rows.forEach(r=>{let o=gate==='NOT'?truth[gate].fn(r[0],0):truth[gate].fn(r[0],r[1]);html+='<tr><td>'+r[0]+'</td>'+(gate==='NOT'?'':'<td>'+r[1]+'</td>')+'<td><b>'+o+'</b>'+(o?' 💡':'')+'</td></tr>'});document.getElementById('truthTable').innerHTML=html+'</tbody></table>'}
+renderArray();renderList();renderTree();renderGraph();renderQueue();renderStack();resetHash();updateCircuit();
+</script>
+</body>
+</html>

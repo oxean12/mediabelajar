@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tree (Pohon) - Informatika Kelas IX</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+body{background:#eef6fb;color:#17324d}
+header{background:linear-gradient(135deg,#0878c9,#07549b);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:20;box-shadow:0 3px 12px #0002}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}.brand .ico{font-size:38px}.brand h1{font-size:22px}.brand p{font-size:12px}
+nav{display:flex;gap:5px;flex-wrap:wrap}nav button{border:0;background:transparent;color:#fff;padding:9px 12px;border-radius:8px;cursor:pointer}nav button:hover,nav button.active{background:#ffffff2e}
+.score{background:#fff;color:#14517d;padding:10px 14px;border-radius:10px;font-weight:bold;white-space:nowrap}
+.layout{display:grid;grid-template-columns:235px 1fr;min-height:calc(100vh - 75px)}
+aside{background:#fff;border-right:1px solid #dbe8f0;padding:20px 14px}.side-title{color:#0878c9;font-weight:bold;margin-bottom:12px}.side-item{padding:11px;border-radius:8px;margin:4px 0;cursor:pointer}.side-item:hover,.side-item.active{background:#e1f1ff;color:#0878c9;font-weight:bold}
+main{padding:24px;max-width:1450px;width:100%;margin:auto}.page{display:none}.page.active{display:block}
+.card,.panel{background:#fff;border-radius:15px;padding:20px;margin-bottom:18px;box-shadow:0 3px 15px #0000000d}.card h2,.panel h2{color:#0878c9;margin-bottom:12px}.card h3,.panel h3{color:#16734d;margin:16px 0 8px}.card p{line-height:1.7}
+.hero{background:linear-gradient(135deg,#dff3ff,#eefbef);border:1px solid #c9e8f5}.hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:center}.tree-art{font-size:120px;text-align:center}
+.highlight{background:#e7f7e9;border-left:5px solid #35a765;padding:14px;border-radius:8px;margin:14px 0}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.app{background:#f6fbff;border:1px solid #d8e8f1;padding:17px;border-radius:12px;text-align:center}.app b{display:block;margin:6px}.app .icon{font-size:32px}
+table{width:100%;border-collapse:collapse}th,td{border:1px solid #d5e2eb;padding:10px;text-align:left}th{background:#e7f3ff;color:#0878c9}
+.visual-grid{display:grid;grid-template-columns:190px 1fr 270px;gap:15px}.value-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.value-buttons button{border:1px solid #b8dfbd;background:#f1fff2;padding:9px;border-radius:7px;cursor:pointer}.value-buttons button.selected{background:#bceec2;font-weight:bold}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.btn{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:bold}.blue{background:#dceeff;color:#0878c9}.green{background:#dff5df;color:#16803f}.orange{background:#fff0d5;color:#b86500}.red{background:#ffe0e0;color:#bd3030}.dark{background:#16734d;color:#fff}.purple{background:#eee3ff;color:#6c35a8}
+.tree-area{min-height:500px;border:2px dashed #cfe1ee;border-radius:15px;overflow:auto;background:linear-gradient(#fbfeff,#f4faff);padding:20px}
+.tree{position:relative;width:900px;height:460px;margin:auto}.tree-lines{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1}.edge{stroke:#526878;stroke-width:2}
+.node{position:absolute;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;cursor:pointer;transform:translateX(-50%);border:3px solid;z-index:3;transition:.2s;user-select:none}.node:hover{transform:translateX(-50%) scale(1.1)}.node.root{background:#d9efff;border-color:#1687df}.node.internal{background:#e2f7e2;border-color:#35a765}.node.leaf{background:#fff1d8;border-color:#f0a62b}.node.selected{box-shadow:0 0 0 5px #1687df33}
+.info{line-height:1.9}.info span{font-weight:bold;color:#16803f}.muted{color:#6f7f8a;font-size:13px}
+.quiz-q{background:#f8fcff;border:1px solid #dbeaf2;border-radius:12px;padding:16px;margin-bottom:14px}.option{display:block;padding:10px;margin:7px 0;background:#fff;border:1px solid #d8e5ed;border-radius:8px;cursor:pointer}.option:hover{background:#eaf5ff}.result{padding:14px;border-radius:10px;margin-top:12px;display:none}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#e7f3ff;color:#0878c9;font-size:12px;font-weight:bold;margin:3px}
+.progress{height:12px;background:#e1e9ef;border-radius:20px;overflow:hidden;margin:10px 0}.progress>div{height:100%;width:0;background:#35a765;transition:.4s}
+.form-row{display:flex;gap:8px;flex-wrap:wrap}.form-row input,.form-row select{padding:10px;border:1px solid #cbdce6;border-radius:8px}
+#toast{position:fixed;right:20px;bottom:20px;background:#17324d;color:#fff;padding:12px 16px;border-radius:10px;opacity:0;transform:translateY(15px);transition:.25s;z-index:50}#toast.show{opacity:1;transform:none}
+footer{text-align:center;background:#07549b;color:#fff;padding:16px;margin-top:25px}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}aside{display:none}.visual-grid{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr}.apps{grid-template-columns:1fr 1fr}header{flex-wrap:wrap}.brand{margin-right:0}nav{order:3;width:100%;overflow:auto;flex-wrap:nowrap}}
+@media(max-width:600px){main{padding:12px}.apps{grid-template-columns:1fr}.score{font-size:12px}.tree{margin-left:0}.hero .tree-art{font-size:80px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="ico">🌳</div><div><h1>TREE (POHON)</h1><p>Informatika Kelas IX SMP</p></div></div>
+  <nav>
+    <button class="active" onclick="showPage('home',this)">🏠 Beranda</button>
+    <button onclick="showPage('materi',this)">📖 Materi</button>
+    <button onclick="showPage('visual',this)">🌳 Visualisasi</button>
+    <button onclick="showPage('latihan',this)">✏️ Latihan</button>
+    <button onclick="showPage('kuis',this)">🏆 Kuis</button>
+    <button onclick="showPage('tentang',this)">ℹ️ oknanda prastiyo</button>
+  </nav>
+  <div class="score">⭐ Skor: <span id="score">0</span></div>
+</header>
+
+<div class="layout">
+<aside>
+  <div class="side-title">📚 MATERI</div>
+  <div class="side-item active" onclick="showPage('materi')">Pengertian Tree</div>
+  <div class="side-item" onclick="showPage('materi')">Istilah Tree</div>
+  <div class="side-item" onclick="showPage('materi')">Binary Tree</div>
+  <div class="side-item" onclick="showPage('materi')">Binary Search Tree</div>
+  <div class="side-item" onclick="showPage('visual')">🌳 Visualisasi</div>
+  <div class="side-item" onclick="showPage('latihan')">✏️ Latihan</div>
+  <div class="side-item" onclick="showPage('kuis')">🏆 Kuis</div>
+</aside>
+
+<main>
+
+<section id="home" class="page active">
+  <div class="card hero">
+    <div class="hero-grid">
+      <div>
+        <span class="badge">INFORMATIKA KELAS IX</span>
+        <h2 style="font-size:30px;margin-top:8px">Belajar Tree Jadi Menyenangkan! 🌳</h2>
+        <p>Pelajari struktur data Tree melalui materi, visualisasi interaktif, latihan, dan kuis.</p>
+        <div style="margin-top:15px">
+          <button class="btn dark" onclick="showPage('visual')">🚀 Mulai Visualisasi</button>
+          <button class="btn blue" onclick="showPage('materi')">📖 Pelajari Materi</button>
+        </div>
+      </div>
+      <div class="tree-art">🌳</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🎯 Tujuan Pembelajaran</h2>
+    <ul style="line-height:2;margin-left:24px">
+      <li>Menjelaskan pengertian dan karakteristik Tree.</li>
+      <li>Membedakan Root, Parent, Child, Sibling, Leaf, Edge, Level, dan Height.</li>
+      <li>Menjelaskan konsep Binary Tree dan Binary Search Tree.</li>
+      <li>Membuat dan membaca visualisasi Tree sederhana.</li>
+      <li>Mengenali penerapan Tree dalam kehidupan sehari-hari.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>🌎 Penerapan Tree</h2>
+    <div class="apps">
+      <div class="app"><div class="icon">📁</div><b>Folder Komputer</b><small>Folder dan subfolder.</small></div>
+      <div class="app"><div class="icon">🏫</div><b>Struktur Organisasi</b><small>Hubungan pimpinan dan anggota.</small></div>
+      <div class="app"><div class="icon">🌐</div><b>Website</b><small>Menu dan submenu.</small></div>
+      <div class="app"><div class="icon">👨‍👩‍👧</div><b>Silsilah Keluarga</b><small>Hubungan antargenerasi.</small></div>
+      <div class="app"><div class="icon">🔎</div><b>Sistem Pencarian</b><small>Pengelompokan dan pencarian data.</small></div>
+      <div class="app"><div class="icon">🗂️</div><b>Struktur Data</b><small>Data yang bertingkat.</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="materi" class="page">
+  <div class="card">
+    <h2>📖 1. Pengertian Tree</h2>
+    <p>Tree atau pohon adalah struktur data yang digunakan untuk menyimpan data dalam hubungan hierarki atau bertingkat.</p>
+    <div class="highlight"><b>Contoh:</b><pre style="font-size:18px;margin-top:8px">        A
+       / \
+      B   C
+     / \   \
+    D   E   F</pre></div>
+  </div>
+  <div class="card">
+    <h2>📚 2. Istilah Penting</h2>
+    <table>
+      <tr><th>Istilah</th><th>Pengertian</th></tr>
+      <tr><td>Node</td><td>Elemen atau data dalam Tree.</td></tr>
+      <tr><td>Root</td><td>Node paling atas atau titik awal Tree.</td></tr>
+      <tr><td>Parent</td><td>Node yang memiliki Child.</td></tr>
+      <tr><td>Child</td><td>Node yang berada di bawah Parent.</td></tr>
+      <tr><td>Sibling</td><td>Node yang memiliki Parent yang sama.</td></tr>
+      <tr><td>Leaf</td><td>Node yang tidak memiliki Child.</td></tr>
+      <tr><td>Edge</td><td>Hubungan/garis penghubung antar-Node.</td></tr>
+      <tr><td>Level</td><td>Tingkat kedalaman sebuah Node dari Root.</td></tr>
+      <tr><td>Height</td><td>Jarak maksimum dari Root menuju Leaf terdalam.</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h2>🌲 3. Binary Tree</h2>
+    <p>Binary Tree adalah Tree yang setiap Node memiliki maksimal dua Child, yaitu Child kiri dan Child kanan.</p>
+    <pre style="font-size:18px;margin-top:12px">          10
+        /    \
+       5      15
+      / \    /  \
+     2   7  12   20</pre>
+  </div>
+  <div class="card">
+    <h2>🔎 4. Binary Search Tree (BST)</h2>
+    <p>Pada BST berlaku aturan:</p>
+    <div class="highlight"><b>Nilai kiri &lt; Parent &lt; Nilai kanan</b></div>
+    <p>Contoh: pada Node 10, angka yang lebih kecil ditempatkan di kiri dan angka yang lebih besar di kanan.</p>
+  </div>
+  <div class="card">
+    <h2>🔄 5. Traversal</h2>
+    <p>Traversal adalah proses mengunjungi Node pada Tree.</p>
+    <table>
+      <tr><th>Jenis</th><th>Urutan</th><th>Contoh pada A-B-C</th></tr>
+      <tr><td>Preorder</td><td>Root → Left → Right</td><td>A, B, C</td></tr>
+      <tr><td>Inorder</td><td>Left → Root → Right</td><td>B, A, C</td></tr>
+      <tr><td>Postorder</td><td>Left → Right → Root</td><td>B, C, A</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="visual" class="page">
+  <div class="visual-grid">
+    <div class="panel">
+      <h3>🔢 Pilih Node</h3>
+      <p class="muted">Pilih huruf, lalu gunakan tombol tambah.</p>
+      <div class="value-buttons" id="valueButtons"></div>
+      <div class="highlight" style="margin-top:14px">Dipilih: <b id="selectedValue">-</b></div>
+      <p class="muted">Klik Node pada Tree untuk menjadikannya Parent.</p>
+    </div>
+
+    <div class="panel">
+      <h2>🌳 Visualisasi Interaktif</h2>
+      <div class="controls">
+        <button class="btn blue" onclick="addRoot()">＋ Root</button>
+        <button class="btn green" onclick="addChild('left')">＋ Child Kiri</button>
+        <button class="btn orange" onclick="addChild('right')">＋ Child Kanan</button>
+        <button class="btn red" onclick="deleteSelected()">🗑️ Hapus</button>
+        <button class="btn dark" onclick="resetTree()">🔄 Reset</button>
+        <button class="btn purple" onclick="randomTree()">🎲 Tree Acak</button>
+      </div>
+      <div class="tree-area"><div id="tree" class="tree"><svg id="lines" class="tree-lines"></svg></div></div>
+    </div>
+
+    <div class="panel">
+      <h3>📌 Info Node</h3>
+      <div id="nodeInfo"><p class="muted">Klik sebuah Node untuk melihat informasinya.</p></div>
+      <hr style="margin:15px 0">
+      <h3>📊 Statistik</h3>
+      <div id="stats" class="info"></div>
+      <hr style="margin:15px 0">
+      <h3>🔄 Traversal</h3>
+      <p>Preorder: <b id="preorder">-</b></p>
+      <p>Inorder: <b id="inorder">-</b></p>
+      <p>Postorder: <b id="postorder">-</b></p>
+    </div>
+  </div>
+</section>
+
+<section id="latihan" class="page">
+  <div class="card">
+    <h2>✏️ Latihan</h2>
+    <p>Perhatikan Tree berikut:</p>
+    <pre style="font-size:20px;margin:20px">              A
+            /   \
+           B     C
+          / \   / \
+         D   E F   G</pre>
+    <ol style="line-height:2.1;margin-left:25px">
+      <li>Siapa Root?</li>
+      <li>Sebutkan semua Leaf.</li>
+      <li>Siapa Parent dari D dan E?</li>
+      <li>Siapa Sibling dari B?</li>
+      <li>Sebutkan Child dari C.</li>
+      <li>Berapa jumlah Node?</li>
+      <li>Berapa jumlah Edge?</li>
+    </ol>
+    <div class="highlight">💡 Coba jawab tanpa melihat materi. Setelah itu kerjakan Kuis.</div>
+  </div>
+</section>
+
+<section id="kuis" class="page">
+  <div class="card">
+    <h2>🏆 Kuis Tree</h2>
+    <p>Jawab semua soal. Nilai akan tersimpan di browser perangkat ini.</p>
+    <div class="progress"><div id="quizProgress"></div></div>
+    <div id="quizContainer"></div>
+    <button class="btn dark" onclick="checkQuiz()">Cek Jawaban</button>
+    <button class="btn blue" onclick="resetQuiz()">Ulangi Kuis</button>
+    <div id="quizResult" class="result"></div>
+  </div>
+</section>
+
+<section id="tentang" class="page">
+  <div class="card">
+    <h2>ℹ️ Tentang Media Pembelajaran</h2>
+    <p>Media ini dirancang sebagai bahan pembelajaran interaktif materi Tree untuk peserta didik Informatika kelas IX SMP.</p>
+    <div class="highlight">
+      <b>Mode Guru:</b> gunakan Visualisasi untuk mendemonstrasikan konsep Root, Parent, Child, Leaf, Edge, Level, dan traversal di depan kelas.
+    </div>
+    <p class="muted">File ini berjalan secara lokal dan tidak membutuhkan database.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>© 2026 — Tree (Pohon) | Informatika Kelas IX SMP</footer>
+<div id="toast"></div>
+
+<script>
+const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+let nodes=[],selectedNode=null,selectedValue=null,dragMoved=false,dragging=null;
+let score=Number(localStorage.getItem("treeScore")||0);
+document.getElementById("score").textContent=score;
+function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
+function initButtons(){const box=document.getElementById('valueButtons');box.innerHTML='';letters.forEach(v=>{const b=document.createElement('button');b.textContent=v;b.id='val-'+v;b.onclick=()=>selectValue(v);box.appendChild(b);});}
+function selectValue(v){selectedValue=v;document.getElementById('selectedValue').textContent=v;document.querySelectorAll('.value-buttons button').forEach(b=>b.classList.remove('selected'));document.getElementById('val-'+v)?.classList.add('selected');}
+function addRoot(){if(nodes.length){toast('Root sudah ada.');return;}if(!selectedValue){toast('Pilih huruf Node terlebih dahulu.');return;}nodes.push({id:Date.now()+Math.random(),value:selectedValue,parent:null,side:null,x:50,y:35});selectedNode=nodes[0];renderTree();toast('Root '+selectedValue+' berhasil dibuat.');}
+function addChild(side){if(!nodes.length){toast('Buat Root terlebih dahulu.');return;}if(!selectedNode){toast('Klik Parent terlebih dahulu.');return;}if(!selectedValue){toast('Pilih huruf Node terlebih dahulu.');return;}if(nodes.some(n=>n.value===selectedValue)){toast('Huruf '+selectedValue+' sudah digunakan.');return;}if(nodes.some(n=>n.parent===selectedNode.id&&n.side===side)){toast('Child '+side+' sudah terisi.');return;}const x=Math.max(5,Math.min(95,selectedNode.x+(side==='left'?-12:12)));const y=Math.min(425,selectedNode.y+90);const n={id:Date.now()+Math.random(),value:selectedValue,parent:selectedNode.id,side,x,y};nodes.push(n);selectedNode=n;renderTree();toast('Child '+selectedValue+' berhasil ditambahkan.');}
+function getChildren(n){return nodes.filter(x=>x.parent===n.id)}
+function deleteSelected(){if(!selectedNode){toast('Pilih Node terlebih dahulu.');return;}const ids=[selectedNode.id];let again=true;while(again){again=false;nodes.forEach(n=>{if(n.parent&&ids.includes(n.parent)&&!ids.includes(n.id)){ids.push(n.id);again=true;}})}const v=selectedNode.value;nodes=nodes.filter(n=>!ids.includes(n.id));selectedNode=null;renderTree();toast('Node '+v+' dan turunannya dihapus.');}
+function resetTree(){nodes=[];selectedNode=null;selectedValue=null;document.getElementById('selectedValue').textContent='-';document.querySelectorAll('.value-buttons button').forEach(b=>b.classList.remove('selected'));renderTree();toast('Tree direset.');}
+function randomTree(){nodes=[];selectedNode=null;const vals=[...letters].sort(()=>Math.random()-.5).slice(0,Math.floor(Math.random()*6)+7);nodes.push({id:Date.now()+Math.random(),value:vals[0],parent:null,side:null,x:50,y:35});for(let i=1;i<vals.length;i++){const possible=nodes.filter(n=>getChildren(n).length<2);if(!possible.length)break;const p=possible[Math.floor(Math.random()*possible.length)];const left=!nodes.some(n=>n.parent===p.id&&n.side==='left');const side=left?'left':'right';nodes.push({id:Date.now()+Math.random(),value:vals[i],parent:p.id,side,x:Math.max(5,Math.min(95,p.x+(side==='left'?-12:12))),y:Math.min(425,p.y+90)});}selectedNode=nodes[0];renderTree();toast('Tree acak berhasil dibuat.');}
+function level(n){let l=0,c=n;while(c&&c.parent){c=nodes.find(x=>x.id===c.parent);l++;}return l;}
+function renderTree(){const tree=document.getElementById('tree');tree.querySelectorAll('.node').forEach(x=>x.remove());const svg=document.getElementById('lines');svg.innerHTML='';nodes.forEach(n=>{if(n.parent){const p=nodes.find(x=>x.id===n.parent);if(p)drawLine(p,n);}});nodes.forEach(n=>{const d=document.createElement('div');d.className='node '+(n.parent===null?'root':getChildren(n).length?'internal':'leaf')+(selectedNode&&selectedNode.id===n.id?' selected':'');d.textContent=n.value;d.style.left=n.x+'%';d.style.top=n.y+'px';d.addEventListener('click',()=>{if(dragMoved){dragMoved=false;return;}selectedNode=n;showInfo(n);renderTree();});enableDrag(d,n);tree.appendChild(d);});updateStats();if(selectedNode)showInfo(selectedNode);}
+function drawLine(p,n){const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.classList.add('edge');line.setAttribute('x1',p.x/100*900);line.setAttribute('y1',p.y+28);line.setAttribute('x2',n.x/100*900);line.setAttribute('y2',n.y+28);document.getElementById('lines').appendChild(line);}
+function updateLines(){const svg=document.getElementById('lines');svg.innerHTML='';nodes.forEach(n=>{if(n.parent){const p=nodes.find(x=>x.id===n.parent);if(p)drawLine(p,n);}});}
+function enableDrag(el,n){let sx=0,sy=0,ox=0,oy=0;function down(e){if(e.type==='mousedown'&&e.button!==0)return;const p=e.touches?e.touches[0]:e;sx=p.clientX;sy=p.clientY;ox=n.x;oy=n.y;dragging=n;dragMoved=false;el.classList.add('dragging');document.body.style.userSelect='none';document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);document.addEventListener('touchmove',move,{passive:false});document.addEventListener('touchend',up);e.preventDefault();}function move(e){if(dragging!==n)return;const p=e.touches?e.touches[0]:e;const rect=document.getElementById('tree').getBoundingClientRect();n.x=Math.max(4,Math.min(96,ox+(p.clientX-sx)/rect.width*100));n.y=Math.max(25,Math.min(430,oy+(p.clientY-sy)));if(Math.abs(n.x-ox)>.2||Math.abs(n.y-oy)>2)dragMoved=true;el.style.left=n.x+'%';el.style.top=n.y+'px';updateLines();if(selectedNode&&selectedNode.id===n.id)showInfo(n);e.preventDefault();}function up(){dragging=null;el.classList.remove('dragging');document.body.style.userSelect='';document.removeEventListener('mousemove',move);document.removeEventListener('mouseup',up);document.removeEventListener('touchmove',move);document.removeEventListener('touchend',up);}el.addEventListener('mousedown',down);el.addEventListener('touchstart',down,{passive:false});}
+function showInfo(n){const p=n.parent?nodes.find(x=>x.id===n.parent):null;const c=getChildren(n);const sib=n.parent?nodes.filter(x=>x.parent===n.parent&&x.id!==n.id):[];const type=n.parent===null?'Root':c.length?'Internal Node':'Leaf';document.getElementById('nodeInfo').innerHTML=`<p>Node: <span>${n.value}</span></p><p>Parent: <span>${p?.value||'-'}</span></p><p>Child: <span>${c.map(x=>x.value).join(', ')||'-'}</span></p><p>Sibling: <span>${sib.map(x=>x.value).join(', ')||'-'}</span></p><p>Level: <span>${level(n)}</span></p><p>Tipe: <span>${type}</span></p><p>Posisi: <span>${Math.round(n.x)}%, ${Math.round(n.y)}px</span></p>`;}
+function updateStats(){const leaves=nodes.filter(n=>getChildren(n).length===0);const height=nodes.length?Math.max(...nodes.map(level)):0;document.getElementById('stats').innerHTML=`<p>Jumlah Node: <b>${nodes.length}</b></p><p>Jumlah Edge: <b>${Math.max(0,nodes.length-1)}</b></p><p>Jumlah Leaf: <b>${leaves.length}</b></p><p>Height: <b>${height}</b></p>`;document.getElementById('preorder').textContent=traverse('pre');document.getElementById('inorder').textContent=traverse('in');document.getElementById('postorder').textContent=traverse('post');}
+function traverse(type){if(!nodes.length)return '-';const root=nodes.find(n=>n.parent===null);if(!root)return '-';const out=[];function walk(n){const l=nodes.find(x=>x.parent===n.id&&x.side==='left');const r=nodes.find(x=>x.parent===n.id&&x.side==='right');if(type==='pre')out.push(n.value);if(l)walk(l);if(type==='in')out.push(n.value);if(r)walk(r);if(type==='post')out.push(n.value);}walk(root);return out.join(' → ');}
+const quiz=[{q:'Node paling atas pada Tree disebut ...',o:['Leaf','Root','Child','Edge'],a:1},{q:'Node yang tidak mempunyai Child disebut ...',o:['Root','Parent','Leaf','Edge'],a:2},{q:'Node yang memiliki Parent yang sama disebut ...',o:['Sibling','Root','Edge','Height'],a:0},{q:'Binary Tree memiliki maksimal ... Child pada setiap Node.',o:['1','2','3','4'],a:1},{q:'Garis penghubung antar-Node disebut ...',o:['Edge','Root','Leaf','Level'],a:0},{q:'Urutan Root → Left → Right disebut traversal ...',o:['Inorder','Postorder','Preorder','Level order'],a:2},{q:'Pada BST, nilai yang lebih kecil dari Parent diletakkan di ...',o:['Kanan','Atas','Kiri','Root'],a:2},{q:'Jika A memiliki B dan C sebagai Child, maka B dan C adalah ...',o:['Parent','Sibling','Root','Edge'],a:1}];
+function loadQuiz(){document.getElementById('quizContainer').innerHTML=quiz.map((q,i)=>`<div class="quiz-q"><b>${i+1}. ${q.q}</b>${q.o.map((x,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${x}</label>`).join('')}</div>`).join('');document.getElementById('quizProgress').style.width='0%';document.querySelectorAll('#quizContainer input').forEach(x=>x.addEventListener('change',updateQuizProgress));}
+function updateQuizProgress(){const n=new Set([...document.querySelectorAll('#quizContainer input:checked')].map(x=>x.name)).size;document.getElementById('quizProgress').style.width=(n/quiz.length*100)+'%';}
+function checkQuiz(){let correct=0;quiz.forEach((q,i)=>{const a=document.querySelector(`input[name="q${i}"]:checked`);if(a&&+a.value===q.a)correct++;});const nilai=Math.round(correct/quiz.length*100);score=Math.max(score,nilai);localStorage.setItem('treeScore',score);document.getElementById('score').textContent=score;const r=document.getElementById('quizResult');r.style.display='block';r.style.background=correct===quiz.length?'#dcf8df':'#fff3d9';r.innerHTML=`${correct===quiz.length?'🎉 <b>Sempurna!</b>':'👍 <b>Bagus!</b>'}<br>Benar: <b>${correct}/${quiz.length}</b><br>Nilai: <b>${nilai}</b>`;}
+function resetQuiz(){loadQuiz();document.getElementById('quizResult').style.display='none';}
+const st=document.createElement('style');st.textContent='.node{cursor:grab!important;touch-action:none}.node:active,.node.dragging{cursor:grabbing!important}.node.dragging{box-shadow:0 8px 20px #0003;z-index:10}';document.head.appendChild(st);
+initButtons();loadQuiz();renderTree();
+</script>
+</body>
+</html>

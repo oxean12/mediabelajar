@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081426">
+
+  <title>Informatika Kelas IX | OXEAN</title>
+
+  <style>
+    :root {
+      --bg: #071321;
+      --panel: #102238;
+      --text: #eef8ff;
+      --muted: #a9bfd0;
+      --cyan: #5ee7eb;
+      --blue: #5796ff;
+      --purple: #ad8cff;
+      --line: #ffffff1b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          ellipse at 12% 0%,
+          #153b57 0,
+          transparent 38%
+        ),
+        radial-gradient(
+          ellipse at 90% 25%,
+          #202b58 0,
+          transparent 32%
+        ),
+        var(--bg);
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        sans-serif;
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1050px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* NAVIGASI */
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 950;
+      letter-spacing: 2px;
+    }
+
+    .logo {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 12px;
+      color: #071321;
+      background: linear-gradient(
+        135deg,
+        var(--cyan),
+        var(--blue)
+      );
+      font-size: 20px;
+    }
+
+    .back {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: #d6e9f6;
+      font-size: 12px;
+      font-weight: 800;
+      transition:
+        border-color 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .back:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* JUDUL HALAMAN */
+
+    .hero {
+      padding: 58px 0 30px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--cyan);
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 900;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    h1 {
+      margin: 18px 0 15px;
+      font-size: clamp(36px, 6vw, 58px);
+      line-height: 1.06;
+      letter-spacing: -2px;
+    }
+
+    .gradient {
+      background: linear-gradient(
+        90deg,
+        var(--cyan),
+        #8fb7ff,
+        var(--purple)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .label {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 9px 13px;
+      border: 1px solid #5ee7eb38;
+      border-radius: 99px;
+      background: #5ee7eb0c;
+      color: #c9f9fa;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* SUBJUDUL */
+
+    .heading {
+      margin: 27px 0 8px;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .sub {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* KARTU MATERI */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+      margin: 20px 0 44px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(
+        145deg,
+        #132a42ed,
+        #0d1d30f5
+      );
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .card::before {
+      position: absolute;
+      top: -80px;
+      right: -70px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: var(--glow);
+      opacity: 0.14;
+      filter: blur(9px);
+      content: "";
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #5ee7eb75;
+      box-shadow: 0 18px 45px #0004;
+    }
+
+    .iconbox {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border: 1px solid #5ee7eb30;
+      border-radius: 18px;
+      background: linear-gradient(
+        135deg,
+        #5ee7eb20,
+        #5796ff20
+      );
+      font-size: 29px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 22px;
+      color: var(--cyan);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      font-weight: 900;
+    }
+
+    .card h2 {
+      margin: 9px 0;
+      font-size: 21px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .pill {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 11px;
+      border: 1px solid #5ee7eb3d;
+      border-radius: 99px;
+      color: #d9fbff;
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    /* CATATAN */
+
+    .note {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin: 0 0 42px;
+      padding: 20px;
+      border: 1px solid #ad8cff35;
+      border-radius: 20px;
+      background: linear-gradient(
+        110deg,
+        #291f4c70,
+        #13263a
+      );
+    }
+
+    .note .emoji {
+      font-size: 25px;
+    }
+
+    .note h3 {
+      margin: 0 0 7px;
+      font-size: 16px;
+    }
+
+    .note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* FOOTER */
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px 0 30px;
+      border-top: 1px solid var(--line);
+      color: #8da9b9;
+      font-size: 11px;
+    }
+
+    .footbrand {
+      color: #d8f9ff;
+      font-weight: 950;
+      letter-spacing: 2px;
+    }
+
+    /* TAMPILAN TABLET DAN HP */
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: unset;
+        padding: 21px;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .heading {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .wrap {
+        width: calc(100% - 24px);
+      }
+
+      .top {
+        gap: 8px;
+      }
+
+      .back {
+        padding: 9px 10px;
+        font-size: 10px;
+      }
+
+      .hero {
+        padding-top: 32px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <a class="brand" href="OXEAN_Homee.html">
+        <span class="logo">✦</span>
+        <span>OXEAN</span>
+      </a>
+
+      <a class="back" href="OXEAN_Homee.html">
+        ← Kembali ke Beranda
+      </a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">
+          <span class="dot"></span>
+          RUANG BELAJAR INFORMATIKA
+        </div>
+
+        <h1>
+          Informatika
+          <span class="gradient">Kelas IX</span>
+        </h1>
+
+        <p class="intro">
+          Pilih materi yang ingin dipelajari. Halaman ini
+          hanya menampilkan tiga menu utama karena materi
+          pembelajarannya sudah tersedia.
+        </p>
+
+        <span class="label">
+          📘 3 MENU PEMBELAJARAN
+        </span>
+      </section>
+
+      <h2 class="heading">Pilih Materi</h2>
+
+      <p class="sub">
+        Klik kartu untuk membuka materi yang sudah disiapkan.
+      </p>
+
+      <section
+        class="grid"
+        aria-label="Menu materi kelas IX"
+      >
+        <a
+          class="card"
+          href="kelas IX/Struktur_Data-Gerbang_Logika.html"
+          style="--glow: #5ee7eb"
+          aria-label="Materi Struktur Data"
+        >
+          <div class="iconbox">🧩</div>
+
+          <span class="tag">MATERI 01</span>
+
+          <h2>Struktur Data & Gerbang Logika
+          </h2>
+
+          <p>
+            Mengenal cara mengatur dan menyimpan data agar
+            mudah digunakan, dicari, dan diolah oleh komputer.
+          </p>
+
+          <span class="pill">Buka materi ↗</span>
+        </a>
+
+        <a
+          class="card"
+          href="kelas IX/Tree.html"
+          style="--glow: #ad8cff"
+          aria-label="Materi Tree dan Graph"
+        >
+          <div class="iconbox">🌳</div>
+
+          <span class="tag">MATERI 02</span>
+
+          <h2>Tree</h2>
+
+          <p>
+            Memahami data berbentuk hierarki pohon serta
+            hubungan antarsimpul seperti pada peta jalan
+            dan jejaring pertemanan.
+          </p>
+
+          <span class="pill">Buka materi ↗</span>
+        </a>
+
+        <a
+          class="card"
+          href="#"
+          style="--glow: #5796ff"
+          aria-label="Materi Gerbang Logika"
+        >
+          <div class="iconbox">💡</div>
+
+          <span class="tag">MATERI 03</span>
+
+          <h2>Graph</h2>
+
+          <p>
+            Mempelajari struktur data berupa graph serta
+            aplikasinya dalam pemecahan masalah.
+          </p>
+
+          <span class="pill">Buka materi ↗</span>
+        </a>
+      </section>
+
+      <section class="note">
+        <div class="emoji">ℹ️</div>
+
+        <div>
+          <h3>Catatan</h3>
+
+          <p>
+            Ketiga kartu sudah disiapkan sebagai menu.
+            Agar kartu membuka materi yang sudah ada,
+            ubah nilai <b>href="#"</b> pada setiap kartu
+            menjadi alamat file materi yang sesuai.
+            Nama file belum ditentukan agar tautannya
+            tidak salah.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <div class="footbrand">OXEAN</div>
+
+        <div style="margin-top: 5px">
+          Ruang belajar digital untuk tumbuh bersama.
+        </div>
+      </div>
+
+      <div>
+        © <span id="year"></span> OXEAN · Informatika Kelas IX
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Menampilkan tahun secara otomatis pada footer.
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

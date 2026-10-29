@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="id">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   EduLab Sistem Komputer — Revisi Visual dan Kabel
+  </title>
+  <style>
+   :root {
+    --bg:#071321;
+    --panel:#102238;
+    --panel2:#17314b;
+    --ink:#eef7ff;
+    --muted:#b6c9dc;
+    --cyan:#54e5ff;
+    --green:#70f0a3;
+    --yellow:#ffd166;
+    --red:#ff7185;
+    --purple:#c0a5ff;
+    --border:#2b4965
+}
+
+* {
+    box-sizing:border-box
+}
+
+body {
+    margin:0;
+    background:radial-gradient(ellipse at top,#173b59 0,#071321 58%);
+    font-family:system-ui,Segoe UI,Arial,sans-serif;
+    color:var(--ink)
+}
+
+header {
+    padding:22px 16px;
+    text-align:center;
+    background:#0b1a2c;
+    border-bottom:1px solid var(--border)
+}
+
+h1 {
+    margin:0 0 8px;
+    font-size:clamp(1.5rem,4vw,2.3rem)
+}
+
+header p {
+    margin:0;
+    color:var(--muted)
+}
+
+main {
+    max-width:1250px;
+    margin:auto;
+    padding:16px;
+    display:grid;
+    gap:14px
+}
+
+.panel {
+    background:linear-gradient(145deg,#10243a,#0c1b2d);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:14px;
+    box-shadow:0 10px 30px #0003
+}
+
+h2 {
+    font-size:1.2rem;
+    margin:0 0 10px
+}
+
+h3 {
+    font-size:1rem;
+    margin:0 0 7px
+}
+
+.muted {
+    color:var(--muted);
+    font-size:.92rem
+}
+
+.controls {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:10px 0
+}
+
+.btn {
+    background:#1c3854;
+    border:1px solid #41617e;
+    color:var(--ink);
+    padding:9px 12px;
+    border-radius:10px;
+    font-weight:650;
+    cursor:pointer
+}
+
+.btn:hover {
+    filter:brightness(1.2)
+}
+
+.btn.primary {
+    background:#087c91;
+    border-color:#40d8ef
+}
+
+.btn.good {
+    background:#176b48;
+    border-color:#48d99b
+}
+
+.btn.warn {
+    background:#76521a;
+    border-color:#ffd166
+}
+
+.btn:focus-visible {
+    outline:3px solid white;
+    outline-offset:2px
+}
+
+.status {
+    padding:10px 12px;
+    border-radius:10px;
+    background:#0b1928;
+    border:1px solid var(--border);
+    margin-top:10px
+}
+
+.status strong {
+    color:var(--cyan)
+}
+
+.bench {
+    position:relative;
+    min-height:650px;
+    overflow:hidden;
+    border:1px solid #31516d;
+    border-radius:14px;
+    background:radial-gradient(ellipse at center,#183653,#091625 72%);
+    touch-action:pan-y
+}
+
+.bench:before {
+    content:"MEJA PRAKTIKUM DIGITAL";
+    position:absolute;
+    top:12px;
+    left:14px;
+    font-size:.72rem;
+    letter-spacing:2px;
+    color:#7396b6
+}
+
+.bench svg.wires {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:1;
+    overflow:visible
+}
+
+.component {
+    position:absolute;
+    width:132px;
+    min-height:104px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    border:1px solid #54738e;
+    border-radius:14px;
+    background:linear-gradient(145deg,#1a3855,#10253b);
+    box-shadow:0 7px 18px #0005;
+    cursor:grab;
+    user-select:none;
+    touch-action:none;
+    z-index:2;
+    padding:8px;
+    text-align:center
+}
+
+.component:active {
+    cursor:grabbing
+}
+
+.component .emoji {
+    font-size:2rem;
+    filter:drop-shadow(0 0 8px #54e5ff55)
+}
+
+.component b {
+    font-size:.86rem
+}
+
+.component small {
+    color:#c3d8e9;
+    font-size:.7rem
+}
+
+.component.selected {
+    outline:3px solid var(--yellow);
+    z-index:4
+}
+
+.component.powered {
+    border-color:var(--green);
+    box-shadow:0 0 18px #70f0a366
+}
+
+.component.off {
+    opacity:.65
+}
+
+.component.hidden {
+    display:none
+}
+
+.plug {
+    position:absolute;
+    right:-7px;
+    top:calc(50% - 7px);
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:var(--yellow);
+    border:2px solid #fff;
+    z-index:3
+}
+
+.component .mini {
+    font-size:.7rem;
+    color:var(--green)
+}
+
+.legend {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    font-size:.8rem;
+    color:var(--muted);
+    margin-top:10px
+}
+
+.dot {
+    display:inline-block;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    margin-right:5px
+}
+
+.lowergrid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:12px
+}
+
+.device-list {
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap
+}
+
+.device-list button {
+    font-size:.85rem
+}
+
+.icon-toggle {
+    width:42px;
+    height:42px;
+    padding:5px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.25rem;
+    border-radius:12px
+}
+
+.icon-toggle.active {
+    outline:2px solid var(--cyan);
+    background:#15536a
+}
+
+.feedback {
+    padding:12px;
+    border-radius:12px;
+    margin-top:10px;
+    border:1px solid var(--border);
+    background:#091a2a
+}
+
+.feedback.good {
+    border-color:var(--green);
+    color:var(--green)
+}
+
+.feedback.bad {
+    border-color:var(--red);
+    color:#ffb4bf
+}
+
+.wireline.correct {
+    stroke:#70f0a3!important;
+    stroke-width:5
+}
+
+.wireline.incorrect {
+    stroke:#ff7185!important
+}
+
+.guide[hidden] {
+    display:none
+}
+
+.guide ol {
+    padding-left:22px;
+    line-height:1.65
+}
+
+.guide li {
+    margin:5px 0
+}
+
+.output {
+    min-height:74px;
+    border:1px dashed #456681;
+    border-radius:12px;
+    padding:12px;
+    background:#091a2a
+}
+
+.monitor-screen {
+    background:#020a12;
+    border:5px solid #637c92;
+    border-radius:9px;
+    min-height:145px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    text-align:center
+}
+
+.monitor-screen video {
+    width:100%;
+    height:100%;
+    max-height:300px;
+    display:none;
+    background:#000
+}
+
+.monitor-screen .screenmsg {
+    padding:15px;
+    color:#b4d8e9
+}
+
+.monitor-screen.running video {
+    display:block
+}
+
+.monitor-screen.running .screenmsg {
+    display:none
+}
+
+.tiny {
+    font-size:.78rem;
+    color:var(--muted)
+}
+
+.flow {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap
+}
+
+.flow span {
+    padding:8px 10px;
+    background:#17344e;
+    border:1px solid #41627e;
+    border-radius:9px
+}
+
+.flow i {
+    color:var(--yellow);
+    font-style:normal;
+    font-weight:bold
+}
+
+.pill {
+    font-size:.75rem;
+    padding:3px 7px;
+    border-radius:99px;
+    background:#213e57;
+    color:#d5edff
+}
+
+
+
+/* Pop-up PIN guru: input tersembunyi dengan tombol lihat/sembunyikan */
+.pin-overlay { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 18px; background: #020813e8; }
+.pin-overlay[hidden] { display: none; }
+.pin-card { width: min(100%, 390px); padding: 24px; border: 2px solid var(--cyan); border-radius: 20px; background: linear-gradient(145deg,#173b59,#0b1928); box-shadow: 0 0 40px #54e5ff30; }
+.pin-card h2 { margin-bottom: 8px; }
+.pin-entry { display: flex; gap: 8px; margin: 14px 0; }
+.pin-entry input { min-width: 0; flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #54738e; background: #061321; color: var(--ink); font-size: 1.2rem; letter-spacing: 4px; }
+.pin-entry button { min-width: 48px; border-radius: 10px; border: 1px solid #41617e; background: #1c3854; color: white; cursor: pointer; font-size: 1.15rem; }
+.pin-error { min-height: 1.3em; color: #ffb4bf; font-size: .9rem; }
+
+/* Revisi tata letak, panel guru, dan pop-up hasil */
+.lowergrid > div:first-child { grid-column: 1 / -1; width: min(100%, 760px); margin: 0 auto 8px; }
+.monitor-screen { min-height: 260px; }
+.monitor-screen video { max-height: 420px; }
+.admin-tools { border: 1px dashed var(--yellow); border-radius: 12px; padding: 10px; margin: 10px 0; background: #191f2c; }
+.teacher-lock { position: fixed; right: 18px; bottom: 18px; z-index: 30; width: 52px; height: 52px; border-radius: 50%; border: 2px solid #7890a8; background: #0b1928; color: white; font-size: 1.35rem; cursor: pointer; box-shadow: 0 5px 20px #0008; }
+.teacher-lock.unlocked { border-color: var(--yellow); background: #76521a; }
+.result-overlay { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 18px; background: #020813d9; }
+.result-overlay[hidden] { display: none; }
+.result-card { width: min(100%, 440px); text-align: center; padding: 28px 22px; border-radius: 24px; border: 2px solid var(--cyan); background: linear-gradient(145deg,#173b59,#0b1928); box-shadow: 0 0 45px #54e5ff35; animation: popIn .35s ease-out; }
+.result-card.good { border-color: var(--green); box-shadow: 0 0 45px #70f0a344; }
+.result-card.bad { border-color: var(--red); box-shadow: 0 0 45px #ff718544; }
+.result-emoji { font-size: 4rem; line-height: 1.2; animation: rocket 1s ease-in-out infinite alternate; }
+.result-card.bad .result-emoji { animation: wobble .45s ease-in-out 2; }
+.result-card h2 { font-size: 1.7rem; margin: 12px 0; }
+.result-card p { font-size: 1.12rem; line-height: 1.5; }
+.wireline { pointer-events: stroke; cursor: pointer; }
+.wireline.selected-wire { stroke: #ff9f43 !important; stroke-width: 8 !important; stroke-dasharray: 4 5 !important; }
+@keyframes popIn { from { transform: scale(.75); opacity: .2; } to { transform: scale(1); opacity: 1; } }
+@keyframes rocket { from { transform: translateY(5px) rotate(-8deg); } to { transform: translateY(-10px) rotate(8deg); } }
+@keyframes wobble { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-18deg); } 75% { transform: rotate(18deg); } }
+@media(max-width:600px) { .monitor-screen { min-height: 200px; } .teacher-lock { right: 12px; bottom: 12px; } .result-card h2 { font-size: 1.45rem; } }
+
+@media(max-width:600px) {
+    main {
+    padding:9px
+}
+
+.bench {
+    min-height:850px
+}
+
+.component {
+    width:112px;
+    min-height:95px
+}
+
+.panel {
+    padding:11px
+}
+
+}
+
+/* REVISI VISUAL: tata letak komponen dan kabel bergerak */
+.bench { min-height: 700px; background: radial-gradient(ellipse at center,#1a3b58,#071321 78%); }
+.component { width: 124px; min-height: 102px; border: 1px solid #6d91ad; background: linear-gradient(145deg,#214767,#10253b); transition: box-shadow .2s,border-color .2s, transform .2s; }
+.component .emoji { font-size: 1.9rem; line-height: 1.15; }
+.component .plug { right: -6px; top: calc(50% - 6px); width: 12px; height: 12px; background: #f6fbff; border: 3px solid var(--cyan); box-shadow: 0 0 8px #54e5ff88; pointer-events:none; }
+.component.powered { border-color: var(--green); box-shadow: 0 0 22px #70f0a388; }
+.wireline { pointer-events: stroke; cursor: pointer; stroke-dasharray: 12 9; animation: wireFlow .65s linear infinite; filter: drop-shadow(0 0 2px currentColor); }
+.wireline.power-wire { stroke: #ffd166; }
+.wireline.data-wire { stroke: #54e5ff; }
+.wireline.selected-wire { stroke: #ff9f43 !important; stroke-width: 8 !important; stroke-dasharray: 5 6 !important; animation-duration: .3s; }
+@keyframes wireFlow { to { stroke-dashoffset: -42; } }
+@media (prefers-reduced-motion: reduce) { .wireline { animation: none; } }
+@media(max-width:600px) { .bench { min-height: 930px; } .component { width: 108px; min-height: 92px; } }
+
+  </style>
+ </head>
+ <body>
+  <header>
+   <h1>
+    ⚡ EduLab Sistem Komputer
+   </h1>
+   <p>
+    Simulasi merakit komputer untuk siswa SMP
+   </p>
+  </header>
+  <main>
+   <section class="panel">
+    <h2>
+     1. Panduan belajar siswa
+    </h2>
+    <p class="muted">
+     Panduan diletakkan di bagian atas. Sembunyikan jika ingin memperluas area latihan, lalu tampilkan kembali kapan saja.
+    </p>
+    <button aria-expanded="true" class="btn primary" id="guideToggle">
+     🙈 Sembunyikan panduan
+    </button>
+    <div class="guide" id="guide">
+     <ol>
+      <li>
+       <b>
+        Mulai dari listrik:
+       </b>
+       Klik “Animasi aliran listrik” pada bagian meja rakitan. Perhatikan urutan stopkontak → kabel daya → power supply.
+      </li>
+      <li>
+       <b>
+        Kenali komponen:
+       </b>
+       baca nama dan fungsi singkat pada setiap kotak. Tombol di atas meja bisa menyembunyikan atau menampilkan komponen.
+      </li>
+      <li>
+       <b>
+        Latihan menggeser:
+       </b>
+       klik-tahan satu komponen dengan mouse, lalu geser ke tempat yang kamu inginkan. Pada layar sentuh, sentuh-tahan lalu geser.
+      </li>
+      <li>
+       <b>
+        Jika ingin melihat contoh jawaban:
+       </b>
+       guru dapat membuka ikon gembok di pojok kanan bawah, lalu memasukkan PIN. Fitur contoh jawaban dan sambungkan semuanya tersedia di panel guru. Siswa dapat mengecek jawaban melalui tombol “Cek jawaban siswa”.
+      </li>
+      <li>
+       <b>
+        Latihan kabel:
+       </b>
+       klik “Sambungkan manual”, lalu klik dua komponen secara bergantian untuk memasang kabel. Garis berwarna menunjukkan hubungan.
+      </li>
+      <li>
+       <b>
+        Jangan asal sambung:
+       </b>
+       untuk latihan dasar, urutkan Stopkontak → Kabel Daya → Power Supply. Setelah itu, pahami bahwa PSU memasok daya ke komponen di dalam komputer.
+      </li>
+      <li>
+       <b>
+        Menyalakan komputer:
+       </b>
+       klik “Nyalakan komputer”. Monitor memutar video jika file tersedia. Speaker juga dapat memutar MP3 dari folder media dan berhenti saat komputer dimatikan.
+      </li>
+      <li>
+       <b>
+        Uji perangkat output:
+       </b>
+       coba tombol speaker, proyektor, printer, kamera, dan internet. Amati perubahan pada panel hasil.
+      </li>
+      <li>
+       <b>
+        Reset:
+       </b>
+       jika posisi komponen berantakan atau ingin mengulang, tekan “Reset simulasi” di bagian meja rakitan.
+      </li>
+     </ol>
+     <h3>
+      Tantangan kecil
+     </h3>
+     <p>
+      1) Temukan perangkat input. 2) Temukan perangkat output. 3) Susun jalur listrik yang benar. 4) Jelaskan perbedaan fungsi CPU dan RAM dengan kalimatmu sendiri.
+     </p>
+    </div>
+   </section>
+   <section class="panel">
+    <h2>
+     2. Meja rakitan — susun dan sambungkan komponen
+    </h2>
+    <p class="muted">
+     Geser komponen, lalu pilih “Sambungkan manual” dan klik dua komponen untuk membuat kabel. Susun jalur sebaik mungkin, kemudian kirim untuk dikoreksi.
+    </p>
+    <div class="controls" id="toggleButtons"></div>
+    <div class="controls">
+     <button class="btn primary" id="powerDemo">⚡ Animasi aliran listrik</button>
+     <button class="btn warn" id="checkConnections">🧪 Cek jawaban siswa</button>
+     <button class="btn good" id="boot">⏻ Nyalakan komputer</button>
+     <button class="btn warn" id="off">⏻ Matikan komputer</button>
+     <button class="btn" id="reset">↺ Reset simulasi</button>
+    </div>
+    <div class="controls">
+     <button class="btn primary" id="connectMode">🔗 Sambungkan manual</button>
+     <button class="btn" id="deleteWire">✂️ Hapus kabel pilihan</button>
+     <button class="btn" id="clearWires">🧹 Hapus semua kabel</button>
+    </div>
+    <div class="admin-tools" id="adminTools" hidden>
+     <p class="tiny">Panel guru — tombol ini disembunyikan dari tampilan siswa.</p>
+     <div class="controls">
+      <button class="btn good" id="autoConnect">⚡ Sambungkan otomatis (contoh guru)</button>
+      <button class="btn good" id="showAllTeacher">👁️ Tampilkan semua komponen</button>
+      <button class="btn primary" id="connectAllTeacher">🔗 Sambungkan semuanya</button>
+     </div>
+    </div>
+    <div class="status" id="status" role="status" aria-live="polite">
+     <strong>Petunjuk:</strong> Klik ikon komponen di atas meja untuk menampilkannya satu per satu. Setelah itu pilih “Sambungkan manual”, lalu klik dua komponen untuk memasang kabel.
+    </div>
+    <div class="feedback" id="connectionFeedback" role="status">
+     Tampilkan komponen satu per satu, susun kabel, lalu tekan “Cek jawaban siswa” untuk mengetahui sambungan yang benar dan yang perlu diperbaiki.
+    </div>
+    <div aria-label="Meja komponen yang bisa digeser" class="bench" id="bench">
+     <svg class="wires" id="wires">
+     </svg>
+     <div class="component" data-id="socket" style="left:3%;top:12%">
+      <span class="emoji">
+       🔌
+      </span>
+      <b>
+       Stopkontak
+      </b>
+      <small>
+       Sumber listrik
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="cable" style="left:22%;top:12%">
+      <span class="emoji">
+       〰️
+      </span>
+      <b>
+       Kabel Daya
+      </b>
+      <small>
+       Menyalurkan listrik
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="psu" style="left:41%;top:12%">
+      <span class="emoji">
+       ⚡
+      </span>
+      <b>
+       Power Supply
+      </b>
+      <small>
+       Mengatur daya
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="cpu" style="left:60%;top:12%">
+      <span class="emoji">
+       🧠
+      </span>
+      <b>
+       CPU
+      </b>
+      <small>
+       Memproses instruksi
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="ram" style="left:79%;top:12%">
+      <span class="emoji">
+       📟
+      </span>
+      <b>
+       RAM
+      </b>
+      <small>
+       Memori sementara
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="os" style="left:3%;top:42%">
+      <span class="emoji">
+       💿
+      </span>
+      <b>
+       Penyimpanan + OS
+      </b>
+      <small>
+       Menyimpan sistem
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="monitor" style="left:22%;top:42%">
+      <span class="emoji">
+       🖥️
+      </span>
+      <b>
+       Monitor
+      </b>
+      <small>
+       Menampilkan gambar
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="keyboard" style="left:41%;top:42%">
+      <span class="emoji">
+       ⌨️
+      </span>
+      <b>
+       Keyboard
+      </b>
+      <small>
+       Input teks
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="mouse" style="left:60%;top:42%">
+      <span class="emoji">
+       🖱️
+      </span>
+      <b>
+       Mouse
+      </b>
+      <small>
+       Input penunjuk
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="speaker" style="left:79%;top:42%">
+      <span class="emoji">
+       🔊
+      </span>
+      <b>
+       Speaker
+      </b>
+      <small>
+       Output suara
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="router" style="left:22%;top:72%">
+      <span class="emoji">
+       📡
+      </span>
+      <b>
+       Router
+      </b>
+      <small>
+       Menghubungkan jaringan
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="projector" style="left:41%;top:72%">
+      <span class="emoji">
+       📽️
+      </span>
+      <b>
+       Proyektor
+      </b>
+      <small>
+       Output gambar
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="printer" style="left:60%;top:72%">
+      <span class="emoji">
+       🖨️
+      </span>
+      <b>
+       Printer
+      </b>
+      <small>
+       Output cetak
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+     <div class="component" data-id="camera" style="left:79%;top:72%">
+      <span class="emoji">
+       📷
+      </span>
+      <b>
+       Kamera / CCTV
+      </b>
+      <small>
+       Menangkap gambar
+      </small>
+      <span class="mini">
+      </span>
+      <span class="plug">
+      </span>
+     </div>
+    </div>
+    <div class="legend">
+     <span>
+      <i class="dot" style="background:#ffd166">
+      </i>
+      Kabel daya • aliran kuning
+     </span>
+     <span>
+      <i class="dot" style="background:#54e5ff">
+      </i>
+      Kabel data/perangkat • aliran biru
+     </span>
+     <span>
+      <i class="dot" style="background:#70f0a3">
+      </i>
+      Komponen aktif
+     </span>
+    </div>
+   </section>
+   <section class="panel">
+    <h2>
+     3. Lihat hasil perangkat
+    </h2>
+    <div class="lowergrid">
+     <div>
+      <h3>
+       Monitor
+      </h3>
+      <div class="monitor-screen" id="monitorScreen">
+       <div class="screenmsg">
+        Monitor masih mati.
+        <br/>
+        Hubungkan daya, lalu nyalakan komputer.
+       </div>
+       <!-- ===== PENANDA UPLOAD VIDEO MONITOR ===== -->
+       <!-- Simpan video di folder media dengan nama: komputer-menyala.mp4 -->
+       <!-- Lokasi file: media/komputer-menyala.mp4 -->
+       <video controls="" id="bootVideo" playsinline="" preload="metadata">
+        <source src="media/komputer-menyala.mp4" type="video/mp4"/>
+       </video>
+      </div>
+      <p class="tiny">
+       VIDEO MONITOR: ganti file
+       <code>
+        media/komputer-menyala.mp4
+       </code>
+       dengan video yang Bapak unggah nanti. Jika video belum ada, simulasi tetap berjalan.
+      </p>
+     </div>
+     <div>
+      <h3>
+       Speaker
+      </h3>
+      <!-- SIMPAN lagu MP3 di folder media dengan nama persis: suara-speaker.mp3 -->
+      <!-- Lokasi relatif: media/suara-speaker.mp3 (folder media sejajar dengan file HTML) -->
+      <audio id="speakerAudio" preload="auto" loop>
+       <source src="media/suara-speaker.mp3" type="audio/mpeg">
+      </audio>
+      <div class="output" id="speakerOut">🔇 Speaker mati.</div>
+      <div class="controls">
+       <button class="btn" id="speakerTest">🔊 Nyalakan speaker</button>
+      </div>
+     </div>
+     <div>
+      <h3>
+       Proyektor
+      </h3>
+      <div class="output" id="projectorOut">
+       📽️ Proyektor belum aktif.
+      </div>
+      <div class="controls">
+       <button class="btn" id="projectorTest">
+        Tampilkan layar
+       </button>
+      </div>
+     </div>
+     <div>
+      <h3>
+       Printer
+      </h3>
+      <div class="output" id="printerOut">
+       🖨️ Printer siap setelah komputer menyala.
+      </div>
+      <div class="controls">
+       <button class="btn" id="printTest">
+        Cetak halaman contoh
+       </button>
+      </div>
+     </div>
+     <div>
+      <h3>
+       Kamera / CCTV
+      </h3>
+      <div class="output" id="cameraOut">
+       📷 Kamera belum aktif.
+      </div>
+      <div class="controls">
+       <button class="btn" id="cameraTest">
+        Aktifkan kamera
+       </button>
+      </div>
+     </div>
+     <div>
+      <h3>
+       Internet
+      </h3>
+      <div class="output" id="internetOut">
+       📡 Router belum aktif.
+      </div>
+      <div class="controls">
+       <button class="btn" id="internetTest">
+        Tes jaringan
+       </button>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main>
+  <button class="teacher-lock" id="teacherLock" aria-label="Buka panel guru" title="Panel guru">🔒</button>
+
+  <div class="pin-overlay" id="pinOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="pinTitle">
+   <form class="pin-card" id="pinForm">
+    <h2 id="pinTitle">🔐 Masuk Panel Guru</h2>
+    <p class="muted">Masukkan PIN untuk membuka tombol koreksi dan sambungkan otomatis.</p>
+    <label for="pinInput">PIN guru</label>
+    <div class="pin-entry">
+     <input id="pinInput" name="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="Masukkan PIN" required />
+     <button type="button" id="togglePinVisibility" aria-label="Lihat PIN" title="Lihat PIN">👁️</button>
+    </div>
+    <p class="pin-error" id="pinError" role="alert"></p>
+    <div class="controls">
+     <button class="btn primary" type="submit">Buka panel</button>
+     <button class="btn" type="button" id="cancelPin">Batal</button>
+    </div>
+   </form>
+  </div>
+  <div class="result-overlay" id="resultOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+   <div class="result-card" id="resultCard">
+    <div class="result-emoji" id="resultEmoji">🚀</div>
+    <h2 id="resultTitle">Hasil koreksi</h2>
+    <p id="resultMessage">Periksa kembali sambunganmu.</p>
+    <button class="btn primary" id="closeResult">Lanjut belajar</button>
+   </div>
+  </div>
+  <script>
+   (()=>{
+const bench=document.getElementById('bench'), svg=document.getElementById('wires'), status=document.getElementById('status');
+    
+const names={socket:'Stopkontak',cable:'Kabel Daya',psu:'Power Supply',cpu:'CPU',ram:'RAM',os:'Penyimpanan + OS',monitor:'Monitor',keyboard:'Keyboard',mouse:'Mouse',speaker:'Speaker',router:'Router',projector:'Proyektor',printer:'Printer',camera:'Kamera / CCTV'};
+    
+const defaultPos={socket:[2,13],cable:[20,13],psu:[38,13],cpu:[56,13],ram:[74,13],os:[2,39],monitor:[20,39],keyboard:[38,39],mouse:[56,39],speaker:[74,39],router:[2,66],projector:[20,66],printer:[38,66],camera:[56,66]};
+    
+let wires=[],connect=false,first=null,powered=false,animTimer=null,selectedWireIndex=-1,speakerOn=false;
+    
+const comps=[...document.querySelectorAll('.component')];
+    
+function comp(id){return document.querySelector(`[data-id="${id}"]`)}
+
+    function msg(title,body){status.innerHTML='<strong>'+title+'</strong> '+body}
+
+    function edgePoint(el, other, isStart){
+      const r=el.getBoundingClientRect(), b=bench.getBoundingClientRect(), o=other.getBoundingClientRect();
+      const cx=r.left-b.left+r.width/2, cy=r.top-b.top+r.height/2;
+      const ox=o.left+o.width/2, oy=o.top+o.height/2;
+      const dx=ox-(r.left+r.width/2), dy=oy-(r.top+r.height/2);
+      // Kabel keluar/masuk melalui tepi kotak, bukan melintasi ikon atau teks.
+      if(Math.abs(dx) >= Math.abs(dy)*0.72){
+        const right=dx>=0;
+        return {x:(right?r.right-b.left:r.left-b.left), y:cy};
+      }
+      return {x:cx, y:(dy>=0?r.bottom-b.top:r.top-b.top)};
+    }
+
+    function draw(){
+      svg.setAttribute('viewBox',`0 0 ${bench.clientWidth} ${bench.clientHeight}`);
+      svg.innerHTML='';
+      wires.forEach((w,index)=>{
+        const a=comp(w.a), b=comp(w.b);
+        if(!a||!b||a.classList.contains('hidden')||b.classList.contains('hidden'))return;
+        const p=edgePoint(a,b,true), q=edgePoint(b,a,false);
+        const dx=q.x-p.x, dy=q.y-p.y;
+        // Kurva lebih lembut dan mengikuti arah sambungan.
+        const bend=Math.max(32,Math.min(105,Math.abs(dx)*0.32+Math.abs(dy)*0.12));
+        let c1x=p.x+(dx>=0?bend:-bend), c2x=q.x-(dx>=0?bend:-bend);
+        let c1y=p.y+dy*0.12, c2y=q.y-dy*0.12;
+        const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d',`M ${p.x} ${p.y} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${q.x} ${q.y}`);
+        path.setAttribute('fill','none');
+        path.setAttribute('stroke',w.type==='power'?'#ffd166':'#54e5ff');
+        path.setAttribute('stroke-width',w.type==='power'?'5':'4');
+        path.setAttribute('stroke-linecap','round');
+        path.setAttribute('stroke-dasharray','12 9');
+        path.classList.add('wireline',w.type==='power'?'power-wire':'data-wire');
+        path.dataset.wireIndex=String(index);
+        path.setAttribute('aria-label',`${names[w.a]} ke ${names[w.b]}`);
+        if(index===selectedWireIndex)path.classList.add('selected-wire');
+        path.addEventListener('click',e=>{e.stopPropagation();selectedWireIndex=index;draw();msg('Kabel dipilih:',names[w.a]+' ↔ '+names[w.b]+'. Tekan “Hapus kabel pilihan” untuk menghapusnya.');});
+        svg.appendChild(path);
+      });
+    }
+
+    function addWire(a,b){if(a===b)return;
+     if(wires.some(w=>(w.a===a&&w.b===b)||(w.a===b&&w.b===a))){msg('Kabel sudah ada:',names[a]+' dan '+names[b]+' sudah tersambung.');
+    return}
+
+    let powerSet=['socket','cable','psu'];
+    let type=powerSet.includes(a)&&powerSet.includes(b)?'power':'data';
+    wires.push({a,b,type});
+    selectedWireIndex=-1;
+    draw();
+    msg('Kabel tersambung:',names[a]+' ↔ '+names[b]+'. Lanjutkan ke komponen berikutnya.');
+    }
+
+    function selectComp(el){let id=el.dataset.id;
+    if(!connect)return;
+    if(!first){first=id;
+    el.classList.add('selected');
+    msg('Titik pertama dipilih:',names[id]+'. Sekarang klik komponen tujuan.');
+    }else{comps.forEach(c=>c.classList.remove('selected'));
+    addWire(first,id);
+    first=null;
+    }}
+
+    comps.forEach(el=>{
+ el.addEventListener('pointerdown',e=>{if(connect){e.preventDefault();
+    selectComp(el);
+    return;
+    }if(e.target.closest('button'))return;
+    const startX=e.clientX,startY=e.clientY,rect=el.getBoundingClientRect(),benchRect=bench.getBoundingClientRect();
+    const left=rect.left-benchRect.left,top=rect.top-benchRect.top;
+    el.setPointerCapture?.(e.pointerId);
+    function move(ev){let x=Math.max(0,Math.min(bench.clientWidth-el.offsetWidth,left+ev.clientX-startX));
+    let y=Math.max(35,Math.min(bench.clientHeight-el.offsetHeight,top+ev.clientY-startY));
+    el.style.left=x+'px';
+    el.style.top=y+'px';
+    el.style.right='auto';
+    draw()}
+
+    function up(){el.removeEventListener('pointermove',move);
+    el.removeEventListener('pointerup',up);
+    el.removeEventListener('pointercancel',up)}el.addEventListener('pointermove',move);
+    el.addEventListener('pointerup',up);
+    el.addEventListener('pointercancel',up);
+    });
+    
+});
+    
+const toggles=document.getElementById('toggleButtons');
+    
+const icons={socket:'🔌',cable:'〰️',psu:'⚡',cpu:'🧠',ram:'📟',os:'💿',monitor:'🖥️',keyboard:'⌨️',mouse:'🖱️',speaker:'🔊',router:'📡',projector:'📽️',printer:'🖨️',camera:'📷'};
+    
+Object.entries(names).forEach(([id,n])=>{
+ comp(id).classList.add('hidden');
+ let b=document.createElement('button');
+    b.className='btn icon-toggle';
+    b.textContent=icons[id]||'▣';
+    b.title='Tampilkan/sembunyikan '+n;
+    b.setAttribute('aria-label',b.title);
+    
+ b.addEventListener('click',()=>{comp(id).classList.toggle('hidden');
+    b.classList.toggle('active',!comp(id).classList.contains('hidden'));
+    draw()});
+    
+ toggles.appendChild(b)
+});
+    
+document.getElementById('connectMode').onclick=()=>{connect=!connect;
+    first=null;
+    comps.forEach(c=>c.classList.remove('selected'));
+    document.getElementById('connectMode').textContent=connect?'✋ Selesai memilih sambungan':'🔗 Pilih titik sambungan';
+    msg(connect?'Mode sambungan aktif:':'Mode sambungan mati:',connect?'klik dua komponen satu per satu. Mulai dari Stopkontak.':'komponen bisa digeser kembali.');
+    };
+    
+const expected=[['socket','cable'],['cable','psu'],['psu','cpu'],['cpu','ram'],['cpu','os'],['psu','monitor'],['psu','keyboard'],['psu','mouse'],['psu','speaker'],['psu','router'],['psu','projector'],['psu','printer'],['psu','camera']];
+    
+function hasWire(a,b){return wires.some(w=>(w.a===a&&w.b===b)||(w.a===b&&w.b===a))}
+
+    function showResult(isGood, title, message){
+ const overlay=document.getElementById('resultOverlay');
+ const card=document.getElementById('resultCard');
+ document.getElementById('resultEmoji').textContent=isGood?'🚀':'🛸💨';
+ document.getElementById('resultTitle').textContent=title;
+ document.getElementById('resultMessage').textContent=message;
+ card.className='result-card '+(isGood?'good':'bad');
+ overlay.hidden=false;
+ }
+ function correction(){
+ const missing=expected.filter(([a,b])=>!hasWire(a,b));
+ const extra=wires.filter(w=>!expected.some(([a,b])=>(w.a===a&&w.b===b)||(w.a===b&&w.b===a)));
+ const box=document.getElementById('connectionFeedback');
+ if(missing.length===0&&extra.length===0){
+  box.className='feedback good';
+  box.innerHTML='✅ <b>Benar!</b> Semua sambungan sesuai. Roket berhasil meluncur!';
+  msg('Koreksi: BENAR.','semua sambungan sesuai contoh dasar.');
+  showResult(true,'Hebat! Jawaban benar!','🚀 Roket berhasil meluncur! Semua sambungan sudah sesuai.');
+ } else {
+  box.className='feedback bad';
+  const missingText=missing.map(([a,b])=>names[a]+' ↔ '+names[b]).join(', ');
+  const extraText=extra.map(w=>names[w.a]+' ↔ '+names[w.b]).join(', ');
+  let detail=[];
+  if(missing.length) detail.push('<br><b>Sambungan yang belum ada:</b> '+missing.map(([a,b])=>names[a]+' ↔ '+names[b]).join('; '));
+  if(extra.length) detail.push('<br><b>Sambungan yang tidak sesuai:</b> '+extra.map(w=>names[w.a]+' ↔ '+names[w.b]).join('; '));
+  box.innerHTML='❌ <b>Belum tepat.</b> Kurang '+missing.length+' sambungan dan ada '+extra.length+' sambungan yang tidak sesuai.'+detail.join('');
+  msg('Koreksi: BELUM BENAR.','lihat daftar sambungan yang perlu dibuat atau dihapus pada kotak hasil.');
+  showResult(false,'Belum berhasil!','Periksa daftar sambungan yang salah pada kotak hasil, perbaiki kabelnya, lalu cek kembali.');
+ }
+ }
+    document.getElementById('checkConnections').onclick=correction;
+    
+function revealAllComponents(){
+ comps.forEach(c=>c.classList.remove('hidden'));
+ Object.keys(icons).forEach(id=>{let btn=[...toggles.querySelectorAll('button')].find(x=>x.getAttribute('aria-label')==='Tampilkan/sembunyikan '+names[id]); if(btn)btn.classList.add('active');});
+ draw();
+}
+function connectAllExpected(showExampleMessage=true){
+ clearInterval(animTimer);
+ revealAllComponents();
+ wires=expected.map(([a,b])=>({a,b,type:['socket','cable','psu'].includes(a)&&['socket','cable','psu'].includes(b)?'power':'data'}));
+ comps.forEach(c=>c.classList.remove('selected','powered'));
+ Object.entries(defaultPos).forEach(([id,p])=>{comp(id).style.left=p[0]+'%';comp(id).style.top=p[1]+'%';comp(id).style.right='auto';});
+ connect=false; first=null;
+ document.getElementById('connectMode').textContent='🔗 Sambungkan manual';
+ // Merangkai kabel TIDAK menyalakan komputer dan tidak memutar video/audio.
+ powered=false;
+ document.getElementById('monitorScreen').classList.remove('running');
+ document.getElementById('bootVideo').pause();
+ stopSpeakerAudio();
+ draw();
+ if(showExampleMessage) msg('Contoh sambungan ditampilkan:','komputer masih mati. Tekan “Nyalakan komputer” jika ingin menjalankan simulasi.');
+}
+document.getElementById('autoConnect').onclick=()=>connectAllExpected(true);
+document.getElementById('connectAllTeacher').onclick=()=>connectAllExpected(false);
+document.getElementById('showAllTeacher').onclick=()=>{revealAllComponents();msg('Semua komponen ditampilkan:','siswa tetap harus menyambungkan kabel secara manual.');};
+
+function powerAnim(){
+ clearInterval(animTimer);
+ const seq=['socket','cable','psu','cpu','ram','os','monitor']; let i=0;
+ comps.forEach(c=>c.classList.remove('powered'));
+ msg('Aliran listrik dimulai:','perhatikan urutan jalur listrik dan komponen.');
+ animTimer=setInterval(()=>{
+   if(i>=seq.length){clearInterval(animTimer);msg('Animasi selesai:','komputer masih mati. Tekan “Nyalakan komputer” untuk menjalankan video.');return;}
+   const el=comp(seq[i]); if(el && !el.classList.contains('hidden'))el.classList.add('powered');
+   msg('Aliran menuju:',names[seq[i]]+'.'); i++;
+ },650);
+}
+document.getElementById('powerDemo').onclick=powerAnim;
+
+document.getElementById('bootVideo').addEventListener('error',()=>{
+ msg('Video belum tersedia:','periksa file media/komputer-menyala.mp4. Komputer tetap dapat dinyalakan tanpa video.');
+});
+function boot(){
+ powered=true;
+ ['socket','cable','psu','cpu','ram','os','monitor'].forEach(id=>{const el=comp(id);if(el)el.classList.add('powered');});
+ document.getElementById('monitorScreen').classList.add('running');
+ const v=document.getElementById('bootVideo');
+ v.currentTime=0;
+ v.play().then(()=>msg('Komputer menyala:','video monitor diputar setelah tombol daya ditekan.')).catch(()=>msg('Komputer menyala:','video tidak dapat diputar. Periksa media/komputer-menyala.mp4.'));
+ startSpeakerAudio();
+ document.getElementById('speakerOut').textContent='🔊 Speaker menyala jika file MP3 tersedia.';
+ document.getElementById('projectorOut').textContent='📽️ Proyektor siap menampilkan layar.';
+ document.getElementById('printerOut').textContent='🖨️ Printer siap menerima perintah cetak.';
+ document.getElementById('cameraOut').textContent='📷 Kamera/CCTV siap digunakan.';
+ document.getElementById('internetOut').textContent='📡 Router siap diuji; internet nyata tidak terhubung oleh simulasi ini.';
+}
+
+document.getElementById('boot').onclick=()=>{
+ if(powered){msg('Komputer sudah menyala:','tekan “Matikan komputer” sebelum menyalakan kembali.');return;}
+ const haveSocketCable=hasWire('socket','cable');
+ const haveCablePsu=hasWire('cable','psu');
+ if(!haveSocketCable||!haveCablePsu){
+   const missing=[];
+   if(!haveSocketCable)missing.push('Stopkontak ↔ Kabel Daya');
+   if(!haveCablePsu)missing.push('Kabel Daya ↔ Power Supply');
+   msg('Komputer belum bisa dinyalakan:','perbaiki jalur listrik terlebih dahulu: '+missing.join(' dan ')+'.');
+   const box=document.getElementById('connectionFeedback'); box.className='feedback bad';
+   box.innerHTML='⚠️ <b>Jalur listrik belum lengkap.</b> Sambungkan '+missing.join(' serta ')+' lalu tekan “Nyalakan komputer”.';
+   return;
+ }
+ boot();
+};
+
+document.getElementById('off').onclick=()=>{powered=false;
+    clearInterval(animTimer);
+    comps.forEach(c=>c.classList.remove('powered'));
+    document.getElementById('monitorScreen').classList.remove('running');
+    document.getElementById('bootVideo').pause();
+    stopSpeakerAudio();
+    document.getElementById('speakerOut').textContent='🔇 Speaker mati.';
+    msg('Komputer dimatikan:','semua indikator daya kembali redup.');
+    };
+    
+document.getElementById('reset').onclick=()=>{clearInterval(animTimer);
+    wires=[];selectedWireIndex=-1;
+    connect=false;
+    first=null;
+    powered=false;
+    comps.forEach(c=>{c.classList.remove('powered','selected');c.classList.add('hidden');
+    let p=defaultPos[c.dataset.id];
+    c.style.left=p[0]+'%';
+    c.style.top=p[1]+'%';
+    c.style.right='auto'});
+    document.getElementById('connectMode').textContent='🔗 Sambungkan manual';
+    toggles.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    document.getElementById('connectionFeedback').className='feedback';
+    document.getElementById('connectionFeedback').textContent='Belum dikoreksi. Tampilkan komponen satu per satu, susun kabel, lalu cek jawaban.';
+    document.getElementById('monitorScreen').classList.remove('running');
+    document.getElementById('bootVideo').pause();
+    stopSpeakerAudio();
+    ['speakerOut','projectorOut','printerOut','cameraOut','internetOut'].forEach((id,i)=>document.getElementById(id).textContent=['🔇 Speaker belum aktif.','📽️ Proyektor belum aktif.','🖨️ Printer siap setelah komputer menyala.','📷 Kamera belum aktif.','📡 Router belum aktif.'][i]);
+    draw();
+    msg('Simulasi direset:','mulai lagi dari Stopkontak.');
+    };
+    
+function startSpeakerAudio(){
+ const audio=document.getElementById('speakerAudio');
+ if(!powered)return;
+ speakerOn=true;
+ document.getElementById('speakerTest').textContent='🔇 Matikan speaker';
+ audio.currentTime=0;
+ const playPromise=audio.play();
+ if(playPromise!==undefined){
+   playPromise.then(()=>{
+     document.getElementById('speakerOut').textContent='🔊 Speaker menyala — suara sedang diputar.';
+   }).catch(err=>{
+     speakerOn=false;
+     document.getElementById('speakerTest').textContent='🔊 Nyalakan speaker';
+     document.getElementById('speakerOut').textContent='⚠️ Suara belum dapat diputar. Klik tombol “Nyalakan speaker” setelah komputer menyala. Jika tetap tidak muncul, cek folder media dan nama file.';
+     console.warn('Audio gagal diputar:',err);
+   });
+ }
+}
+ function stopSpeakerAudio(){
+ const audio=document.getElementById('speakerAudio');audio.pause();audio.currentTime=0;speakerOn=false;
+ document.getElementById('speakerTest').textContent='🔊 Nyalakan speaker';
+}
+ document.getElementById('speakerTest').onclick=()=>{
+   if(!powered){document.getElementById('speakerOut').textContent='🔇 Nyalakan komputer terlebih dahulu.';return;}
+   if(speakerOn){stopSpeakerAudio();document.getElementById('speakerOut').textContent='🔇 Speaker dimatikan.';}
+   else startSpeakerAudio();
+ };
+ document.getElementById('speakerAudio').addEventListener('error',()=>{
+ const a=document.getElementById('speakerAudio');
+ speakerOn=false;
+ document.getElementById('speakerTest').textContent='🔊 Nyalakan speaker';
+ document.getElementById('speakerOut').textContent='⚠️ Audio tidak ditemukan/tidak terbaca. Pastikan: HTML dan folder media sejajar, lalu media/suara-speaker.mp3';
+ console.warn('Audio source gagal dimuat:',a.currentSrc);
+});
+    
+document.getElementById('projectorTest').onclick=()=>document.getElementById('projectorOut').textContent=powered?'📽️ Layar contoh tampil di proyektor (simulasi).':'📽️ Nyalakan komputer terlebih dahulu.';
+    
+document.getElementById('printTest').onclick=()=>document.getElementById('printerOut').textContent=powered?'🖨️ Halaman contoh dikirim ke printer (simulasi, tidak mencetak sungguhan).':'🖨️ Nyalakan komputer terlebih dahulu.';
+    
+document.getElementById('cameraTest').onclick=()=>document.getElementById('cameraOut').textContent=powered?'📷 Kamera aktif (simulasi tampilan, tidak memakai kamera asli).':'📷 Nyalakan komputer terlebih dahulu.';
+    
+document.getElementById('internetTest').onclick=()=>document.getElementById('internetOut').textContent=powered?'📡 Router menyala (simulasi); ini tidak menguji internet sungguhan.':'📡 Nyalakan komputer terlebih dahulu.';
+    
+/* =====================================================
+   PENGATURAN GURU — UBAH PIN DI SINI
+   PIN awal: empat angka nol.
+   Untuk mengganti PIN, ubah teks di antara tanda kutip.
+   Contoh: const PIN_GURU = "7351";
+   Catatan: PIN dalam HTML/JavaScript bukan keamanan kuat.
+   ===================================================== */
+const PIN_GURU = "0000";
+ const teacherLock=document.getElementById('teacherLock');
+ const adminTools=document.getElementById('adminTools');
+ const pinOverlay=document.getElementById('pinOverlay');
+ const pinInput=document.getElementById('pinInput');
+ const pinError=document.getElementById('pinError');
+ function closePinDialog(){pinOverlay.hidden=true;pinInput.value='';pinInput.type='password';pinError.textContent='';document.getElementById('togglePinVisibility').textContent='👁️';}
+ teacherLock.onclick=()=>{
+   if(!adminTools.hidden){adminTools.hidden=true;teacherLock.classList.remove('unlocked');teacherLock.textContent='🔒';teacherLock.title='Buka panel guru';return;}
+   pinOverlay.hidden=false;pinInput.value='';pinInput.type='password';pinError.textContent='';document.getElementById('togglePinVisibility').textContent='👁️';pinInput.focus();
+ };
+ document.getElementById('togglePinVisibility').onclick=()=>{
+   const show=pinInput.type==='password';pinInput.type=show?'text':'password';
+   document.getElementById('togglePinVisibility').textContent=show?'🙈':'👁️';
+   document.getElementById('togglePinVisibility').title=show?'Sembunyikan PIN':'Lihat PIN';
+   document.getElementById('togglePinVisibility').setAttribute('aria-label',show?'Sembunyikan PIN':'Lihat PIN');
+ };
+ document.getElementById('cancelPin').onclick=closePinDialog;
+ pinOverlay.addEventListener('click',e=>{if(e.target===pinOverlay)closePinDialog();});
+ document.getElementById('pinForm').addEventListener('submit',e=>{
+   e.preventDefault();
+   if(pinInput.value!==PIN_GURU){pinError.textContent='PIN salah. Silakan coba lagi.';pinInput.select();return;}
+   closePinDialog();adminTools.hidden=false;teacherLock.classList.add('unlocked');teacherLock.textContent='🔓';teacherLock.title='Tutup panel guru';
+ });
+ document.getElementById('closeResult').onclick=()=>{document.getElementById('resultOverlay').hidden=true;};
+ document.getElementById('resultOverlay').addEventListener('click',e=>{if(e.target.id==='resultOverlay')e.currentTarget.hidden=true;});
+
+document.getElementById('guideToggle').onclick=()=>{let g=document.getElementById('guide'),b=document.getElementById('guideToggle');
+    g.hidden=!g.hidden;
+    b.textContent=g.hidden?'📖 Tampilkan panduan':'🙈 Sembunyikan panduan';
+    b.setAttribute('aria-expanded',String(!g.hidden));
+    };
+    
+window.addEventListener('resize',draw);
+    draw();
+    
+})();
+  </script>
+ </body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071827">
+  <meta name="description" content="OXEAN — ruang belajar digital untuk siswa SMP.">
+  <title>OXEAN | Ruang Belajar Digital</title>
+
+  <!-- =========================================================
+       OXEAN HOME — PANDUAN EDIT
+       1. Hanya foto utama di images/hero.jpg yang berupa foto pribadi.
+       2. Kartu menu menggunakan animasi CSS, tidak perlu foto tambahan.
+       3. Ubah tujuan tombol di bagian MENU LINK (cari "MENU LINK").
+       4. Semua halaman tujuan disimpan di folder pages/.
+       ========================================================= -->
+
+  <style>
+    :root {
+      --bg: #071827;
+      --panel: #10283a;
+      --panel-light: #12344a;
+      --cyan: #5ee7eb;
+      --blue: #76a8ff;
+      --text: #f3fbff;
+      --muted: #a7bfce;
+      --line: rgba(184, 224, 244, .13);
+      --radius: 24px;
+      --content-width: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 90% -5%, #16445d 0, transparent 35%),
+        radial-gradient(ellipse at 0% 35%, #102a4a 0, transparent 35%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    img { max-width: 100%; }
+    .container { width: min(var(--content-width), calc(100% - 36px)); margin-inline: auto; }
+
+    /* HEADER / LOGO */
+    .site-header {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 46px; height: 46px; flex: 0 0 auto;
+      display: grid; place-items: center;
+      border-radius: 16px;
+      color: #062033;
+      background: linear-gradient(140deg, var(--cyan), var(--blue));
+      box-shadow: 0 8px 30px #5ee7eb24;
+    }
+    .brand-logo svg { width: 28px; }
+    .brand-name { font-size: 21px; font-weight: 900; letter-spacing: 3px; }
+    .brand-sub { margin-top: 3px; color: var(--muted); font-size: 10px; letter-spacing: 1.6px; }
+    .header-badge {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px;
+      color: #c5dce8; background: #ffffff06; font-size: 12px;
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+
+    /* HERO */
+    .hero {
+      display: grid; grid-template-columns: 1.02fr .98fr;
+      gap: 34px; align-items: center; padding: 36px 0 44px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border: 1px solid #5ee7eb32; border-radius: 999px;
+      color: var(--cyan); background: #5ee7eb12;
+      font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+    }
+    h1 { max-width: 620px; margin: 20px 0 16px; font-size: clamp(39px, 5.8vw, 67px); line-height: 1.02; letter-spacing: -2.8px; }
+    h1 .highlight { color: var(--cyan); }
+    .hero-description { max-width: 520px; margin: 0 0 25px; color: #b6ccda; font-size: 15px; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 17px; border: 1px solid transparent; border-radius: 15px;
+      font-size: 13px; font-weight: 800; transition: transform .2s, border-color .2s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #082236; background: linear-gradient(110deg, var(--cyan), #a0eff0); box-shadow: 0 10px 28px #5ee7eb20; }
+    .button-secondary { color: var(--text); border-color: var(--line); background: #ffffff08; }
+
+    /* FOTO UTAMA — file: assets/hero.jpg */
+    .hero-visual {
+      min-height: 370px; position: relative; overflow: hidden;
+      border: 1px solid #a0eafa2e; border-radius: 32px;
+      background: linear-gradient(145deg, #143f56, #172b4b);
+      box-shadow: 0 28px 80px #0003;
+    }
+    .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .68; }
+    .hero-overlay {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(0deg, #071827e8, transparent 72%), linear-gradient(120deg, #103b54aa, transparent 65%);
+    }
+    .hero-ring { position: absolute; z-index: 1; top: -40px; right: -35px; width: 260px; height: 260px; border: 1px solid #a5f9ff40; border-radius: 50%; pointer-events: none; }
+    .hero-ring::before, .hero-ring::after { content: ""; position: absolute; inset: 25px; border: 1px solid #a5f9ff32; border-radius: 50%; }
+    .hero-ring::after { inset: 52px; }
+    .hero-chip {
+      position: absolute; z-index: 2; top: 22px; left: 20px;
+      display: flex; align-items: center; gap: 8px; padding: 10px 13px;
+      border: 1px solid #b9f7ff35; border-radius: 14px; background: #081c2cbb;
+      font-size: 11px; backdrop-filter: blur(10px);
+    }
+    .hero-caption { position: absolute; z-index: 2; right: 24px; bottom: 23px; left: 24px; }
+    .hero-caption small { color: var(--cyan); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; }
+    .hero-caption h2 { margin: 8px 0; font-size: 25px; }
+    .hero-caption p { margin: 0; color: #c3d8e5; font-size: 12px; line-height: 1.6; }
+
+    /* SECTION / KARTU MENU */
+    .section { padding: 24px 0 16px; scroll-margin-top: 18px; }
+    .section-heading { margin-bottom: 19px; }
+    .section-eyebrow { color: var(--cyan); font-size: 10px; font-weight: 900; letter-spacing: 1.8px; }
+    .section-title { margin: 7px 0 0; font-size: clamp(23px, 3vw, 31px); letter-spacing: -.8px; }
+    .section-description { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+    .menu-card {
+      min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 22px;
+      background: linear-gradient(150deg, #123247, #0c2233);
+      transition: transform .22s, border-color .22s, box-shadow .22s;
+    }
+    .menu-card:hover { transform: translateY(-5px); border-color: #5ee7eb65; box-shadow: 0 18px 40px #0002; }
+    .menu-card:focus-visible, .grade-card:focus-visible, .button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+    .menu-photo { height: 155px; position: relative; overflow: hidden; background: linear-gradient(135deg, #123f58, #283c68); }
+    /* Ilustrasi animasi CSS untuk kartu menu — tanpa foto eksternal */
+    .animated-scene { height: 100%; position: relative; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
+    .animated-scene::before, .animated-scene::after { content: ""; position: absolute; border: 1px solid #a5f9ff35; border-radius: 50%; animation: orbit 12s linear infinite; }
+    .animated-scene::before { width: 170px; height: 170px; }
+    .animated-scene::after { width: 115px; height: 115px; animation-direction: reverse; animation-duration: 9s; }
+    .scene-glow { position: absolute; width: 110px; height: 110px; border-radius: 50%; background: var(--scene-glow, #5ee7eb); filter: blur(40px); opacity: .25; animation: glowPulse 3s ease-in-out infinite; }
+    .scene-emoji { position: relative; z-index: 1; font-size: 59px; filter: drop-shadow(0 12px 16px #0005); animation: floatScene 3.2s ease-in-out infinite; }
+    .scene-emoji.secondary { position: absolute; font-size: 26px; animation: floatScene 2.6s ease-in-out infinite reverse; }
+    .scene-emoji.left { left: 20%; top: 22%; }
+    .scene-emoji.right { right: 19%; bottom: 17%; animation-delay: -.8s; }
+    .scene-stars { position: absolute; inset: 0; color: #d8fbff; font-size: 14px; opacity: .8; }
+    .scene-stars span { position: absolute; animation: twinkle 2.2s ease-in-out infinite; }
+    .scene-stars span:nth-child(1) { top: 20%; left: 18%; }
+    .scene-stars span:nth-child(2) { top: 28%; right: 18%; animation-delay: -.7s; }
+    .scene-stars span:nth-child(3) { bottom: 17%; left: 28%; animation-delay: -1.2s; }
+    .menu-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #0b223550, transparent 75%); pointer-events: none; }
+    @keyframes floatScene { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    @keyframes glowPulse { 0%,100% { transform: scale(.85); opacity: .18; } 50% { transform: scale(1.18); opacity: .34; } }
+    @keyframes twinkle { 0%,100% { transform: scale(.65); opacity: .35; } 50% { transform: scale(1.25); opacity: 1; } }
+    .menu-icon {
+      position: absolute; z-index: 1; bottom: 13px; left: 14px;
+      width: 39px; height: 39px; display: grid; place-items: center;
+      border: 1px solid #ffffff44; border-radius: 13px; background: #071827a8;
+      font-size: 20px; backdrop-filter: blur(8px);
+    }
+    .menu-content { padding: 17px; }
+    .menu-label { color: var(--cyan); font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
+    .menu-title { margin: 8px 0 7px; font-size: 17px; letter-spacing: -.3px; }
+    .menu-description { min-height: 40px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .menu-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 15px; padding-top: 13px; border-top: 1px solid var(--line); color: #d4e8f2; font-size: 11px; font-weight: 700; }
+    .arrow-icon { width: 28px; height: 28px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 10px; color: var(--cyan); background: #5ee7eb17; font-size: 16px; }
+
+    /* KARTU KELAS */
+    .grade-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+    .grade-card {
+      display: flex; align-items: center; gap: 15px; min-width: 0; padding: 19px;
+      border: 1px solid var(--line); border-radius: 22px;
+      background: linear-gradient(135deg, #122f43, #0c2233);
+      transition: transform .2s, border-color .2s;
+    }
+    .grade-card:hover { transform: translateY(-3px); border-color: #5ee7eb60; }
+    .grade-number {
+      width: 56px; height: 56px; flex: 0 0 auto; display: grid; place-items: center;
+      border-radius: 18px; color: #eafcff; background: linear-gradient(145deg, #23617a, #314b80);
+      font-size: 23px; font-weight: 900;
+    }
+    .grade-card:nth-child(2) .grade-number { background: linear-gradient(145deg, #5d4a9c, #3d679d); }
+    .grade-card:nth-child(3) .grade-number { background: linear-gradient(145deg, #176b64, #317b8b); }
+    .grade-title { margin: 0 0 5px; font-size: 16px; }
+    .grade-description { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .grade-card .arrow-icon { margin-left: auto; }
+
+    /* AJAKAN / FOOTER */
+    .closing-banner {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      margin: 38px 0 25px; padding: 25px 27px;
+      border: 1px solid #5ee7eb30; border-radius: 25px;
+      background: linear-gradient(110deg, #123b50, #172c49);
+    }
+    .closing-title { margin: 0 0 7px; font-size: 20px; }
+    .closing-description { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .closing-emoji { flex: 0 0 auto; font-size: 30px; }
+    .site-footer {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 21px 0 27px; border-top: 1px solid var(--line);
+      color: #8da9b9; font-size: 11px;
+    }
+    .footer-brand { color: #c8e3ef; font-weight: 900; letter-spacing: 2px; }
+
+    /* RESPONSIVE TABLET DAN HP */
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; gap: 25px; padding-top: 24px; }
+      .hero-visual { min-height: 310px; }
+      .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .menu-photo { height: 135px; }
+      .section-heading { margin-bottom: 15px; }
+      .closing-banner { align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .container { width: min(100% - 26px, var(--content-width)); }
+      .site-header { min-height: 72px; }
+      .header-badge { padding: 9px 10px; font-size: 9px; }
+      .brand-name { font-size: 19px; }
+      .hero { padding: 24px 0 32px; }
+      h1 { font-size: 43px; letter-spacing: -2px; }
+      .hero-description { font-size: 13px; }
+      .hero-visual { min-height: 270px; border-radius: 25px; }
+      .menu-grid { gap: 10px; }
+      .menu-photo { height: 112px; }
+      .menu-content { padding: 12px; }
+      .menu-title { font-size: 14px; }
+      .menu-description { min-height: 54px; font-size: 11px; }
+      .menu-footer { margin-top: 12px; padding-top: 10px; font-size: 10px; }
+      .grade-grid { grid-template-columns: 1fr; gap: 10px; }
+      .grade-card { padding: 14px; }
+      .closing-banner { flex-direction: column; padding: 20px; }
+      .closing-title { font-size: 18px; }
+      .site-footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="OXEAN - kembali ke beranda">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <path d="M4 10c4-4 8-4 12 0s8 4 12 0"/><path d="M4 16c4-4 8-4 12 0s8 4 12 0"/><path d="M4 22c4-4 8-4 12 0s8 4 12 0"/>
+          </svg>
+        </div>
+        <div><div class="brand-name">OXEAN</div><div class="brand-sub">RUANG BELAJAR DIGITAL</div></div>
+      </a>
+      <div class="header-badge"><span class="status-dot"></span> BELAJAR · BERMAIN · BERTUMBUH</div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-dot"></span> HALO, SOBAT OXEAN!</div>
+          <h1 id="hero-title">Belajar itu bisa <span class="highlight">seru.</span></h1>
+          <p class="hero-description">Jelajahi dunia pengetahuan lewat materi interaktif, tantangan strategi, dan ruang belajar untuk kelas VII, VIII, dan IX. Siap menemukan hal baru hari ini?</p>
+          <div class="hero-actions">
+            <!-- LINK: #pilihan menggulir ke bagian pilihan pembelajaran di halaman ini -->
+            <a class="button button-primary" href="#pilihan">Jelajahi pembelajaran <span aria-hidden="true">↗</span></a>
+            <!-- LINK: #kelas menggulir ke bagian pilihan kelas di halaman ini -->
+            <a class="button button-secondary" href="#kelas">Pilih kelas <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <!-- FOTO UTAMA: ganti file images/hero.jpg dengan foto milikmu sendiri -->
+          <img class="hero-photo" src="images/hero.jpg" alt="Foto pribadi untuk halaman utama OXEAN" onerror="this.style.display='none'">
+          <div class="hero-overlay"></div><div class="hero-ring" aria-hidden="true"></div>
+          <div class="hero-chip">✦ <span>Tempat ide jadi aksi</span></div>
+          <div class="hero-caption"><small>YOUR DIGITAL LEARNING SPACE</small><h2>Temukan. Coba. Kuasai.</h2><p>Belajar dengan caramu sendiri, satu tantangan setiap waktu.</p></div>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           MENU LINK: ganti href di setiap kartu bila nama file berubah.
+           Halaman tujuan berada di folder pages/.
+           Contoh: href="pages/mpls.html"
+           ====================================================== -->
+      <section class="section" id="pilihan" aria-labelledby="pilihan-title">
+        <div class="section-heading">
+          <div class="section-eyebrow">MULAI PETUALANGAN</div>
+          <h2 class="section-title" id="pilihan-title">Mau belajar apa hari ini?</h2>
+          <p class="section-description">Pilih ruang yang ingin kamu jelajahi.</p>
+        </div>
+
+        <div class="menu-grid">
+          <!-- KARTU 1 | ILUSTRASI ANIMASI CSS | LINK: pages/mpls.html -->
+          <a class="menu-card" href="Edukasi MPLS/Edukasi_bahaya_judol_Tombol_Kembali.html" aria-label="Buka Edukasi MPLS">
+            <div class="menu-photo"><div class="animated-scene" style="--scene-glow:#5ee7eb" aria-hidden="true"><div class="scene-glow"></div><div class="scene-stars"><span>✦</span><span>✧</span><span>✦</span></div><span class="scene-emoji">🎒</span><span class="scene-emoji secondary left">📘</span><span class="scene-emoji secondary right">✏️</span></div><span class="menu-icon" aria-hidden="true">🎒</span></div>
+            <div class="menu-content"><div class="menu-label">KENALI SEKOLAH</div><h3 class="menu-title">Edukasi MPLS</h3><p class="menu-description">Kenali lingkungan sekolah, budaya positif, dan perjalanan belajar yang baru.</p><div class="menu-footer"><span>Jelajahi MPLS</span><span class="arrow-icon" aria-hidden="true">↗</span></div></div>
+          </a>
+
+          <!-- KARTU 2 | ILUSTRASI ANIMASI CSS | LINK: pages/game-strategi.html -->
+          <a class="menu-card" href="Game Strategi/Game tak tik.html" aria-label="Buka Game Strategi">
+            <div class="menu-photo"><div class="animated-scene" style="--scene-glow:#ad8cff" aria-hidden="true"><div class="scene-glow"></div><div class="scene-stars"><span>✦</span><span>✧</span><span>✦</span></div><span class="scene-emoji">🎮</span><span class="scene-emoji secondary left">⚡</span><span class="scene-emoji secondary right">🏆</span></div><span class="menu-icon" aria-hidden="true">🎮</span></div>
+            <div class="menu-content"><div class="menu-label">BERPIKIR TAKTIS</div><h3 class="menu-title">Game Strategi</h3><p class="menu-description">Asah logika, kerja sama, dan kemampuan mengambil keputusan.</p><div class="menu-footer"><span>Mulai bermain</span><span class="arrow-icon" aria-hidden="true">↗</span></div></div>
+          </a>
+
+          <!-- KARTU 3 | ILUSTRASI ANIMASI CSS | LINK: pages/materi.html -->
+          <a class="menu-card" href="pages/materi.html" aria-label="Buka Perpustakaan Materi">
+            <div class="menu-photo"><div class="animated-scene" style="--scene-glow:#ffbf69" aria-hidden="true"><div class="scene-glow"></div><div class="scene-stars"><span>✦</span><span>✧</span><span>✦</span></div><span class="scene-emoji">📚</span><span class="scene-emoji secondary left">💡</span><span class="scene-emoji secondary right">🧠</span></div><span class="menu-icon" aria-hidden="true">🧠</span></div>
+            <div class="menu-content"><div class="menu-label">JELAJAHI ILMU</div><h3 class="menu-title">Perpustakaan Materi</h3><p class="menu-description">Kumpulan bahan belajar untuk memahami konsep dengan lebih mudah.</p><div class="menu-footer"><span>Lihat materi</span><span class="arrow-icon" aria-hidden="true">↗</span></div></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ======================================================
+           MENU KELAS: href menuju file masing-masing kelas.
+           Kelas VII  -> pages/kelas-vii.html
+           Kelas VIII -> pages/kelas-viii.html
+           Kelas IX   -> pages/kelas-ix.html
+           ====================================================== -->
+      <section class="section" id="kelas" aria-labelledby="kelas-title">
+        <div class="section-heading">
+          <div class="section-eyebrow">RUANG BELAJAR</div>
+          <h2 class="section-title" id="kelas-title">Pilih kelasmu</h2>
+          <p class="section-description">Materi disesuaikan dengan jenjang kelas SMP.</p>
+        </div>
+        <div class="grade-grid">
+          <!-- LINK KELAS VII: pages/kelas-vii.html -->
+          <a class="grade-card" href="olahragawkwk" aria-label="Buka materi Kelas VII"><span class="grade-number">VII</span><span><h3 class="grade-title">Kelas VII</h3><p class="grade-description">Mulai petualangan SMP</p></span><span class="arrow-icon" aria-hidden="true">↗</span></a>
+          <!-- LINK KELAS VIII: pages/kelas-viii.html -->
+          <a class="grade-card" href="Kelas VIII/kelas-viii.html" aria-label="Buka materi Kelas VIII"><span class="grade-number">VIII</span><span><h3 class="grade-title">Kelas VIII</h3><p class="grade-description">Eksplorasi dan berkreasi</p></span><span class="arrow-icon" aria-hidden="true">↗</span></a>
+          <!-- LINK KELAS IX: pages/kelas-ix.html -->
+          <a class="grade-card" href="kelas IX/kelas-ix.html" aria-label="Buka materi Kelas IX"><span class="grade-number">IX</span><span><h3 class="grade-title">Kelas IX</h3><p class="grade-description">Siap melangkah lebih jauh</p></span><span class="arrow-icon" aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="closing-banner" aria-label="Motivasi belajar">
+        <div><h2 class="closing-title">Setiap hari, satu hal baru ✨</h2><p class="closing-description">Belajar bukan soal siapa yang paling cepat, tetapi siapa yang terus mencoba.</p></div>
+        <!-- LINK: kembali ke daftar menu pembelajaran -->
+        <a class="button button-primary" href="#pilihan">Mulai eksplorasi ↗</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div><div class="footer-brand">OXEAN</div><div style="margin-top:5px">Ruang belajar digital untuk tumbuh bersama.</div></div>
+      <div>© <span id="current-year"></span> OXEAN · Media Pembelajaran</div>
+    </footer>
+  </div>
+  <script>
+    // Menampilkan tahun secara otomatis pada bagian footer.
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

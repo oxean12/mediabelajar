@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belajar Sistem Bilangan | Desimal, Biner, Oktal & Heksadesimal</title>
+<style>
+:root{
+  --navy:#172554;--blue:#2563eb;--cyan:#06b6d4;--purple:#7c3aed;
+  --pink:#ec4899;--green:#059669;--ink:#1e293b;--muted:#64748b;
+  --paper:#f5f7ff;--white:#fff;--border:#e2e8f0;--shadow:0 12px 32px #1e293b12
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);line-height:1.65}
+header{color:white;background:linear-gradient(120deg,#172554,#4338ca 55%,#7c3aed);padding:24px max(20px,calc((100% - 1120px)/2)) 54px;position:relative;overflow:hidden}
+header:after{content:"1010  2F  17  1001";position:absolute;right:3%;bottom:0;font-size:clamp(1.2rem,4vw,3.5rem);font-weight:900;letter-spacing:8px;color:#ffffff12;white-space:nowrap}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1120px;margin:auto;position:relative;z-index:1}
+.brand{font-weight:900;letter-spacing:.3px}.brand span{color:#67e8f9}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:#eef2ff;text-decoration:none;padding:8px 11px;border-radius:10px;font-size:.9rem}
+nav a:hover{background:#ffffff20}
+.hero{max-width:1120px;margin:44px auto 0;position:relative;z-index:1}
+.eyebrow{display:inline-block;padding:5px 12px;border:1px solid #ffffff55;background:#ffffff14;border-radius:99px;font-size:.82rem;font-weight:700}
+h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.12;letter-spacing:-1.5px;max-width:800px;margin:18px 0}
+.hero p{max-width:680px;color:#e0e7ff;font-size:1.08rem}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;border:0;border-radius:12px;padding:12px 17px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;transition:.2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(.98)}
+.btn-light{background:white;color:#3730a3}.btn-glass{background:#ffffff18;border:1px solid #ffffff50;color:white}
+main{max-width:1120px;margin:-24px auto 0;padding:0 20px 60px;position:relative}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px}
+.stat{background:white;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.stat strong{display:block;font-size:1.7rem;color:#4338ca}.stat span{font-size:.88rem;color:var(--muted)}
+section{scroll-margin-top:20px;margin:36px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}
+.kicker{text-transform:uppercase;color:#6366f1;font-weight:900;font-size:.75rem;letter-spacing:1.5px}
+h2{font-size:clamp(1.55rem,3vw,2.25rem);line-height:1.2;margin:5px 0 0;color:#172554}
+.section-head p{max-width:480px;margin:0;color:var(--muted)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.system-card,.panel,.example-card,.quiz-card{background:white;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+.system-card{padding:20px;position:relative;overflow:hidden}
+.system-card:before{content:"";height:5px;position:absolute;left:0;right:0;top:0;background:var(--accent)}
+.system-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:var(--tint);font-size:1.4rem;font-weight:900;color:var(--accent);margin-bottom:14px}
+.system-card h3{margin:0 0 4px;font-size:1.15rem}.base{color:var(--accent);font-weight:900;font-size:.88rem}
+.system-card p{font-size:.92rem;color:var(--muted);margin:10px 0}
+.chip{display:inline-block;border-radius:8px;background:var(--tint);color:var(--accent);padding:4px 8px;font-size:.8rem;font-weight:800}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{padding:24px}
+.panel h3{margin:0 0 10px;color:#312e81}
+.callout{background:#eef2ff;border-left:4px solid #6366f1;padding:13px 15px;border-radius:0 10px 10px 0;margin:15px 0}
+code,.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.steps{padding-left:22px}.steps li{margin:7px 0}
+.example-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.example-card{padding:20px}
+.example-card h3{margin:0 0 10px}
+.example-line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border)}
+.example-line:last-child{border:0}.example-line span{color:var(--muted)}
+.detail-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:13px 15px;margin-top:12px}
+.detail-box h4{margin:0 0 7px;color:#312e81;font-size:1rem}
+.detail-box p{margin:7px 0}
+.math-line{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;background:#fff;border-radius:7px;padding:7px 9px;margin:6px 0;border:1px solid #e2e8f0}
+.result-answer{font-size:1.05rem;font-weight:900;color:#047857}
+.calc-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}
+.calc-form{display:grid;gap:14px}
+label{display:block;font-weight:800;font-size:.9rem;margin-bottom:6px}
+input,select{width:100%;padding:12px 13px;border:1px solid #cbd5e1;border-radius:11px;font:inherit;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus{border-color:#6366f1;box-shadow:0 0 0 3px #6366f120}
+.btn-primary{background:linear-gradient(100deg,#4f46e5,#7c3aed);color:white}
+.result-panel{background:linear-gradient(145deg,#eef2ff,#f5f3ff);border:1px solid #c7d2fe;border-radius:18px;padding:22px;min-width:0}
+.result-panel h3{margin:0 0 14px;color:#312e81}
+.result-list{display:grid;gap:10px}
+.explanation-wrap{margin-top:20px}
+.explanation-wrap h3{color:#172554;margin:0 0 8px}
+.explanation-intro{color:var(--muted);margin:0 0 16px}
+.explanation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.explanation-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;min-width:0}
+.explanation-card h4{margin:0 0 10px;color:#4338ca}
+.explanation-card p{margin:7px 0}
+.calc-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+.calc-table th,.calc-table td{border:1px solid var(--border);padding:7px;text-align:center}
+.calc-table th{background:#eef2ff}
+.calc-final{background:#ecfdf5;border-left:4px solid #059669;border-radius:0 9px 9px 0;padding:10px 12px;margin-top:12px;font-weight:800}
+@media(max-width:650px){.explanation-grid{grid-template-columns:1fr}}
+.result-item{background:#fff;border:1px solid #e0e7ff;border-radius:12px;padding:12px 14px;min-width:0}
+.result-item .small{font-size:.78rem;color:var(--muted);font-weight:800}
+.result-item .value{font-size:1.15rem;font-weight:900;overflow-wrap:anywhere;font-family:ui-monospace,monospace}
+.result-item .value.highlight{color:#6d28d9}
+#calcMessage{margin-top:12px;color:#b91c1c;font-weight:700;font-size:.9rem}
+details{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:10px 0}
+summary{font-weight:800;cursor:pointer}
+footer{text-align:center;background:#172554;color:#c7d2fe;padding:28px 20px}
+footer strong{color:white}
+@media(max-width:850px){.grid4{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.calc-wrap{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
+@media(max-width:560px){header{padding:18px 18px 48px}.nav{align-items:flex-start;flex-direction:column}.hero{margin-top:30px}main{padding-left:14px;padding-right:14px}.grid4,.example-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.panel{padding:18px}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:1.4rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">OXEAN<span>LAB</span> ✦</div>
+    <nav aria-label="Navigasi utama">
+      <a href="#materi">Materi</a><a href="#contoh">Contoh</a><a href="#kalkulator">Kalkulator</a><a href="#conversionExplanation">Pembahasan</a>
+    </nav>
+  </div>
+  <div class="hero">
+    <span class="eyebrow">MODUL INFORMATIKA • SISTEM BILANGAN</span>
+    <h1>Kenali bahasa angka di balik dunia digital.</h1>
+    <p>Pelajari bilangan desimal, biner, oktal, dan heksadesimal melalui penjelasan sederhana, contoh bertahap, kalkulator konversi, serta pembahasan langkah demi langkah.</p>
+    <div class="hero-actions">
+      <a class="btn btn-light" href="#materi">Mulai Belajar ↓</a>
+      <a class="btn btn-glass" href="#kalkulator">Coba Kalkulator ↗</a>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="stats">
+    <div class="stat"><strong>4</strong><span>Sistem bilangan</span></div>
+    <div class="stat"><strong>0–9</strong><span>Digit desimal</span></div>
+    <div class="stat"><strong>0–1</strong><span>Digit biner</span></div>
+    <div class="stat"><strong>0–F</strong><span>Digit heksadesimal</span></div>
+  </div>
+
+  <section id="materi">
+    <div class="section-head"><div><div class="kicker">01 / Pahami konsep</div><h2>Empat sistem bilangan</h2></div><p>Basis menunjukkan banyaknya simbol digit yang digunakan. Setiap posisi digit memiliki bobot berupa pangkat dari basisnya.</p></div>
+    <div class="grid4">
+      <article class="system-card" style="--accent:#2563eb;--tint:#dbeafe">
+        <div class="system-icon">10</div><h3>Desimal</h3><div class="base">Basis 10</div>
+        <p>Sistem yang paling sering kita gunakan sehari-hari.</p><span class="chip">Digit: 0–9</span>
+      </article>
+      <article class="system-card" style="--accent:#059669;--tint:#d1fae5">
+        <div class="system-icon">01</div><h3>Biner</h3><div class="base">Basis 2</div>
+        <p>Menggunakan dua digit dan menjadi dasar representasi digital.</p><span class="chip">Digit: 0 dan 1</span>
+      </article>
+      <article class="system-card" style="--accent:#d97706;--tint:#fef3c7">
+        <div class="system-icon">8</div><h3>Oktal</h3><div class="base">Basis 8</div>
+        <p>Representasi ringkas biner; satu digit oktal setara 3 bit.</p><span class="chip">Digit: 0–7</span>
+      </article>
+      <article class="system-card" style="--accent:#7c3aed;--tint:#ede9fe">
+        <div class="system-icon">16</div><h3>Heksadesimal</h3><div class="base">Basis 16</div>
+        <p>Sering dipakai pada kode warna, alamat memori, dan debugging.</p><span class="chip">Digit: 0–9, A–F</span>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><div><div class="kicker">02 / Cara membaca</div><h2>Nilai tempat dan bobot digit</h2></div></div>
+    <div class="two-col">
+      <div class="panel">
+        <h3>Prinsip nilai tempat</h3>
+        <p>Nilai sebuah digit ditentukan oleh digit itu dan posisinya. Dari kanan ke kiri, pangkat basis dimulai dari 0, lalu 1, 2, dan seterusnya.</p>
+        <div class="callout"><strong>Rumus umum:</strong><br><span class="mono">nilai = Σ (digit × basis<sup>posisi</sup>)</span></div>
+        <p>Contoh desimal <span class="mono">347</span>:</p>
+        <ul class="steps">
+          <li><span class="mono">3 × 10² = 300</span></li>
+          <li><span class="mono">4 × 10¹ = 40</span></li>
+          <li><span class="mono">7 × 10⁰ = 7</span></li>
+        </ul>
+        Jadi, <span class="mono">347 = 300 + 40 + 7</span>.
+      </div>
+      <div class="panel">
+        <h3>Digit heksadesimal</h3>
+        <p>Karena basis 16 membutuhkan 16 simbol, huruf A sampai F mewakili nilai 10 sampai 15.</p>
+        <div class="example-line"><span>A</span><strong>10</strong></div><div class="example-line"><span>B</span><strong>11</strong></div>
+        <div class="example-line"><span>C</span><strong>12</strong></div><div class="example-line"><span>D</span><strong>13</strong></div>
+        <div class="example-line"><span>E</span><strong>14</strong></div><div class="example-line"><span>F</span><strong>15</strong></div>
+        <p class="callout">Contoh: <span class="mono">2F₁₆ = 2 × 16 + 15 = 47₁₀</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contoh">
+    <div class="section-head"><div><div class="kicker">03 / Belajar dari contoh</div><h2>Contoh konversi langkah demi langkah</h2></div><p>Gunakan contoh ini untuk memahami pola perhitungan sebelum mencoba kalkulator.</p></div>
+    <div class="example-grid">
+      <article class="example-card"><h3>1. Desimal → Biner</h3>
+        <p>Contoh: ubah <strong>13₁₀</strong> menjadi biner. Desimal memakai basis 10, sedangkan biner memakai basis 2.</p>
+        <div class="detail-box"><h4>Langkah pembagian</h4>
+          <p>Setiap langkah, bagi bilangan dengan 2. Catat hasil bagi dan sisanya. Sisa pembagian hanya mungkin 0 atau 1.</p>
+          <div class="math-line">13 ÷ 2 = 6 sisa 1</div><p>Karena 6 × 2 = 12, maka 13 − 12 = 1. Jadi sisanya 1.</p>
+          <div class="math-line">6 ÷ 2 = 3 sisa 0</div><p>Karena 3 × 2 = 6, tidak ada sisa.</p>
+          <div class="math-line">3 ÷ 2 = 1 sisa 1</div><p>Karena 1 × 2 = 2, maka 3 − 2 = 1.</p>
+          <div class="math-line">1 ÷ 2 = 0 sisa 1</div><p>Angka 2 tidak muat di dalam 1. Hasil baginya 0 dan sisanya 1.</p>
+          <p><strong>Mengapa dibaca dari bawah?</strong> Sisa terakhir adalah digit paling kiri. Karena itu urutkan sisa dari baris paling bawah ke paling atas: <span class="mono">1, 1, 0, 1</span>.</p>
+          <p class="result-answer">Hasil: 13₁₀ = 1101₂</p>
+        </div>
+      </article>
+      <article class="example-card"><h3>2. Biner → Desimal</h3>
+        <p>Contoh: ubah <strong>1011₂</strong> menjadi desimal. Beri nomor posisi mulai dari kanan, dimulai dari posisi 0.</p>
+        <div class="detail-box"><h4>Langkah perkalian nilai tempat</h4>
+          <div class="math-line">Posisi 3: 1 × 2³ = 1 × 8 = 8</div>
+          <div class="math-line">Posisi 2: 0 × 2² = 0 × 4 = 0</div>
+          <div class="math-line">Posisi 1: 1 × 2¹ = 1 × 2 = 2</div>
+          <div class="math-line">Posisi 0: 1 × 2⁰ = 1 × 1 = 1</div>
+          <p>Ingat, pangkat nol bernilai 1, jadi <span class="mono">2⁰ = 1</span>. Kalikan setiap digit dengan nilai posisinya, lalu jumlahkan.</p>
+          <div class="math-line">8 + 0 + 2 + 1 = 11</div>
+          <p class="result-answer">Hasil: 1011₂ = 11₁₀</p>
+          <p>Artinya, angka biner 1011 memiliki nilai yang sama dengan angka 11 dalam desimal.</p>
+        </div>
+      </article>
+      <article class="example-card"><h3>3. Desimal → Oktal</h3>
+        <p>Contoh: ubah <strong>83₁₀</strong> menjadi oktal. Karena oktal berbasis 8, kita membagi berulang kali dengan 8.</p>
+        <div class="detail-box"><h4>Langkah pembagian</h4>
+          <div class="math-line">83 ÷ 8 = 10 sisa 3</div><p>10 × 8 = 80, lalu 83 − 80 = 3. Sisanya 3.</p>
+          <div class="math-line">10 ÷ 8 = 1 sisa 2</div><p>1 × 8 = 8, lalu 10 − 8 = 2. Sisanya 2.</p>
+          <div class="math-line">1 ÷ 8 = 0 sisa 1</div><p>8 tidak muat di dalam 1, sehingga hasil bagi 0 dan sisa 1. Berhenti saat hasil bagi 0.</p>
+          <p>Baca sisa dari bawah ke atas: <span class="mono">1, 2, 3</span>.</p>
+          <p class="result-answer">Hasil: 83₁₀ = 123₈</p>
+          <p>Pengecekan: <span class="mono">1 × 8² + 2 × 8¹ + 3 × 8⁰ = 64 + 16 + 3 = 83</span>.</p>
+        </div>
+      </article>
+      <article class="example-card"><h3>4. Desimal → Heksadesimal</h3>
+        <p>Contoh: ubah <strong>254₁₀</strong> menjadi heksadesimal. Karena basisnya 16, pembagian dilakukan dengan 16. Ingat, A=10, B=11, C=12, D=13, E=14, dan F=15.</p>
+        <div class="detail-box"><h4>Langkah pembagian</h4>
+          <div class="math-line">254 ÷ 16 = 15 sisa 14</div><p>15 × 16 = 240, lalu 254 − 240 = 14. Dalam heksadesimal, sisa 14 ditulis E.</p>
+          <div class="math-line">15 ÷ 16 = 0 sisa 15</div><p>16 tidak muat di dalam 15, sehingga hasil bagi 0 dan sisanya 15. Dalam heksadesimal, sisa 15 ditulis F.</p>
+          <p>Baca sisa dari bawah ke atas: F lalu E.</p>
+          <p class="result-answer">Hasil: 254₁₀ = FE₁₆</p>
+          <p>Pengecekan: <span class="mono">F × 16¹ + E × 16⁰ = 15 × 16 + 14 × 1 = 240 + 14 = 254</span>.</p>
+        </div>
+      </article>
+    </div>
+    <details><summary>Tips cepat: biner ke oktal dan heksadesimal</summary>
+      <p><strong>Biner → Oktal:</strong> kelompokkan bit per 3 dari kanan. Contoh <span class="mono">110101₂ → 110 101 → 65₈</span>.</p>
+      <p><strong>Biner → Heksadesimal:</strong> kelompokkan bit per 4 dari kanan. Contoh <span class="mono">1111₂ → F₁₆</span>. Tambahkan nol di kiri jika kelompok terakhir belum lengkap.</p>
+    </details>
+  </section>
+
+  <section id="kalkulator">
+    <div class="section-head"><div><div class="kicker">04 / Coba sendiri</div><h2>Kalkulator konversi</h2></div><p>Masukkan bilangan, pilih basis asal, lalu tekan tombol konversi. Hasil empat basis akan muncul sekaligus.</p></div>
+    <div class="calc-wrap">
+      <div class="panel">
+        <div class="calc-form">
+          <div><label for="numberInput">Bilangan yang ingin dikonversi</label><input id="numberInput" type="text" value="45" placeholder="Contoh: 101101 atau 2F" autocomplete="off"></div>
+          <div><label for="fromBase">Basis bilangan asal</label><select id="fromBase"><option value="10">Desimal (basis 10)</option><option value="2">Biner (basis 2)</option><option value="8">Oktal (basis 8)</option><option value="16">Heksadesimal (basis 16)</option></select></div>
+          <button class="btn btn-primary" id="convertBtn" type="button">Konversi sekarang ↗</button>
+          <button class="btn" style="background:#eef2ff;color:#4338ca" id="resetBtn" type="button">Reset contoh</button>
+        </div>
+        <div id="calcMessage" role="alert" aria-live="polite"></div>
+      </div>
+      <div class="result-panel">
+        <h3>Hasil konversi</h3>
+        <div class="result-list" id="results" aria-live="polite">
+          <div class="result-item"><div class="small">DESIMAL · BASIS 10</div><div class="value">45</div></div>
+          <div class="result-item"><div class="small">BINER · BASIS 2</div><div class="value">101101</div></div>
+          <div class="result-item"><div class="small">OKTAL · BASIS 8</div><div class="value">55</div></div>
+          <div class="result-item"><div class="small">HEKSADESIMAL · BASIS 16</div><div class="value">2D</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conversionExplanation" aria-live="polite">
+    <div class="section-head"><div><div class="kicker">05 / Pahami hasil</div><h2>Pembahasan langkah demi langkah</h2></div><p>Bagian ini menjelaskan setiap hasil konversi secara terpisah. Masukkan bilangan pada kalkulator, lalu tekan <strong>Konversi sekarang</strong> untuk memperbarui pembahasan.</p></div>
+    <div class="panel explanation-wrap" id="conversionExplanationContent">
+      <p class="explanation-intro">Pembahasan akan muncul di sini setelah bilangan yang valid berhasil dikonversi. Setiap kartu menunjukkan konversi yang berbeda agar mudah dipelajari satu per satu.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><div><div class="kicker">06 / Ringkasan</div><h2>Ingat tiga hal penting</h2></div></div>
+    <div class="panel">
+      <ol class="steps">
+        <li><strong>Basis menentukan digit:</strong> biner basis 2, oktal basis 8, desimal basis 10, dan heksadesimal basis 16.</li>
+        <li><strong>Ke desimal:</strong> kalikan digit dengan pangkat basis sesuai posisinya, lalu jumlahkan.</li>
+        <li><strong>Dari desimal ke basis lain:</strong> bagi berulang dengan basis tujuan dan baca sisa dari bawah ke atas.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+<footer><strong>NUMERALAB</strong> · Belajar sistem bilangan jadi lebih mudah.<br><span>Materi Informatika • Gunakan kalkulator untuk bereksperimen dan berlatih.</span></footer>
+<script>
+"use strict";
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+window.addEventListener("load", () => window.scrollTo(0, 0));
+const baseNames = {2:"Biner",8:"Oktal",10:"Desimal",16:"Heksadesimal"};
+const numberInput = document.getElementById("numberInput");
+const fromBase = document.getElementById("fromBase");
+const results = document.getElementById("results");
+const calcMessage = document.getElementById("calcMessage");
+
+function parseNumber(raw, base) {
+  const cleaned = raw.trim().replace(/[\s_]/g, "");
+  if (!cleaned) throw new Error("Masukkan bilangan terlebih dahulu.");
+  if (cleaned.startsWith("-")) throw new Error("Untuk modul ini, masukkan bilangan bulat nonnegatif.");
+  const value = parseInt(cleaned, base);
+  if (!Number.isFinite(value) || !/^[0-9a-f]+$/i.test(cleaned) || [...cleaned.toLowerCase()].some(ch => parseInt(ch, 16) >= base)) {
+    throw new Error(`Bilangan tidak valid untuk basis ${base}. Periksa digit yang digunakan.`);
+  }
+  if (!Number.isSafeInteger(value)) throw new Error("Bilangan terlalu besar. Gunakan bilangan yang lebih kecil.");
+  return value;
+}
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+}
+function decimalPlaceExplanation(value, base, symbol) {
+  const digits = value.toString(base).toUpperCase().split("");
+  const powers = digits.map((digit, index) => {
+    const position = digits.length - 1 - index;
+    const digitValue = parseInt(digit, base);
+    const weight = Math.pow(base, position);
+    return {digit, position, digitValue, weight, result: digitValue * weight};
+  });
+  const rows = powers.map(p => `<tr><td>${p.digit}</td><td>${base}<sup>${p.position}</sup></td><td>${p.weight}</td><td>${p.digitValue} × ${p.weight} = ${p.result}</td></tr>`).join("");
+  const sum = powers.map(p => p.result).join(" + ");
+  return `<div class="explanation-card"><h4>Konversi ke-1: ${symbol} → Desimal</h4><p>Kalikan setiap digit dengan basis ${base} berpangkat sesuai posisinya. Posisi dihitung dari kanan mulai dari 0.</p><table class="calc-table"><thead><tr><th>Digit</th><th>Bobot</th><th>Nilai bobot</th><th>Perhitungan</th></tr></thead><tbody>${rows}</tbody></table><p>Jumlahkan semua hasil perkalian:</p><p class="mono">${sum} = ${value}</p><div class="calc-final">Jadi, ${digits.join("")}${symbol} = ${value}₁₀.</div></div>`;
+}
+function divisionExplanation(value, base, symbol) {
+  if (value === 0) return `<div class="explanation-card"><h4>Desimal → ${symbol}</h4><p>Angka 0 tetap ditulis 0 dalam basis apa pun.</p><div class="calc-final">0₁₀ = 0${symbol}.</div></div>`;
+  let n = value;
+  const rows = [];
+  while (n > 0) {
+    const quotient = Math.floor(n / base);
+    const remainder = n % base;
+    const remainderSymbol = remainder < 10 ? String(remainder) : String.fromCharCode(55 + remainder);
+    rows.push({n, quotient, remainder, remainderSymbol, check: `${quotient} × ${base} + ${remainder} = ${n}`});
+    n = quotient;
+  }
+  const table = rows.map((r,i) => `<tr><td>${r.n} ÷ ${base}</td><td>${r.quotient}</td><td>${r.remainder}${base===16 && r.remainder>=10 ? ` (${r.remainderSymbol})` : ""}</td><td>${r.check}</td></tr>`).join("");
+  const result = value.toString(base).toUpperCase();
+  const remainderOrder = rows.map(r => r.remainderSymbol).join("");
+  const reverse = remainderOrder.split("").reverse().join("");
+  return `<div class="explanation-card"><h4>Desimal → ${symbol}</h4><p>Bagi nilai desimal <strong>${value}</strong> berulang kali dengan ${base}. Setiap kali, catat hasil bagi dan sisanya.</p><table class="calc-table"><thead><tr><th>Pembagian</th><th>Hasil bagi</th><th>Sisa</th><th>Cek hitungan</th></tr></thead><tbody>${table}</tbody></table><p><strong>Mengapa sisanya dibaca dari bawah ke atas?</strong> Sisa pembagian pertama menjadi digit paling kanan. Sisa terakhir menjadi digit paling kiri, sehingga urutannya perlu dibalik.</p><p class="mono">Urutan sisa saat dihitung: ${remainderOrder} → dibalik: ${reverse}</p><div class="calc-final">Jadi, ${value}₁₀ = ${result}${symbol}.</div></div>`;
+}
+function showResults(value, sourceBase) {
+  const order = [10,2,8,16];
+  results.innerHTML = "";
+  order.forEach(base => {
+    const item = document.createElement("div");
+    item.className = "result-item";
+    const label = document.createElement("div");
+    label.className = "small";
+    label.textContent = `${baseNames[base].toUpperCase()} · BASIS ${base}`;
+    const val = document.createElement("div");
+    val.className = "value" + (base === sourceBase ? " highlight" : "");
+    val.textContent = value.toString(base).toUpperCase();
+    item.append(label, val);
+    results.appendChild(item);
+  });
+  const sourceText = numberInput.value.trim().replace(/[\s_]/g, "").toUpperCase();
+  const sourceCard = sourceBase === 10
+    ? `<div class="explanation-card"><h4>Bilangan asal: Desimal</h4><p>Bilangan yang dimasukkan adalah <strong>${escapeHtml(sourceText)}₁₀</strong>, jadi nilainya langsung ${value} dalam desimal.</p><div class="calc-final">Nilai dasar untuk konversi berikutnya adalah ${value}₁₀.</div></div>`
+    : decimalPlaceExplanation(value, sourceBase, sourceBase===2 ? "₂" : sourceBase===8 ? "₈" : "₁₆");
+  const cards = [sourceCard, divisionExplanation(value,2,"₂"), divisionExplanation(value,8,"₈"), divisionExplanation(value,16,"₁₆")];
+  document.getElementById("conversionExplanationContent").innerHTML = `<h3>📘 Pembahasan langkah demi langkah</h3><p class="explanation-intro">Nilai desimal yang digunakan adalah <strong>${value}</strong>. Pembahasan dipisahkan menjadi kartu Desimal → Biner, Desimal → Oktal, dan Desimal → Heksadesimal. Jika bilangan asal bukan desimal, kartu pertama menjelaskan cara mengubahnya ke desimal terlebih dahulu.</p><div class="explanation-grid">${cards.join("")}</div>`;
+}
+function convert() {
+  try {
+    const base = Number(fromBase.value);
+    const value = parseNumber(numberInput.value, base);
+    showResults(value, base);
+    calcMessage.style.color = "#047857";
+    calcMessage.textContent = `Berhasil! Nilai desimalnya adalah ${value.toLocaleString("id-ID")}. Pembahasan lengkap tersedia di bawah hasil konversi.`;
+  } catch (err) {
+    calcMessage.style.color = "#b91c1c";
+    calcMessage.textContent = err.message;
+    results.innerHTML = '<div class="result-item">Hasil belum tersedia. Periksa input kamu.</div>';
+    document.getElementById("conversionExplanationContent").innerHTML = '<h3>📘 Pembahasan langkah demi langkah</h3><p class="explanation-intro">Pembahasan akan muncul setelah bilangan yang valid berhasil dikonversi.</p>';
+  }
+}
+document.getElementById("convertBtn").addEventListener("click", convert);
+numberInput.addEventListener("keydown", e => { if (e.key === "Enter") convert(); });
+fromBase.addEventListener("change", () => { calcMessage.textContent = ""; });
+document.getElementById("resetBtn").addEventListener("click", () => {
+  numberInput.value = "45"; fromBase.value = "10"; convert();
+});
+convert();
+
+</script>
+</body>
+</html>

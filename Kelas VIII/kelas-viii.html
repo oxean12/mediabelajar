@@ -1,0 +1,535 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071827">
+
+  <title>Kelas VIII | OXEAN</title>
+
+  <style>
+    :root {
+      --bg: #071827;
+      --panel: #10283a;
+      --panel2: #12344a;
+      --cyan: #5ee7eb;
+      --blue: #76a8ff;
+      --text: #f3fbff;
+      --muted: #a7bfce;
+      --line: rgba(184, 224, 244, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(
+          ellipse at 90% 0%,
+          #16445d 0,
+          transparent 36%
+        ),
+        radial-gradient(
+          ellipse at 0% 45%,
+          #102a4a 0,
+          transparent 35%
+        ),
+        var(--bg);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1050px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* NAVIGASI */
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .logo {
+      display: grid;
+      width: 43px;
+      height: 43px;
+      place-items: center;
+      border-radius: 15px;
+      color: #062033;
+      background: linear-gradient(
+        140deg,
+        var(--cyan),
+        var(--blue)
+      );
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .back {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #ffffff08;
+      font-size: 12px;
+      font-weight: 800;
+      transition: background 0.2s ease;
+    }
+
+    .back:hover {
+      background: #ffffff12;
+    }
+
+    /* BAGIAN JUDUL */
+
+    .hero {
+      padding: 34px 0 30px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.6px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    h1 {
+      margin: 15px 0 12px;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.06;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      color: var(--cyan);
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: 0;
+      color: #b6ccda;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* KARTU MATERI */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      padding: 15px 0 35px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 250px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 23px;
+      background: linear-gradient(
+        150deg,
+        #123247,
+        #0c2233
+      );
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #5ee7eb70;
+    }
+
+    .num {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(
+        140deg,
+        #23617a,
+        #314b80
+      );
+      font-size: 24px;
+    }
+
+    .card:nth-child(2) .num {
+      background: linear-gradient(
+        140deg,
+        #5d4a9c,
+        #3d679d
+      );
+    }
+
+    .card:nth-child(3) .num {
+      background: linear-gradient(
+        140deg,
+        #176b64,
+        #317b8b
+      );
+    }
+
+    .tag {
+      margin-top: 20px;
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.4px;
+    }
+
+    .card h2 {
+      margin: 9px 0;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: #d7f9fb;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .link span {
+      transition: transform 0.2s ease;
+    }
+
+    .link:hover span {
+      transform: translate(3px, -3px);
+    }
+
+    /* RINGKASAN MATERI */
+
+    .note {
+      margin: 0 0 20px;
+      padding: 19px 21px;
+      border: 1px solid #5ee7eb30;
+      border-radius: 19px;
+      background: linear-gradient(
+        110deg,
+        #123b50,
+        #172c49
+      );
+      color: #c8dce8;
+      font-size: 13px;
+      line-height: 1.8;
+      scroll-margin-top: 20px;
+    }
+
+    .note strong {
+      color: var(--cyan);
+    }
+
+    /* MATERI BELUM TERSEDIA */
+
+    .empty {
+      margin: 12px 0 38px;
+      padding: 32px 24px;
+      border: 1px dashed #5ee7eb55;
+      border-radius: 24px;
+      background: #ffffff05;
+      text-align: center;
+    }
+
+    .empty .emoji {
+      font-size: 42px;
+    }
+
+    .empty h2 {
+      margin: 12px 0 8px;
+    }
+
+    .empty p {
+      max-width: 540px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .pill {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 9px 13px;
+      border: 1px solid #5ee7eb40;
+      border-radius: 99px;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* FOOTER */
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 0 28px;
+      border-top: 1px solid var(--line);
+      color: #8da9b9;
+      font-size: 11px;
+    }
+
+    .footer-brand {
+      color: #c8e3ef;
+      letter-spacing: 2px;
+    }
+
+    /* RESPONSIF */
+
+    @media (max-width: 720px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: unset;
+      }
+
+      .hero {
+        padding-top: 22px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .top {
+        align-items: flex-start;
+      }
+
+      .brand {
+        gap: 8px;
+      }
+
+      .logo {
+        width: 38px;
+        height: 38px;
+      }
+
+      .back {
+        padding: 9px 10px;
+        font-size: 10px;
+      }
+
+      h1 {
+        letter-spacing: -1px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <a class="brand" href="OXEAN_Homee.html">
+        <span class="logo">✦</span>
+        <span>OXEAN</span>
+      </a>
+
+      <a class="back" href="OXEAN_Homee.html">
+        ← Kembali ke Beranda
+      </a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">
+          <span class="dot"></span>
+          RUANG BELAJAR INFORMATIKA
+        </div>
+
+        <h1>
+          Informatika
+          <span>Kelas VIII</span>
+        </h1>
+
+        <p class="intro">
+          Pilih materi yang ingin dipelajari. Setiap topik
+          akan dikembangkan menjadi halaman belajar interaktif,
+          dengan penjelasan sederhana, contoh, dan aktivitas
+          untuk membantu memahami konsep.
+        </p>
+      </section>
+
+      <section
+        class="grid"
+        aria-label="Menu materi kelas delapan"
+      >
+        <article class="card">
+          <div class="num">🖥️</div>
+
+          <div class="tag">MATERI 01</div>
+
+          <h2>Sistem Komputer</h2>
+
+          <p>
+            Mengenal perangkat keras, perangkat lunak,
+            pengguna, serta cara komponen komputer
+            saling bekerja.
+          </p>
+
+          <a class="link" href="Kelas VIII/edulab_sistem_komputer_audio_fix.html">
+            Lihat ringkasan <span>↗</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="num">🔢</div>
+
+          <div class="tag">MATERI 02</div>
+
+          <h2>Sistem Bilangan</h2>
+
+          <p>
+            Belajar bilangan desimal, biner, oktal,
+            dan heksadesimal serta cara mengonversi
+            bilangan langkah demi langkah.
+          </p>
+
+          <a class="link" href="Kelas VIII/Sistem_Bilangan.html">
+            Lihat ringkasan <span>↗</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="num">⌨️</div>
+
+          <div class="tag">MATERI 03</div>
+
+          <h2>Kelas VIII/Tekn_Infor_Kom.html</h2>
+
+          <p>
+            Mengenal pemanfaatan aplikasi digital,
+            fitur produktivitas, dan cara berkomunikasi
+            secara efektif serta aman.
+          </p>
+
+          <a class="link" href="#tik">
+            Lihat ringkasan <span>↗</span>
+          </a>
+        </article>
+      </section>
+
+      <section id="sistem-komputer" class="note">
+        <strong>🖥️ Sistem Komputer</strong>
+        <br>
+        Pokok bahasan: perangkat input, proses, output,
+        penyimpanan, perangkat lunak, sistem operasi,
+        dan hubungan antarkomponen.
+      </section>
+
+      <section id="sistem-bilangan" class="note">
+        <strong>🔢 Sistem Bilangan</strong>
+        <br>
+        Pokok bahasan: nilai tempat, bilangan desimal
+        dan biner, konversi biner–desimal, serta
+        pengenalan oktal dan heksadesimal.
+      </section>
+
+      <section id="tik" class="note">
+        <strong>⌨️ Teknik Informasi dan Komunikasi</strong>
+        <br>
+        Pokok bahasan: aplikasi pengolah kata, angka,
+        dan presentasi; mengenali fitur aplikasi;
+        mengelola informasi; serta etika dan keamanan digital.
+      </section>
+
+      <section class="note">
+        <strong>Catatan pengembangan</strong>
+        <br>
+        Ini adalah halaman daftar materi. Isi setiap materi,
+        latihan, dan permainan interaktif dapat ditambahkan
+        bertahap tanpa mengubah halaman beranda.
+      </section>
+    </main>
+
+    <footer>
+      <span>
+        <strong class="footer-brand">OXEAN</strong>
+        <br>
+        Ruang belajar digital untuk tumbuh bersama.
+      </span>
+
+      <span>
+        Media Pembelajaran Informatika ·
+        <span id="year"></span>
+      </span>
+    </footer>
+
+  </div>
+
+  <script>
+    // Menampilkan tahun secara otomatis pada footer.
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

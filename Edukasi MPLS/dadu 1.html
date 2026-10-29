@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi 1 Dadu - Edukasi Bahaya Judi Online</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#5e1f6b,#1e293b,#f71b9b);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+color:white;
+}
+
+.container{
+max-width:700px;
+width:100%;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 25px rgba(0,0,0,.5);
+}
+
+h1{
+color:#ffd700;
+margin-bottom:15px;
+}
+
+input{
+width:80px;
+height:80px;
+font-size:34px;
+text-align:center;
+border:none;
+border-radius:15px;
+margin:20px 0;
+font-weight:bold;
+}
+
+button{
+padding:15px 25px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+margin:5px;
+font-size:17px;
+}
+
+.acak{
+background:#16a34a;
+color:white;
+}
+
+.demo{
+background:#2563eb;
+color:white;
+}
+
+.dice{
+margin:30px auto;
+width:120px;
+height:120px;
+background:white;
+color:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:80px;
+border-radius:18px;
+box-shadow:0 0 20px cyan;
+}
+
+.spin{
+animation:spin .5s linear infinite;
+}
+
+@keyframes spin{
+from{transform:rotate(0)}
+to{transform:rotate(360deg)}
+}
+
+#hasil{
+margin-top:20px;
+font-size:22px;
+min-height:80px;
+}
+
+.stat{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+.card{
+background:#1f2937;
+padding:20px;
+border-radius:15px;
+min-width:150px;
+}
+
+.card h2{
+color:#ffd700;
+}
+
+.edukasi{
+margin-top:30px;
+background:#991b1b;
+padding:20px;
+border-radius:15px;
+line-height:1.8;
+text-align:left;
+}
+
+.edukasi h2{
+text-align:center;
+margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎲 Simulasi 1 Dadu</h1>
+
+<p>
+Masukkan tebakan angka 1–6, lalu tekan <b>Acak Dadu</b>.
+</p>
+
+<input type="number" id="tebakan" min="1" max="6" value="1">
+
+<br>
+
+<button class="acak" onclick="acak()">🎲 Acak Dadu</button>
+<button class="demo" onclick="demo()">📖 Manual</button>
+
+<div class="dice" id="dice">⚀</div>
+
+<div id="hasil"></div>
+
+<div class="stat">
+
+<div class="card">
+<h2 id="main">0</h2>
+Percobaan
+</div>
+
+<div class="card">
+<h2 id="win">0</h2>
+Menang
+</div>
+
+<div class="card">
+<h2 id="lose">0</h2>
+Kalah
+</div>
+
+</div>
+
+<div class="edukasi">
+
+<h2>⚠ Edukasi MPLS</h2>
+
+<p>
+Pada simulasi satu dadu, peluang menebak angka dengan benar adalah
+<b>1 dari 6</b> atau sekitar <b>16,67%</b>.
+Artinya rata-rata pemain tetap akan lebih sering salah daripada benar.
+</p>
+
+<p>
+Dalam judi online, kemenangan kecil sering digunakan untuk membuat pemain
+merasa mudah memperoleh uang. Padahal semakin lama bermain,
+kerugian biasanya akan lebih besar daripada kemenangan.
+</p>
+
+<p>
+<b>Kesimpulan:</b> Judi online bukan cara memperoleh penghasilan.
+Lebih baik mengembangkan keterampilan, belajar, dan berkarya untuk masa depan.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const simbol=["⚀","⚁","⚂","⚃","⚄","⚅"];
+
+let percobaan=0;
+let menang=0;
+let kalah=0;
+
+const dice=document.getElementById("dice");
+const hasil=document.getElementById("hasil");
+
+function randomAngka(){
+return Math.floor(Math.random()*6)+1;
+}
+
+function updateStat(){
+main.textContent=percobaan;
+win.textContent=menang;
+lose.textContent=kalah;
+}
+
+function putar(){
+
+dice.classList.add("spin");
+
+return setInterval(()=>{
+dice.innerHTML=simbol[randomAngka()-1];
+},70);
+
+}
+
+function demo(){
+
+let angka=Number(tebakan.value);
+
+if(angka<1||angka>6){
+hasil.innerHTML="Masukkan angka 1-6";
+return;
+}
+
+hasil.innerHTML="Menampilkan simulasi...";
+
+let i=putar();
+
+setTimeout(()=>{
+
+clearInterval(i);
+
+dice.classList.remove("spin");
+dice.innerHTML=simbol[angka-1];
+
+percobaan++;
+menang++;
+
+updateStat();
+
+hasil.innerHTML=
+"🎉 DEMO: hasil sengaja dibuat sesuai tebakan agar menunjukkan bahwa kemenangan bisa terasa mudah.";
+
+},3000);
+
+}
+
+function acak(){
+
+let tebak=Number(tebakan.value);
+
+if(tebak<1||tebak>6){
+hasil.innerHTML="Masukkan angka 1-6";
+return;
+}
+
+percobaan++;
+updateStat();
+
+hasil.innerHTML="🎲 Mengacak...";
+
+let i=putar();
+
+setTimeout(()=>{
+
+clearInterval(i);
+
+dice.classList.remove("spin");
+
+let hasilDadu=randomAngka();
+
+dice.innerHTML=simbol[hasilDadu-1];
+
+if(tebak===hasilDadu){
+
+menang++;
+
+hasil.innerHTML=
+"🎉 Benar! Tebakan cocok.<br>Peluangnya 1 dari 6.";
+
+}else{
+
+kalah++;
+
+hasil.innerHTML=
+"❌ Salah.<br>Dalam permainan peluang, hasil seperti ini lebih sering terjadi.";
+
+}
+
+updateStat();
+
+},3000);
+
+}
+
+</script>
+
+</body>
+</html>

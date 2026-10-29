@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Keren - Edukasi Bahaya Judi Online</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#5e1f6b,#1e293b,#f71b9b);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    color:white;
+}
+
+.container{
+    width:100%;
+    max-width:1100px;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(0,0,0,.5);
+}
+
+h1{
+    color:#ffd700;
+    margin-bottom:15px;
+}
+
+.desc{
+    margin-bottom:25px;
+    line-height:1.7;
+}
+
+.input{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.input select{
+    width:120px;
+    height:65px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.buttons{
+    margin-bottom:25px;
+}
+
+button{
+    padding:15px 25px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    margin:5px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.acak{
+    background:#16a34a;
+    color:white;
+}
+
+.demo{
+    background:#2563eb;
+    color:white;
+}
+
+.diceArea{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:30px 0;
+}
+
+.dice{
+    width:150px;
+    height:150px;
+    background:white;
+    border-radius:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 0 20px cyan;
+}
+
+.dice img{
+    width:140px;
+    height:140px;
+    object-fit:contain;
+}
+
+.spin{
+    animation:spin .5s linear infinite;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+#hasil{
+    margin-top:20px;
+    font-size:22px;
+    line-height:1.6;
+    min-height:90px;
+}
+
+.stat{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+.card{
+    background:#1f2937;
+    padding:20px;
+    border-radius:15px;
+    min-width:150px;
+}
+
+.card h2{
+    color:#ffd700;
+    margin-bottom:8px;
+}
+
+.edukasi{
+    background:#991b1b;
+    padding:20px;
+    border-radius:15px;
+    margin-top:30px;
+    text-align:left;
+    line-height:1.8;
+}
+
+.edukasi h2{
+    text-align:center;
+    margin-bottom:15px;
+    color:#fff;
+}
+
+@media(max-width:768px){
+
+.dice{
+    width:70px;
+    height:70px;
+    font-size:45px;
+}
+
+.input input{
+    width:55px;
+    height:55px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎲 Materi Bagi Kelas IX D Simulasi Peluang & Bahaya Judi Online</h1>
+
+<p class="desc">
+Masukkan angka 1–6 pada setiap kotak.<br>
+Gunakan simulasi ini untuk memahami bahwa menang dalam permainan peluang jauh lebih sulit daripada yang terlihat.
+</p>
+
+<div class="input">
+<select>
+<option value="1" selected>Apel</option>
+<option value="2">Pisang</option>
+<option value="3">Semangka</option>
+<option value="4">Nanas</option>
+<option value="5">Tomat</option>
+<option value="6">Anggur</option>
+</select>
+
+<select>
+<option value="1">Apel</option>
+<option value="2" selected>Pisang</option>
+<option value="3">Semangka</option>
+<option value="4">Nanas</option>
+<option value="5">Tomat</option>
+<option value="6">Anggur</option>
+</select>
+
+<select>
+<option value="1">Apel</option>
+<option value="2">Pisang</option>
+<option value="3" selected>Semangka</option>
+<option value="4">Nanas</option>
+<option value="5">Tomat</option>
+<option value="6">Anggur</option>
+</select>
+
+<select>
+<option value="1">Apel</option>
+<option value="2">Pisang</option>
+<option value="3">Semangka</option>
+<option value="4" selected>Nanas</option>
+<option value="5">Tomat</option>
+<option value="6">Anggur</option>
+</select>
+
+<select>
+<option value="1">Apel</option>
+<option value="2">Pisang</option>
+<option value="3">Semangka</option>
+<option value="4">Nanas</option>
+<option value="5" selected>Tomat</option>
+<option value="6">Anggur</option>
+</select>
+
+<select>
+<option value="1">Apel</option>
+<option value="2">Pisang</option>
+<option value="3">Semangka</option>
+<option value="4">Nanas</option>
+<option value="5">Tomat</option>
+<option value="6" selected>Anggur</option>
+</select>
+</div>
+
+<div class="buttons">
+<button class="acak" onclick="acak()">
+🎲 Acak Dadu
+</button>
+
+<button class="demo" onclick="demo()">
+📖 Manual
+</button>
+</div>
+
+<div class="diceArea">
+<div class="dice"><img src="images/apel.png"></div>
+<div class="dice"><img src="images/pisang.png"></div>
+<div class="dice"><img src="images/semangka.png"></div>
+<div class="dice"><img src="images/nanas.png"></div>
+<div class="dice"><img src="images/tomat.png"></div>
+<div class="dice"><img src="images/anggur.png"></div>
+</div>
+
+<div id="hasil"></div>
+
+<div class="stat">
+
+<div class="card">
+<h2 id="main">0</h2>
+Percobaan
+</div>
+
+<div class="card">
+<h2 id="win">0</h2>
+Menang
+</div>
+
+<div class="card">
+<h2 id="lose">0</h2>
+Kalah
+</div>
+
+</div>
+
+<div class="edukasi">
+
+<h2>⚠ Edukasi MPLS: Bahaya Judi Online</h2>
+
+<p>
+Permainan ini dibuat untuk menunjukkan bagaimana peluang bekerja.
+Ketika seseorang harus menebak hasil dari banyak dadu sekaligus,
+peluang menang menjadi sangat kecil.
+</p>
+
+<p>
+Jika harus menebak 6 dadu dengan tepat,
+peluangnya hanya sekitar <b>1 banding 46.656</b>.
+Artinya kemungkinan kalah jauh lebih besar daripada menang.
+</p>
+
+<p>
+Dalam judi online, kemenangan kecil kadang membuat pemain merasa
+mudah mendapatkan uang. Padahal dalam jangka panjang,
+lebih banyak orang mengalami kerugian daripada keuntungan.
+</p>
+
+<p>
+<b>Kesimpulan:</b><br>
+Judi online bukan cara mencari penghasilan.
+Lebih baik fokus belajar, mengembangkan keterampilan,
+berorganisasi, dan berkarya untuk masa depan yang lebih baik.
+</p>
+<p>
+dibuat Oleh Oknanda Prastiyo, S.Kom dilindungi Hak Cipta 2026, Semua Konten dan Sumber dalam Simulasi ini adalah milik Oknanda Prastiyo, S,Kom dan tidak boleh digunakan tanpa izin tertulis dari pemilik hak cipta.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const simbol=[
+"images/apel.png",
+"images/pisang.png",
+"images/semangka.png",
+"images/nanas.png",
+"images/tomat.png",
+"images/anggur.png"
+];
+
+const dice=document.querySelectorAll(".dice");
+const input=document.querySelectorAll("select");
+const hasil=document.getElementById("hasil");
+
+let percobaan=0;
+let menang=0;
+let kalah=0;
+
+function randomAngka(){
+    return Math.floor(Math.random()*6)+1;
+}
+
+function validasiInput(){
+
+    let valid=true;
+
+    input.forEach(i=>{
+
+        let nilai=Number(i.value);
+
+        if(nilai<1 || nilai>6 || isNaN(nilai)){
+            valid=false;
+        }
+
+    });
+
+    return valid;
+}
+
+function updateStat(){
+
+    document.getElementById("main").textContent=percobaan;
+    document.getElementById("win").textContent=menang;
+    document.getElementById("lose").textContent=kalah;
+
+}
+
+function mulaiPutar(){
+
+    dice.forEach(d=>d.classList.add("spin"));
+
+    return setInterval(()=>{
+
+        dice.forEach(d=>{
+
+            d.innerHTML=`<img src="${simbol[randomAngka()-1]}">`;
+
+        });
+
+    },70);
+
+}
+
+function berhentiPutar(interval){
+
+    clearInterval(interval);
+
+    dice.forEach(d=>d.classList.remove("spin"));
+
+}
+
+function demo(){
+
+    if(!validasiInput()){
+
+        hasil.innerHTML="⚠ Masukkan angka 1 sampai 6.";
+        hasil.style.color="orange";
+        return;
+
+    }
+
+    hasil.innerHTML="⏳ Menampilkan simulasi...";
+    hasil.style.color="#ffd700";
+
+    let interval=mulaiPutar();
+
+    setTimeout(()=>{
+
+        berhentiPutar(interval);
+
+        // Tambah statistik
+        percobaan++;
+        menang++;
+
+        dice.forEach((d,i)=>{
+
+            let angka=Number(input[i].value);
+            d.innerHTML=`<img src="${simbol[angka-1]}">`;
+
+        });
+
+        updateStat();
+
+        hasil.innerHTML=
+        "🎉 Semua angka cocok!<br><br>" +
+        "<b>Ini hanyalah DEMO.</b><br>" +
+        "Hasil sengaja dibuat sesuai pilihan agar menunjukkan bagaimana seseorang bisa merasa bahwa menang itu mudah. Dalam permainan peluang yang sebenarnya, hasil tidak bisa dipilih oleh pemain.";
+
+        hasil.style.color="#00ff88";
+
+    },5000);
+
+}
+
+function acak(){
+
+    if(!validasiInput()){
+
+        hasil.innerHTML="⚠ Masukkan angka 1 sampai 6.";
+        hasil.style.color="orange";
+        return;
+
+    }
+
+    percobaan++;
+    updateStat();
+
+    hasil.innerHTML="🎲 Dadu sedang diacak...";
+    hasil.style.color="#ffd700";
+
+    let interval=mulaiPutar();
+
+    setTimeout(()=>{
+
+        berhentiPutar(interval);
+
+        let cocok=true;
+
+        dice.forEach((d,i)=>{
+
+            let angka=randomAngka();
+
+            d.innerHTML=`<img src="${simbol[angka-1]}">`;
+
+            if(Number(input[i].value)!==angka){
+                cocok=false;
+            }
+
+        });
+
+        if(cocok){
+
+            menang++;
+
+            hasil.innerHTML=
+            "🎉 Semua tebakan cocok!<br>" +
+            "Peristiwa ini bisa terjadi, tetapi peluangnya sangat kecil (sekitar 1 : 46.656).";
+
+            hasil.style.color="#00ff88";
+
+        }else{
+
+            kalah++;
+
+            hasil.innerHTML=
+            "❌ Tebakan tidak cocok.<br>" +
+            "Hasil seperti ini jauh lebih sering terjadi karena peluang menang sangat kecil.";
+
+            hasil.style.color="#ff6666";
+
+        }
+
+        updateStat();
+
+    },5000);
+
+}
+
+</script>
+
+</body>
+</html>
